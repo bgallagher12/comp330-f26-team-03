@@ -1,373 +1,240 @@
-# Project Name
+# Campus Connect
 
-<!--
-STARTER KIT GUIDANCE — DELETE AFTER INITIAL TEAM SETUP
-
-Replace "Project Name" above with your team's approved project name.
-
-This README is the entry point to your project's engineering record.
-
-Before your first phase-gate submission:
-
-1. Replace the project name.
-2. Complete the Project Overview.
-3. Confirm the Project Status.
-4. Confirm your team information is current in /docs/team/roles.md.
-5. Add any prerequisites already known.
-6. Add build, run, and test instructions as implementation develops.
-7. Remove all Starter Kit instructional HTML comments that no longer provide
-   useful team guidance.
-
-Continue updating this README throughout the semester.
-
-The README should orient another engineer to the project. It should NOT
-duplicate the detailed authoritative engineering evidence maintained elsewhere
-in the repository.
--->
+Campus Connect is Team 03's software engineering project for COMP 330 at Loyola University Chicago.
 
 ## Project Overview
 
-<!--
-TEAM CONTENT REQUIRED
+**TODO before A1 submission:** Add a concise description of:
 
-Replace this comment with a concise description of your actual project.
+* the problem Campus Connect solves;
+* its intended users or stakeholders;
+* its primary purpose; and
+* the major scope of the system.
 
-In a few sentences, explain:
+Detailed functional requirements and acceptance criteria are maintained under:
 
-- the problem the system addresses;
-- its intended users or stakeholders;
-- its primary purpose; and
-- the major scope of the system.
-
-Keep this at an overview level. Detailed requirements belong under
-/docs/requirements/.
--->
+[`docs/requirements/`](docs/requirements/)
 
 ## Project Status
 
-**Current Phase Gate:** A1 — Project Launch  
-**Release Cycle:** Cycle 1  
+**Current Phase Gate:** A1 — Project Launch
+**Release Cycle:** Cycle 1
 **Status:** Active Development
-
-<!--
-TEAM GUIDANCE — DELETE WHEN NO LONGER NEEDED
-
-Keep this section current throughout the semester.
-
-Use the current course phase-gate terminology:
-
-- A1 — Project Launch
-- A2 — Planning & Requirements
-- A3 — Architecture & Design
-- A4 — Implementation & Review
-- A5 — Verification & Release
-- A6 — Operational Maturity
-
-Update Release Cycle and Status as the project progresses.
-
-Do not leave the repository permanently showing A1 after the project has moved
-to a later gate.
--->
 
 ## Team
 
-The authoritative team roster, GitHub identities, specialized role ownership,
-backup responsibilities, and team acknowledgements are maintained in:
+Team membership, GitHub identities, specialized engineering roles, backup responsibilities, and acknowledgement evidence are maintained in:
 
 [`docs/team/roles.md`](docs/team/roles.md)
 
-<!--
-TEAM GUIDANCE — DELETE WHEN NO LONGER NEEDED
+Team operating practices are documented in:
 
-Keep /docs/team/roles.md current when:
-
-- team membership changes;
-- GitHub identities change;
-- specialized roles change;
-- evidence ownership changes; or
-- backup responsibilities change.
-
-Do not maintain a second competing team roster in this README.
--->
+* [`docs/team/team-charter.md`](docs/team/team-charter.md)
+* [`docs/team/working-agreements.md`](docs/team/working-agreements.md)
 
 ## Engineering Evidence
 
-This repository is the **authoritative engineering record** for the project.
+This repository is the **authoritative engineering record** for Campus Connect.
 
-Engineering evidence is maintained throughout the repository:
+Engineering evidence is organized throughout the repository:
 
-- **AI Use and Verification** → [`docs/ai/`](docs/ai/)
-- **Architecture** → [`docs/architecture/`](docs/architecture/)
-- **Engineering Decisions** → [`docs/decisions/`](docs/decisions/)
-- **Observability** → [`docs/observability/`](docs/observability/)
-- **Operations** → [`docs/operations/`](docs/operations/)
-- **Planning and Traceability** → [`docs/planning/`](docs/planning/)
-- **Quality and Defects** → [`docs/quality/`](docs/quality/)
-- **Release Evidence** → [`docs/release/`](docs/release/)
-- **Requirements and Acceptance Criteria** → [`docs/requirements/`](docs/requirements/)
-- **Engineering Reviews** → [`docs/review/`](docs/review/)
-- **Security and Data Handling** → [`docs/security/`](docs/security/)
-- **Team Evidence** → [`docs/team/`](docs/team/)
-- **Testing and Verification** → [`docs/testing/`](docs/testing/)
+* **AI Use and Verification** → [`docs/ai/`](docs/ai/)
+* **Architecture** → [`docs/architecture/`](docs/architecture/)
+* **Engineering Decisions** → [`docs/decisions/`](docs/decisions/)
+* **Observability** → [`docs/observability/`](docs/observability/)
+* **Operations** → [`docs/operations/`](docs/operations/)
+* **Planning and Traceability** → [`docs/planning/`](docs/planning/)
+* **Quality and Defects** → [`docs/quality/`](docs/quality/)
+* **Release Evidence** → [`docs/release/`](docs/release/)
+* **Requirements and Acceptance Criteria** → [`docs/requirements/`](docs/requirements/)
+* **Engineering Reviews** → [`docs/review/`](docs/review/)
+* **Security and Data Handling** → [`docs/security/`](docs/security/)
+* **Team Evidence** → [`docs/team/`](docs/team/)
+* **Testing and Verification** → [`docs/testing/`](docs/testing/)
 
-Detailed evidence should remain in its authoritative artifact rather than being
-duplicated in this README.
+Detailed evidence should remain in its authoritative artifact rather than being duplicated in this README.
 
 ## Repository Structure
 
-The repository is organized to preserve both the software system and the
-engineering evidence supporting it.
-
-| Path | Purpose |
-|---|---|
-| `src/` | Production application source code |
-| `tests/` | Executable automated tests and supporting test code |
-| `test-evidence/` | Preserved evidence produced by testing and verification |
-| `data/` | Repository-managed project, seed, fixture, sample, or reference data |
-| `scripts/` | Repeatable development, verification, deployment, or maintenance utilities |
-| `docs/` | Lifecycle engineering evidence and documentation |
-| `.github/` | Issue templates, pull-request guidance, workflows, and repository automation |
-
-<!--
-TEAM GUIDANCE — DELETE WHEN NO LONGER NEEDED
-
-Update this section if your project introduces another top-level directory that
-is important to understanding or operating the system.
-
-Do not list every directory in the repository. Focus on major engineering
-areas.
--->
+| Path             | Purpose                                                                      |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `src/`           | Production application source code                                           |
+| `tests/`         | Automated tests and supporting test code                                     |
+| `test-evidence/` | Preserved testing and verification evidence                                  |
+| `data/`          | Project, sample, fixture, or reference data                                  |
+| `scripts/`       | Development, verification, deployment, or maintenance utilities              |
+| `docs/`          | Engineering evidence and project documentation                               |
+| `.github/`       | Issue templates, pull-request guidance, workflows, and repository automation |
 
 ## Build, Run, and Test
 
-<!--
-TEAM CONTENT REQUIRED AS IMPLEMENTATION DEVELOPS
-
-A new engineer should eventually be able to use this section to:
-
-1. clone the repository;
-2. install required dependencies;
-3. configure the development environment;
-4. build the system;
-5. run the system; and
-6. execute the automated tests.
-
-Use actual commands and procedures.
-
-Do not invent instructions before the technology stack is selected.
-
-Never place passwords, tokens, private keys, or other secrets in this README.
--->
+Campus Connect is currently in the **A1 — Project Launch** phase. Build, run, and test procedures will be documented as the implementation stack and development environment are established.
 
 ### Prerequisites
 
-<!--
-TEAM CONTENT REQUIRED
+Project-specific software and development prerequisites have not yet been finalized.
 
-Document the software, runtimes, tools, services, and important versions needed
-to work with the project.
+Known repository requirements include:
 
-Examples might include:
+* Git
+* GitHub access to the private Team 03 repository
 
-- programming-language runtime;
-- package manager;
-- database;
-- container runtime;
-- required external service.
-
-Include only prerequisites the project actually uses.
--->
+Additional runtimes, package managers, frameworks, databases, and development tools will be documented once selected.
 
 ### Setup
 
-<!--
-TEAM CONTENT REQUIRED WHEN SETUP IS NEEDED
+Clone the Team 03 repository:
 
-Document the initial setup steps another engineer must perform after cloning
-the repository.
+```bash
+git clone https://github.com/bgallagher12/comp330-f26-team-03.git
+cd comp330-f26-team-03
+```
 
-Keep secret values out of the repository.
+Confirm the repository state:
 
-If configuration requires environment variables or external secret management,
-explain the mechanism without including the secret itself.
--->
+```bash
+git status
+```
+
+Project-specific environment setup instructions will be added as implementation begins.
 
 ### Build
 
-<!--
-TEAM CONTENT REQUIRED
+A project-specific build process has not yet been established.
 
-Document the actual build or preparation procedure.
-
-If the project does not require a separate build step, state that clearly
-instead of inventing one.
--->
+This section will be updated once the implementation technology stack is selected.
 
 ### Run
 
-<!--
-TEAM CONTENT REQUIRED
-
-Document how to start the system and how another engineer can confirm that it
-started successfully.
-
-Reference /docs/operations/runbook.md for detailed operational procedures when
-appropriate.
--->
+Application run instructions will be added once an executable version of Campus Connect exists.
 
 ### Test
 
-<!--
-TEAM CONTENT REQUIRED
+Automated testing procedures will be documented as the project's test infrastructure is established.
 
-Document the normal command or procedure for executing the automated test suite.
+Detailed testing strategy and verification evidence will be maintained under:
 
-Detailed testing strategy, planning, test cases, and CI evidence belong under:
+[`docs/testing/`](docs/testing/)
 
-/docs/testing/
+## Engineering Workflow
 
-Do not duplicate those artifacts here.
--->
+Team 03 follows a repository-centered engineering workflow:
+
+```text
+Issue → Branch → Implementation → Pull Request → Review → Merge
+```
+
+GitHub Issues are used to track bugs, engineering tasks, blockers, and other work requiring repository-visible traceability.
+
+Development work should normally occur on branches rather than through significant direct changes to `main`.
+
+Pull requests should provide enough information for another team member to understand the change and its verification.
+
+Detailed team workflow expectations are maintained in:
+
+[`docs/team/working-agreements.md`](docs/team/working-agreements.md)
 
 ## Engineering Practices
 
-This project uses repository-centered engineering practices, including:
+Team 03 follows engineering practices including:
 
-- lifecycle-based engineering evidence;
-- requirements and acceptance-criteria traceability;
-- issue and pull-request workflows;
-- documented architecture and engineering decisions;
-- automated testing and verification;
-- peer review;
-- explicit defect and quality management;
-- security and data-handling evidence;
-- responsible AI-assisted engineering;
-- explicit AI disclosure and human verification;
-- release-readiness evidence;
-- operational and observability evidence; and
-- continuous improvement.
+* requirements and acceptance-criteria traceability;
+* GitHub issue and pull-request workflows;
+* peer review;
+* documented engineering decisions;
+* testing and verification;
+* defect and quality management;
+* security and responsible data handling;
+* AI-assisted engineering with human verification;
+* release-readiness evidence; and
+* operational and observability evidence as the system develops.
 
-Engineering evidence should be created and maintained **as the work occurs**,
-not reconstructed only when a phase-gate submission is due.
+Engineering evidence should be created and maintained as work occurs rather than reconstructed only before a phase-gate submission.
 
 ## Engineering Evidence Model
 
-Important engineering claims should be supported by traceable evidence.
+Important engineering work should remain traceable through the repository.
 
-A typical lifecycle relationship may look like:
+A typical relationship may look like:
 
-    Requirement
-      ->
-    Acceptance Criterion
-      ->
-    Architecture / Decision
-      ->
-    Implementation
-      ->
-    Test / Review
-      ->
-    Verification Evidence
-      ->
-    Release Evidence
+```text
+Requirement
+    ↓
+Acceptance Criterion
+    ↓
+Architecture / Decision
+    ↓
+Implementation
+    ↓
+Test / Review
+    ↓
+Verification Evidence
+```
 
-Not every artifact requires every link.
-
-The goal is meaningful traceability, not paperwork.
-
-When upstream engineering evidence changes, review the downstream evidence that
-may be affected rather than allowing artifacts to silently diverge.
+Not every artifact requires every link. The goal is meaningful engineering traceability rather than unnecessary documentation.
 
 ## AI-Assisted Engineering
 
-AI may assist engineering work, but it does not replace human engineering
-responsibility.
+Team 03 uses AI as an engineering **copilot**.
 
-The team remains responsible for understanding, reviewing, verifying, and
-defending its work regardless of whether AI contributed to it.
+AI may assist with requirements, planning, implementation, debugging, testing, review, and documentation, but it does not replace human engineering responsibility.
 
-Authoritative AI-use and verification evidence is maintained under:
+Team members are responsible for understanding, reviewing, verifying, and being able to explain AI-assisted work before it is accepted into the project.
 
-[`docs/ai/`](docs/ai/)
+The team's AI policy is maintained in:
 
-Significant AI-assisted work should be disclosed and independently reviewed in
-accordance with the team's AI policy.
+[`docs/ai/ai-policy.md`](docs/ai/ai-policy.md)
+
+Meaningful AI-assisted engineering activity is recorded in:
+
+[`docs/ai/ai-use-log.md`](docs/ai/ai-use-log.md)
+
+## Team Operations
+
+The team uses **Microsoft Teams** for routine communication.
+
+Regular team meetings are held:
+
+**Wednesdays at 1:00 PM**
+
+GitHub Issues are used for repository-visible bugs, tasks, blockers, and engineering work.
+
+Additional team practices and responsibilities are documented under:
+
+[`docs/team/`](docs/team/)
 
 ## Engineering Operating Model
 
-COMP 330/474 uses three complementary environments:
+COMP 330 uses three complementary environments:
 
-- **Sakai** — the authoritative source for required readings, assignments, due
-  dates, naming, grading, and submission expectations.
-- **ETIS** — the professional engineering reference ecosystem, including the
-  ETIS Framework, books and publications, Engineering Platform, and supporting
-  guidance.
-- **GitHub** — the authoritative engineering record for the team's project,
-  decisions, implementation, reviews, testing, and evidence.
+* **Sakai** — authoritative source for course requirements, assignments, deadlines, naming, grading, and submission expectations.
+* **ETIS** — professional engineering guidance and reference material.
+* **GitHub** — authoritative engineering record for Team 03's project, decisions, implementation, reviews, testing, and evidence.
 
-**Sakai defines what the course requires.**  
-**ETIS provides the broader engineering discipline and professional reference model.**  
-**GitHub preserves the evidence of what the team actually engineered.**
+**Sakai defines what the course requires.**
+**ETIS provides professional engineering guidance.**
+**GitHub preserves evidence of what the team actually engineered.**
 
 ## Professional Engineering Expectations
 
 A reviewer examining this repository should be able to determine:
 
-- what the team intends to build;
-- what problem the system addresses;
-- who owns and contributes to the work;
-- what requirements define expected behavior;
-- what assumptions and risks remain;
-- what engineering decisions were made and why;
-- how requirements connect to architecture and implementation;
-- what interfaces and responsibility boundaries exist;
-- what was reviewed and tested;
-- what defects were discovered and how the team responded;
-- how AI-assisted work was disclosed and verified;
-- how security and data handling were considered;
-- what limitations remain;
-- whether the current release is supported by verification evidence;
-- how the system can be operated and observed; and
-- how the project improved over time.
+* what Campus Connect is intended to accomplish;
+* who owns and contributes to the work;
+* what requirements define expected behavior;
+* what assumptions and risks remain;
+* what engineering decisions were made and why;
+* how implementation connects to requirements;
+* what was reviewed and tested;
+* how defects were handled;
+* how AI-assisted work was disclosed and verified;
+* how security and data handling were considered; and
+* what limitations remain.
 
-A working system is necessary, but it is not sufficient.
+A working system is necessary, but professional engineering also requires the system and its development process to be understandable, reviewable, testable, maintainable, and traceable.
 
-Professional engineering also requires evidence that the system can be
-understood, reviewed, governed, changed, verified, operated, and defended.
+## Course Context
 
-## Course and Professional Context
+This repository was created from the **COMP 330/474 Fall 2026 Repository Starter Kit** for Software Engineering at Loyola University Chicago.
 
-This repository was established from the **COMP 330/474 Fall 2026 Repository
-Starter Kit** for Software Engineering at Loyola University Chicago.
-
-The Starter Kit establishes the initial repository structure and engineering
-evidence model used throughout the course. Each team is responsible for
-replacing the initial scaffolding with its own project-specific engineering
-evidence as the project develops.
-
-The broader ETIS professional engineering ecosystem is available at:
-
-https://etisframework.org/
-
-Use ETIS as professional guidance and reference material.
-
-**Sakai remains authoritative for COMP 330/474 course requirements.**
-
-<!--
-FINAL STARTER KIT README CHECK — DELETE AFTER INITIAL SETUP
-
-Before the first phase-gate submission:
-
-1. Replace "Project Name."
-2. Complete Project Overview.
-3. Confirm Project Status is current.
-4. Confirm /docs/team/roles.md contains the actual team.
-5. Add all currently known prerequisites.
-6. Add real setup/build/run/test instructions as those capabilities exist.
-7. Confirm all repository paths above exist and are correctly named.
-8. Remove stale Starter Kit guidance.
-9. Do not duplicate authoritative engineering evidence in this README.
-10. Remove this final instructional comment.
-
-After setup, continue maintaining the README as the project's engineering
-entry point throughout the semester.
--->
+The starter kit provides the initial repository structure and engineering evidence model. Team 03 is responsible for replacing that initial scaffold with project-specific engineering evidence as Campus Connect develops.
