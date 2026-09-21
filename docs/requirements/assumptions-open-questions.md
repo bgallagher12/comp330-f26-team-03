@@ -1,275 +1,81 @@
 # Assumptions and Open Questions
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+This document records important assumptions and unresolved questions for the CampusConnect project.
 
-This file contains sample assumptions and open questions showing how known
-uncertainty should be made visible and managed.
-
-Replace the sample entries with your team's actual assumptions and unresolved
-questions.
-
-Do not leave important uncertainty buried in conversations, meeting notes, or
-undocumented implementation choices.
-
-Remove instructional comments like this one as you complete the artifact.
--->
-
-## Key Distinctions
-
-<!--
-Use these definitions while developing this artifact:
-
-ASSUMPTION
-Something the team is currently treating as true without sufficient
-confirmation.
-
-OPEN QUESTION
-Something the team explicitly recognizes that it does not yet know.
-
-REQUIREMENT
-An obligation the system must satisfy.
-
-ACCEPTANCE CRITERION
-An observable condition demonstrating that a requirement has been satisfied.
-
-Do not turn an assumption into a requirement simply because the team needs
-an answer.
--->
+Assumptions are items the team is currently treating as true but may still need confirmation. Open questions are decisions the team has not yet made.
 
 ## Assumptions
 
-<!--
-Replace the sample rows below with your team's actual assumptions.
+| ID      | Assumption                                                                                                                        | Basis                                                  | Related Evidence | Impact if Incorrect                                                                    | Owner   | Status      |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- | ----------- |
+| ASM-001 | CampusConnect will use synthetic sample data rather than real Loyola student records or private university data.                  | CampusConnect project constraints                      | REQ-009          | Data handling, testing, and security expectations would need to be reconsidered.       | Jaylen  | Validated   |
+| ASM-002 | Student requester and support reviewer roles may be simulated during Cycle 1 rather than using real institutional authentication. | CampusConnect project constraints                      | REQ-007          | Authentication and access-control scope would increase significantly.                  | Brendan | Validated   |
+| ASM-003 | Each support request will have one current workflow status at a time.                                                             | Initial interpretation of the required status workflow | REQ-004, REQ-006 | The status model, interface, and tests may require redesign.                           | Brendan | Unvalidated |
+| ASM-004 | Cycle 1 will focus on one narrow support-request workflow rather than multiple unrelated campus services.                         | Required Cycle 1 scope                                 | REQ-001–REQ-009  | Requirements and implementation scope could grow beyond what is realistic for Cycle 1. | Carlos  | Validated   |
 
-Use IDs in the form:
+## Assumption Status
 
-ASM-###
+Assumptions may use the following states:
 
-Examples:
-ASM-001
-ASM-002
-ASM-003
+* **Unvalidated** — currently treated as true but not yet confirmed;
+* **Validated** — supported by project guidance or team evidence;
+* **Invalidated** — evidence shows the assumption was incorrect; or
+* **Superseded** — replaced by a later decision or understanding.
 
-Track assumptions that could meaningfully affect requirements, architecture,
-schedule, verification, security, operations, or other engineering decisions.
--->
-
-| ID | Assumption | Basis | Related Evidence | Impact if Incorrect | Owner | Status |
-|---|---|---|---|---|---|---|
-| ASM-001 | Students will authenticate using an institution-supported identity provider. | Initial project context | REQ-001 | Authentication architecture and access-control requirements may need to change. | Jordan Smith | Unvalidated |
-| ASM-002 | A workflow request will have one current status at a time. | Initial domain interpretation | REQ-002 | The workflow model and status presentation may require redesign. | Morgan Lee | Unvalidated |
-
-<!--
-DELETE THE SAMPLE ROWS ABOVE after your team has replaced them with actual
-project assumptions.
--->
-
-### Assumption Status
-
-<!--
-Recommended values:
-
-Unvalidated
-- The team is currently treating the assumption as true but has not confirmed it.
-
-Validated
-- Sufficient evidence supports the assumption.
-
-Invalidated
-- Evidence demonstrates that the assumption was incorrect.
-
-Superseded
-- New information or a formal decision replaced the assumption.
-
-When an assumption is validated or invalidated, update every affected
-requirement, decision, risk, plan, architecture artifact, or other evidence.
-
-Do not simply change the status and stop there.
--->
+When an assumption changes, related requirements, architecture, plans, tests, or risks should be reviewed.
 
 ## Open Questions
 
-<!--
-Replace the sample rows below with your team's actual open questions.
-
-Use IDs in the form:
-
-Q-###
-
-Examples:
-Q-001
-Q-002
-Q-003
-
-State each uncertainty as a real question so the team can determine when it
-has actually been answered.
--->
-
-| ID | Question | Related Evidence | Owner | Needed By | Status / Resolution |
-|---|---|---|---|---|---|
-| Q-001 | Can a requester cancel a workflow after submission? | REQ-001 | Taylor Nguyen | A2 | Open |
-| Q-002 | Who is permitted to view workflow history? | REQ-002 | Casey Patel | A2 | Open |
-| Q-003 | How long must completed workflow records be retained? | Requirements / Operations | Riley Chen | A3 | Open |
-
-<!--
-DELETE THE SAMPLE ROWS ABOVE after your team has replaced them with actual
-project questions.
--->
-
-### Open-Question Guidance
-
-<!--
-RELATED EVIDENCE
-
-Identify requirements, acceptance criteria, architecture decisions, risks,
-plans, security decisions, operational expectations, or other artifacts that
-may be affected by the answer.
-
-OWNER
-
-Assign someone responsible for driving the question toward resolution.
-Ownership does not mean that person must solve the question alone.
-
-NEEDED BY
-
-Identify the earliest phase gate or engineering decision that would be
-materially affected if the question remained unresolved.
-
-Examples:
-A2
-A3
-Before architecture decision
-Before implementation
-
-STATUS / RESOLUTION
-
-Recommended states:
-Open
-Investigating
-Resolved
-Deferred
-
-When a question is resolved, record the answer and reference the authoritative
-evidence where practical.
-
-Example:
-
-Resolved — Requesters may cancel only while status is Submitted.
-See REQ-007 and ADR-003.
-
-Do not erase the original question if it influenced engineering decisions.
--->
+| ID    | Question                                                                                              | Related Evidence              | Owner   | Needed By | Status / Resolution |
+| ----- | ----------------------------------------------------------------------------------------------------- | ----------------------------- | ------- | --------- | ------------------- |
+| Q-001 | What information must a student provide when submitting a support request?                            | REQ-001                       | Sherry  | A2        | Open                |
+| Q-002 | Which request statuses will CampusConnect support?                                                    | REQ-004, REQ-006              | Brendan | A2        | Open                |
+| Q-003 | Which transitions between request statuses will be allowed?                                           | REQ-004                       | Brendan | A3        | Open                |
+| Q-004 | What information and actions may a student requester view or modify compared with a support reviewer? | REQ-007                       | Sanjana | A3        | Open                |
+| Q-005 | How should the system handle a request with missing or incomplete information?                        | REQ-001                       | Sherry  | A2        | Open                |
+| Q-006 | What conditions determine when a support request is considered resolved?                              | REQ-005, REQ-006              | Sanjana | A2        | Open                |
+| Q-007 | What status-change or reviewer-action history must CampusConnect preserve?                            | REQ-008                       | Jaylen  | A3        | Open                |
+| Q-008 | What technology stack will the team use for the CampusConnect application?                            | Architecture / Implementation | Brendan | A3        | Open                |
 
 ## Resolving Assumptions
 
-<!--
-When an assumption is validated or invalidated:
+When an assumption is validated, invalidated, or superseded, the team should:
 
-1. Record the result.
-2. Identify the supporting evidence.
-3. Review every requirement, decision, risk, design element, or plan that
-   depended on the assumption.
-4. Update affected artifacts.
-5. Preserve traceability to the original assumption where useful.
-
-Example:
-
-ASM-001
-  ->
-Authentication capability confirmed
-  ->
-Authentication requirements refined
-  ->
-Architecture decision updated
-  ->
-Acceptance criteria updated
-
-The value is not simply recording the assumption. The value is understanding
-what depended on it.
--->
+1. record the result;
+2. identify the supporting evidence;
+3. review requirements, risks, plans, or design decisions that depended on it; and
+4. update affected project artifacts.
 
 ## Resolving Open Questions
 
-<!--
-When an open question is answered:
+When an open question is answered, the team should:
 
-1. Record the resolution.
-2. Identify where the authoritative answer now exists.
-3. Update affected requirements and other engineering evidence.
-4. Preserve the question when it provides useful engineering history.
-
-An answer that exists only in a meeting, text message, or chat does not create
-durable repository evidence.
--->
+1. record the resolution;
+2. reference the authoritative decision or evidence when appropriate;
+3. update affected requirements and other engineering artifacts; and
+4. preserve the original question when it provides useful project history.
 
 ## Managing Unknowns
 
-<!--
-"We do not know yet" is an acceptable engineering state.
+An unresolved question is acceptable when the team clearly understands:
 
-At an early phase gate, some questions will legitimately remain unresolved.
+* why the question matters;
+* what project work it could affect;
+* who owns resolving it; and
+* when it must be resolved.
 
-Do not manufacture certainty simply to make the repository appear complete.
-
-For an unresolved item, the team should be able to explain:
-
-- Why does this matter?
-- What could it affect?
-- Who owns resolving it?
-- When must it be resolved?
-- What artifacts will need to change after it is resolved?
-
-That demonstrates engineering control over uncertainty.
--->
+The team should not invent decisions simply to make project documentation appear complete.
 
 ## Relationship to Risk
 
-<!--
-Some assumptions and open questions create meaningful project risk.
-
-If an unresolved matter could significantly affect:
-
-- scope;
-- schedule;
-- architecture;
-- security;
-- data integrity;
-- verification;
-- deployment;
-- operations; or
-- stakeholder acceptance;
-
-consider linking it to the project's risk documentation.
-
-An assumption and a risk are not the same thing.
-
-The assumption describes something being treated as true despite uncertainty.
-
-The risk describes a potential consequence and how the team intends to manage it.
--->
+Assumptions and open questions that could significantly affect scope, schedule, architecture, security, testing, or release readiness should also be reflected in the project's risk documentation when appropriate.
 
 ## Expectations
 
-- Record important assumptions explicitly.
-- Record unresolved matters as clear questions.
-- Assign owners.
-- Identify affected evidence.
-- State the impact of important assumptions being wrong.
-- Identify when open questions need resolution.
-- Update downstream artifacts when uncertainty is resolved.
-- Preserve meaningful history rather than silently overwriting prior understanding.
-- Link assumptions and questions to risks when the potential consequence warrants it.
-- Never invent certainty simply to make an artifact appear complete.
+* Record meaningful assumptions explicitly.
+* Keep unresolved matters visible as clear questions.
+* Assign an owner to each important uncertainty.
+* Identify when answers are needed.
+* Update related artifacts when decisions are made.
+* Preserve useful engineering history rather than silently changing prior understanding.
 
-<!--
-As the project matures, this file should become more precise and better
-connected to other engineering evidence. It should not merely accumulate
-unresolved items.
-
-Before the applicable phase-gate submission:
-1. Replace all sample assumptions and questions.
-2. Confirm ownership and needed-by dates.
-3. Update resolved items and affected downstream evidence.
-4. Remove instructional HTML comments.
--->
