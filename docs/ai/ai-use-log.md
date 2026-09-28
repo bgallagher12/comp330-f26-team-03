@@ -10,7 +10,7 @@ Routine spelling, formatting, or simple syntax assistance does not need to be lo
 | Date | Member | Tool | Area | Activity | Verification & Outcome |
 |---|---|---|---|---|---|
 | 2026-09-20 | Carlos | ChatGPT | Documentation | Drafted and organized `docs/ai/ai-policy.md` and `docs/ai/ai-use-log.md` | Reviewed and modified the project structure based on the 330 guides |
-
+| 2026-09-28 | Jaylene | ChatGPT | Backend Planning | Reviewed Issue #3 and helped structure `src/main.py` request-processing logic, including validation, reviewer information, category behavior, open questions, and requirement traceability | Reviewed the suggestions against Issue #3 and the project requirements, then manually incorporated and verified the changes before committing |
 
 ## Logging Expectations
 
