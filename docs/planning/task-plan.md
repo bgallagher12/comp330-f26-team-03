@@ -107,7 +107,7 @@ DELETE the example and populate the actual table below.
 |5|Implement Request Status|Carlos|Sherry|Planning|TBD|TBD|Task 4|Planned|
 |6|Implement Request Status Updates| Jaylen| Brendan|Planning Notes|TBD|TBD|Task 4|Planned|
 |7|Design Database for storing requests| Carlos| Jaylen|Planning Notes|TBD|TBD|Task 1 & 2| Planned|
-|8||Implement Request History| Carlos| Brendan|Planning Notes|TBD|TBD|Tasks 5 & 7|Planned|
+|8|Implement Request History| Carlos| Brendan|Planning Notes|TBD|TBD|Tasks 5 & 7|Planned|
 
 
 
