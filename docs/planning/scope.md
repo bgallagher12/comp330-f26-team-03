@@ -1,5 +1,6 @@
 # Project Scope
 
+
 <!--
 STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
 
@@ -33,7 +34,9 @@ IMPORTANT:
 -->
 
 ## Scope Statement
+Campus Connect is a system designed for stuents to submit support requests and allows support reviewers to manage and resolve those requeets. Students submit information about their issue and are able to check the status of their request. Reeviwers can view, update the request status, add notes and information about how the request was solved. The system is also able to keep records of important requests.
 
+Our project will focus on the process from when a student submits a request to a reviewer resolving that request and to when a student can see the updated status of their request.
 <!--
 TEAM CONTENT REQUIRED
 
@@ -88,8 +91,15 @@ SCP-003
 -->
 
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
-|---|---|---|---|
-|  |  |  |  |
+|---|---|---|
+|1||Student Request Submission|TBD| Students submit their name, student ID, loyola email, description of request and its category
+|2| Request ID | TBD | Each request will be a assigned an ID number  |
+|3|Request Line| TBD| Requests are viewed, tracked adn manaed|
+|4|Status Updates|TBD|Reviewers can change the update status of a request while theyre working on it|
+|5|Notes|TBD|Reviewers are able to add notes after a request is resolved|
+|6|Request Status|TBD|Students will be able to monitor the status of their requests|
+
+
 
 ## Out of Scope
 
@@ -119,7 +129,9 @@ Populate the actual table below.
 
 | Item | Reason Excluded | Future Consideration |
 |---|---|---|
-|  |  |  |
+| Sensitive student data in the repository | Data from the project shouldnt have personal or sensitive information  |Use protected storage if real data is ever required  |
+|API keys| Secrets shouldnt be stored in the Git repository|Use an appropriate secure configuration method|
+|Large datasets| git is not supposed to used as general storage for large datasets| Store the data using a more appropriate method|
 
 ## Scope Constraints
 
@@ -156,7 +168,10 @@ Populate the actual table below.
 
 | Constraint | Impact on Scope | Related Evidence |
 |---|---|---|
-|  |  |  |
+|Team size| Work should be divided among team members | Team Work Plan |
+|Technology| The system should work with programming languages and technologies selected by team members| Planning Notes|
+|Database| Request information should be stored and rerieved through the projects database| Planning Notes|
+|Data security| Project data shouldnt contain passwords or other sensitive information| Data Guidance|
 
 ## Dependencies Affecting Scope
 
@@ -182,7 +197,10 @@ corresponding risk-register entry.
 
 | Dependency | Why It Matters | Owner / Source | Related Risk |
 |---|---|---|---|
-|  |  |  |  |
+| Database | The database should be able to save requests, statusesm notes, resolution, request history | Team Mmeber  |TBD  |
+|Backend| Needs to Process requests and interact with the database|Team|TBD|
+|Frontend|Interface should allow students to submit and their requests and reviewers should be able to managae the requests|Team|TBD|
+|Data|Appropraite data should be used to test creating requests, status changes and incomplete requests|Team|TBD|
 
 ## Deferred Scope
 
@@ -201,7 +219,8 @@ At project start, a blank table is acceptable.
 
 | Item | Reason Deferred | Decision / Evidence | Reconsider By |
 |---|---|---|---|
-|  |  |  |  |
+|User Permissions  | We have not finalized what students and reviewers can access or change  | Planning Notes  | TBD  |
+|Incomplete Requests| Has been discussed but we have not decided how to handle it yet|Planning Notes| TBD|
 
 ## Scope Change History
 
