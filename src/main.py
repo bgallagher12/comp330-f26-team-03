@@ -14,11 +14,32 @@ No actual backend implementation yet.
 # 1. Receive the request.
 # 2. Check that all required information is provided.
 # 3. Validate the information.
-# 4. Record the submission time.
-# 5. Give the request a default status (NEW or OPEN).
-# 6. Determine the request category.
-# 7. Determine where the request should be sent.
-# 8. Make the request available for staff/instructor review.
+#    - If validation succeeds:
+#      - assign a request ID
+#      - record the submission time
+#      - assign a default status (NEW or OPEN)
+#      - determine the request category
+#      - determine where the request should be sent
+#      - make request available for review
+#    - If validation fails:
+#      - do not accept the request
+#      - identify which required information in missing/invalid
+#      - return an appropriate error to the student
+#
+# PSEUDOCODE:
+#
+# receive_request(student_submission)
+#
+#     validate required fields
+#
+#     IF required information is missing:
+#         return validation error
+#
+#     record submission timestamp
+#     assign default status = NEW
+#     determine category
+#     determine routing
+#     prepare request for review
 
 
 # ------------------------------------------------------------
@@ -27,48 +48,69 @@ No actual backend implementation yet.
 
 # Possible required fields:
 #
-# - Student ID / submitter
+# - Student/submitter ID
+# - Student name or other identifying information
 # - Request description
 # - Category
 #
 # Possible fields depending on the request:
 #
-# - Course
+# - Course ID/Name
 # - Instructor
 # - Department
-# - Priority
 #
 # Questions:
-# - Is course information required for every request?
-# - Is an instructor required for course-related requests?
-# - Is priority required?
+# - Is student ID enough to identify the submitter?
+# - Should student name be stored directly or retrieved from the
+#   student's account?
+# - Is a course required for every request?
+# - Is a department required for every request?
+# - Can some categories be submitted without course information?
 
 
 # ------------------------------------------------------------
 # Validation
 # ------------------------------------------------------------
 
-# Before accepting a request:
+# Before accepting a request, check:
 #
-# - Check that the student/submitter is identified.
-# - Check that the request description is not empty.
-# - Check that a category has been selected.
-# - Check course information if the category requires it.
+# - Required fields are present.
+# - Required fields are not empty.
+# - Category is one of the supported categories.
+# - Description contains enough information to review the request.
+# - Course information is valid when the category requires a course.
 #
 # If required information is missing:
 # - Do not accept the request yet.
 # - Tell the student which information is missing.
 #
-# Pseudocode:
+# PSEUDOCODE:
 #
-# receive request
-#     check required fields
+# validate_request(request)
 #
-#     if information is missing:
-#         return an error
+#     IF student information is missing:
+#         reject request
 #
-#     else:
-#         continue processing the request
+#     IF description is missing:
+#         reject request
+#
+#     IF category is missing:
+#         reject request
+#
+#     IF category requires course information
+#         AND course information is missing:
+#         reject request
+#
+#     IF all required information is valid:
+#         accept request
+#
+# Questions:
+#
+# - What should count as an invalid description?
+# - Should there be a minimum description length?
+# - Should invalid categories be rejected or changed to "Other"?
+# - Should validation errors be shown to the student individually
+#   or all at once?
 
 
 # ------------------------------------------------------------
@@ -93,10 +135,14 @@ No actual backend implementation yet.
 # Possible initial status:
 # - NEW
 # - OPEN
+# - IN_PROGRESS
+# - RESOLVED
 #
 # Question:
 # - Should the initial status be NEW or OPEN?
-
+# - Who changes the status?
+# - Should the student be able to see the status?
+# - Should the system automatically update any statuses?
 
 # ------------------------------------------------------------
 # Category Logic
