@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to right,
+            rgb(90, 7, 34) 40%,
+            rgb(247, 236, 212) 40%);
+
+}
+
+#page {
+    display: flex;
+    width: 1600px;
+    height: 875px;
+    overflow: hidden;
+}
+
+
+#logo-section {
+    width: 640px;
+    height: 875px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+.luc-logo {
+    width: 370px;
+    height: auto;
+
+}
+
+
+#content {
+    width: 960px;
+    height: 875px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    transform: translateY(90px);
+    flex-shrink: 0;
+
+}
+
+h1 {
+    text-align: center;
+    margin: 0 0 20px 0;
+    white-space: nowrap;
+
+}
+
+
+
+#main {
+    display: flex;
+    flex-direction: row;
+    column-gap: 80px;
+
+    width: 600px;
+    height: 400px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    padding: 40px;
+    background-color: rgb(90, 7, 34);
+    box-shadow: 10px 10px 20px rgba(15, 0, 0, 0.3);
+    font-weight: 600;
+
+}
+
+button {
+    display: block;
+    margin: 10px auto;
+    width: 135px;
+    font-size: 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    border: none;
+    background-color: rgb(90, 7, 34);
+    color: white;
+}
+
+
+
+#left,
+#right {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    flex-shrink: 0;
+
+}
+
+
+.input {
+    width: 220px;
+    margin-bottom: 22px
+}
+
+.input label {
+    display: block;
+    margin-bottom: 7px;
+    white-space: nowrap;
+}
+
+
+
+
+.input input,
+.input select {
+    width: 220px;
+    height: 42px;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(247, 236, 212);
+}
+
+
+#description {
+    width: 220px;
+    height: 160px;
+    box-sizing: border-box;
+    resize: vertical;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(247, 236, 212);
+}
+
+
+
+
+label {
+    font-family: "Times New Roman", serif;
+    font-size: 26px;
+}
+
+input::placeholder,
+select {
+    font-weight: 600;
+}
+
+input,
+select {
+    background-color: rgb(247, 236, 212);
+}
