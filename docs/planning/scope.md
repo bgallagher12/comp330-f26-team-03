@@ -92,7 +92,7 @@ SCP-003
 
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
 |---|---|---|
-
+|SCP-001|
 
 
 ## Out of Scope
