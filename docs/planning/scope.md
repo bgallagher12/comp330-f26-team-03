@@ -97,7 +97,7 @@ SCP-003
 |SCP-001| Student Request Submission | TBD| Students submit their support requests|
 |SCP-002|Request Validation|TBD|Checking Request Information|
 |SCP-003|Request Categories| TBD| Organizing Requests by categories|
-|SCP-004|Backend Request ProcessingRequests are received, validated and prepared for review|
+|SCP-004|Backend Request Processing|TBD|Requests are receivedvalidated and prepared for review|
 |SCP-005|Request Dashboard|TBD|Requests can be viewed and managed|
 |SCP-006|Status Updates|TBD|Reviewers can update requests|
 |SCP-007|Notes|TBD|Reviewers can add notes after the request is resolved|
