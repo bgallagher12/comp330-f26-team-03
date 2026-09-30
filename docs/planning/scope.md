@@ -92,12 +92,6 @@ SCP-003
 
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
 |---|---|---|
-|1||Student Request Submission|TBD| Students submit their name, student ID, loyola email, description of request and its category
-|2| Request ID | TBD | Each request will be a assigned an ID number  |
-|3|Request Line| TBD| Requests are viewed, tracked adn manaed|
-|4|Status Updates|TBD|Reviewers can change the update status of a request while theyre working on it|
-|5|Notes|TBD|Reviewers are able to add notes after a request is resolved|
-|6|Request Status|TBD|Students will be able to monitor the status of their requests|
 
 
 
