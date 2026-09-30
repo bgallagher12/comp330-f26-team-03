@@ -100,10 +100,10 @@ DELETE the example and populate the actual table below.
 
 | ID | Task | Owner | Backup / Reviewer | Related Evidence | Estimate | Target | Dependencies | Status |
 |---|---|---|---|---|---|---|---|---|
-|1|Student reuqest information|Sherry |Team| Planning Notes| TBD |TBD|None|In Progress |
+|1|Student request information|Sherry |Team| Planning Notes| TBD |TBD|None|In Progress |
 |2|Request Workflow|Team| Team|Planning Notes|TBD|TBD| Task 1| In progress|
-|3|Design Database Structure|Carlos|Team|Planning Notes|TBD|TBD| Task 1 & 2| Planned|
-|4|Develop Backend|Everyone|Team|Planning Notes|TBD|TBD|Task 3| Planned|
+|3|Design Database Structure|Carlos|Team|Planning Notes|TBD|TBD| Task 1 & 2| In Progress|
+|4|Develop Backend|Everyone|Team|Planning Notes|TBD|TBD|Task 3| In Progress|
 |5|Implement Request Status|Carlos|Sherry|Planning|TBD|TBD|Task 4|Planned|
 |6|Implement Request Status Updates| Jaylen| Brendan|Planning Notes|TBD|TBD|Task 4|Planned|
 |7|Design Database for storing requests| Carlos| Jaylen|Planning Notes|TBD|TBD|Task 1 & 2| Planned|
@@ -197,7 +197,8 @@ If your team keeps completed tasks above, remove this section.
 
 | ID | Task | Owner | Completion Evidence | Completed |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| TASK-001 | Backend Request Processing File |Sanjana  | Github Issue| Completed |
+|TASK-002|ER Diagram| Carlos| Github Issue|Completed|
 
 ## Task Changes
 
