@@ -90,9 +90,11 @@ SCP-002
 SCP-003
 -->
 
+
+
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
 |---|---|---|
-|SCP-001|
+|SCP-001| Student Request Submission | TBD| Students submit their support requests|
 
 
 ## Out of Scope
