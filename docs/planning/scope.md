@@ -203,10 +203,10 @@ corresponding risk-register entry.
 
 | Dependency | Why It Matters | Owner / Source | Related Risk |
 |---|---|---|---|
-| Database | The database should be able to save requests, statusesm notes, resolution, request history | Team Mmeber  |TBD  |
-|Backend| Needs to Process requests and interact with the database|Team|TBD|
-|Frontend|Interface should allow students to submit and their requests and reviewers should be able to managae the requests|Team|TBD|
-|Data|Appropraite data should be used to test creating requests, status changes and incomplete requests|Team|TBD|
+| Database | The database should be able to save requests, statusesm notes, resolution, request history | Carlos  |TBD  |
+|Backend| Needs to Process requests and interact with the database|Everyone|TBD|
+|Frontend|Interface should allow students to submit and their requests and reviewers should be able to managae the requests|Sherry & Jaylen|TBD|
+|Data|Appropraite data should be used to test creating requests, status changes and incomplete requests|Carlos|TBD|
 
 ## Deferred Scope
 
