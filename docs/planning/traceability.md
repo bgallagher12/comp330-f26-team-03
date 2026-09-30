@@ -1,225 +1,48 @@
 # Traceability
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file provides a project-level view of traceability across engineering
-evidence.
-
-Traceability answers questions such as:
-
-- Why does this requirement exist?
-- What design or architecture addresses it?
-- What implementation realizes it?
-- What acceptance criteria define success?
-- What test or verification evidence demonstrates that it works?
-- What decision influenced the solution?
-- What risk affects it?
-- What changed when an upstream assumption or requirement changed?
-
-Traceability is NOT merely a list of links.
-
-The goal is to preserve meaningful relationships among engineering artifacts.
-
-Do not attempt to populate every possible relationship at A1.
-
-Traceability should mature as the project matures.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
-
 ## Requirements Traceability Matrix
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use the requirement IDs defined in:
-
-/docs/requirements/requirements.md
-
-Add relationships as evidence becomes available.
-
-At early gates, implementation and verification columns may legitimately be
-blank or marked as not yet available.
-
-Do not invent downstream evidence merely to make the matrix look complete.
-
-COLUMN GUIDANCE
-
-Requirement
-Authoritative requirement ID.
-
-Acceptance Criteria
-Related acceptance-criteria IDs.
-
-Architecture / Design
-Relevant component, API contract, ADR, or architecture section.
-
-Implementation
-Relevant repository path, module, PR, or other implementation evidence.
-
-Verification
-Test, runtime evidence, review, or other proof.
-
-Risk / Assumption
-Relevant risk or assumption that materially affects the requirement.
-
-Status
-Current overall traceability state.
-
-EXAMPLE ONLY:
-
 | Requirement | Acceptance Criteria | Architecture / Design | Implementation | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|
-| REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | API-001, Application Service | Not yet implemented | Not yet available | ASM-001 | In Progress |
-
-DELETE the example and populate the actual table below.
--->
-
-| Requirement | Acceptance Criteria | Architecture / Design | Implementation | Verification | Risk / Assumption | Status |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | Not yet available | Issue #4 - Create Student Request Frontend Page (@sh3rry19); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test / demonstration of valid request creation and rejection of requests missing required information | Request contents remain an open design question | Planned |
+| REQ-002 | AC-REQ-002-01 | Not yet available | Issue #5 - Create ER Diagram and Initial Database (@CarlosA019); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration confirming unique identifiers and later retrieval | Persistence mechanism and identifier approach are not yet finalized | Planned |
+| REQ-003 | AC-REQ-003-01 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test / demonstration showing a support reviewer can access submitted request information | Reviewer access behavior remains subject to role-design decisions | Planned |
+| REQ-004 | AC-REQ-004-01, AC-REQ-004-02 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration confirming status changes are stored and displayed | Request statuses and valid status transitions remain unresolved | Planned |
+| REQ-005 | AC-REQ-005-01 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration showing reviewer notes or resolution information are saved | Definition of a resolved request remains an open question | Planned |
+| REQ-006 | AC-REQ-006-01 | Not yet available | Issue #4 - Create Student Request Frontend Page (@sh3rry19); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test / demonstration showing the student can view current status and available resolution information | Depends on decisions about what status and resolution information students may view | Planned |
+| REQ-007 | AC-REQ-007-01, AC-REQ-007-02 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned role test / demonstration confirming student and reviewer capabilities differ | Role permissions and allowed actions are not yet fully defined | Planned |
+| REQ-008 | AC-REQ-008-01 | Not yet available | Issue #5 - Create ER Diagram and Initial Database (@CarlosA019); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned inspection / demonstration showing enough history exists to determine important status changes or reviewer actions | Required level of history and logging remains unresolved | Planned |
+| REQ-009 | AC-REQ-009-01 | Not yet available | No dedicated implementation issue identified | Planned repository / data review confirming only synthetic or approved sample data is used | Assumes only synthetic or approved sample data will be used | Planned |
 
 ## Decision Traceability
 
-<!--
-TEAM CONTENT REQUIRED FOR SIGNIFICANT ENGINEERING DECISIONS
-
-Reference ADRs from:
-
-/docs/decisions/
-
-Show what influenced a decision and what downstream evidence it affected.
-
-EXAMPLE ONLY:
-
-| Decision | Drivers / Inputs | Affected Architecture / Implementation | Verification / Follow-Up |
-|---|---|---|---|
-| ADR-001 | REQ-001, R-002 | Application Service structure | Architecture review |
-
-Populate actual decision relationships below.
--->
-
-| Decision | Drivers / Inputs | Affected Architecture / Implementation | Verification / Follow-Up |
-|---|---|---|---|
-|  |  |  |  |
+No significant engineering decisions have been formally recorded at the A2 planning gate. This section will be updated as architecture and implementation decisions are documented in `/docs/decisions/`.
 
 ## Risk and Assumption Traceability
 
-<!--
-TEAM CONTENT REQUIRED
-
-Show meaningful relationships from uncertainty to affected engineering work.
-
-Do not duplicate the complete risk register or assumptions file.
-
-Reference the authoritative entries.
-
-EXAMPLE ONLY:
-
 | Risk / Assumption | Affected Evidence | Current Effect / Action |
 |---|---|---|
-| ASM-001 | REQ-001, ADR-002, API-003 | Authentication design remains dependent on provider validation |
-
-Populate actual relationships below.
--->
-
-| Risk / Assumption | Affected Evidence | Current Effect / Action |
-|---|---|---|
-|  |  |  |
+| Required request fields are not yet finalized | REQ-001, AC-REQ-001-01, AC-REQ-001-02 | The team must define the minimum required request information before implementation and validation rules are finalized |
+| Persistence and identifier approach are not yet finalized | REQ-002, AC-REQ-002-01 | Storage and unique-ID design must be decided before implementation |
+| Request statuses and valid transitions are not yet finalized | REQ-004, AC-REQ-004-01, AC-REQ-004-02 | The team must define the allowed status model before status-update logic can be completed |
+| Resolution criteria are not yet finalized | REQ-005, AC-REQ-005-01 | The team must clarify what qualifies a request as resolved before final verification |
+| Role permissions are not yet fully defined | REQ-003, REQ-006, REQ-007 | Student and reviewer capabilities must be clarified before role-specific behavior is implemented |
+| History and logging depth are not yet finalized | REQ-008, AC-REQ-008-01 | The team must define the minimum inspectable history needed for Cycle 1 |
+| Only synthetic or approved sample data will be used | REQ-009, AC-REQ-009-01 | Real student records and private Loyola data are excluded from implementation and testing |
 
 ## Change Impact Traceability
 
-<!--
-TEAM CONTENT REQUIRED WHEN MATERIAL CHANGE OCCURS
-
-Traceability becomes especially valuable when something changes.
-
-When a requirement, assumption, decision, or architecture element changes,
-record the important downstream evidence reviewed or updated.
-
-A blank table is intentional at project start.
-
-EXAMPLE ONLY:
-
-| Change | Upstream Evidence | Downstream Evidence Reviewed / Updated | Result |
-|---|---|---|---|
-| Authentication method changed | ASM-001, ADR-002 | REQ-001, API-003, integration tests | Contracts and tests updated |
-
-Do not retain the example.
--->
-
-| Change | Upstream Evidence | Downstream Evidence Reviewed / Updated | Result |
-|---|---|---|---|
-|  |  |  |  |
+No material requirement, assumption, or architecture changes requiring downstream impact analysis have been recorded at the A2 planning gate. This section will be updated when upstream changes require related engineering evidence to be reviewed or revised.
 
 ## Traceability Gaps
 
-<!--
-TEAM CONTENT REQUIRED
-
-A gap is a known missing relationship or evidence link.
-
-It is better to record a real gap than to fabricate evidence.
-
-Examples ONLY:
-
-- REQ-005 has no acceptance criterion yet;
-- API-004 has no verification evidence yet;
-- ADR-003 affects implementation but the affected module has not been identified;
-- requirement implementation exists but traceability has not yet been updated.
-
-Use the table below for actual gaps.
--->
-
 | Gap | Why It Matters | Owner | Planned Resolution | Target Gate |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| Some requirements are only broadly covered by backend or database issues rather than dedicated tasks | More specific task breakdown may be needed for reviewer workflow, role separation, and history/logging | Planning & Process Lead / Team | Refine `task-plan.md` and create additional GitHub Issues if needed | A2 |
+| Architecture and implementation evidence are not yet available | Downstream evidence cannot be traced until design and implementation work exists | Architecture & Development Lead | Add architecture references, implementation paths, and PR links as work is completed | Cycle 1 implementation |
+| Verification evidence is planned but not yet produced | Acceptance criteria cannot be proven until tests or demonstrations are executed | Quality & Review Lead | Link actual tests, demonstrations, or review evidence when available | Cycle 1 verification |
 
 ## Traceability Maintenance
 
-<!--
-TEAM CONTENT REQUIRED
 
-Describe how the team keeps traceability current.
-
-A lightweight approach is sufficient.
-
-Possible triggers include:
-
-- requirement change;
-- ADR acceptance;
-- API contract change;
-- PR merge;
-- new acceptance criterion;
-- completed verification;
-- risk materialization;
-- phase-gate preparation.
-
-The goal is to maintain traceability during engineering work rather than
-reconstructing it immediately before submission.
-
-Replace this comment with the team's actual approach.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Confirm every current requirement appears in the traceability matrix.
-2. Confirm acceptance-criteria references are valid.
-3. Link architecture, implementation, and verification only where evidence exists.
-4. Do not fabricate downstream links for unfinished work.
-5. Identify meaningful gaps explicitly.
-6. Confirm ADR and risk relationships point to authoritative evidence.
-7. Record downstream review when an upstream artifact changes materially.
-8. Remove ALL instructional HTML comments.
-
-The completed traceability artifact should let a reviewer follow important
-engineering relationships backward and forward through the lifecycle.
--->
+The team will update traceability whenever requirements, acceptance criteria, risks, assumptions, major engineering decisions, implementation links, or verification evidence change. GitHub issues and pull requests will be linked as planned work becomes concrete, and implementation and test evidence will be added when it becomes available. The traceability document will be reviewed before each phase-gate submission so that known gaps are recorded and outdated links are corrected.
