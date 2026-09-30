@@ -93,8 +93,18 @@ SCP-003
 
 
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
-|---|---|---|
+|---|---|---|---|
 |SCP-001| Student Request Submission | TBD| Students submit their support requests|
+|SCP-002|Request Validation|TBD|Checking Request Information|
+|SCP-003|Request Categories| TBD| Organizing Requests by categories|
+|SCP-004|Backend Request ProcessingRequests are received, validated and prepared for review|
+|SCP-005|Request Dashboard|TBD|Requests can be viewed and managed|
+|SCP-006|Status Updates|TBD|Reviewers can update requests|
+|SCP-007|Notes|TBD|Reviewers can add notes after the request is resolved|
+|SCP-008|Database and ER Diagram| TBD| Initial database and ER diagram|
+|SCP-009|Request History|TBD| Requests can be recorded|
+
+
 
 
 ## Out of Scope
@@ -125,7 +135,7 @@ Populate the actual table below.
 
 | Item | Reason Excluded | Future Consideration |
 |---|---|---|
-| Sensitive student data in the repository | Data from the project shouldnt have personal or sensitive information  |Use protected storage if real data is ever required  |
+| Sensitive student data in the repository | Data from the project shouldnt contain personal or sensitive information  |Use protected storage if real data is ever required  |
 |API keys| Secrets shouldnt be stored in the Git repository|Use an appropriate secure configuration method|
 |Large datasets| git is not supposed to used as general storage for large datasets| Store the data using a more appropriate method|
 
