@@ -62,6 +62,7 @@ Do not simply write:
 
 Replace this comment with the team's actual testing objectives.
 -->
+Testing
 
 ## Testing Principles
 
