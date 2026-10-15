@@ -138,6 +138,7 @@ Populate the actual table below.
 | Sensitive student data in the repository | Data from the project shouldnt contain personal or sensitive information  |Use protected storage if real data is ever required  |
 |API keys| Secrets shouldnt be stored in the Git repository|Use an appropriate secure configuration method|
 |Large datasets| git is not supposed to used as general storage for large datasets| Store the data using a more appropriate method|
+|Actual student records with university systems | Cycle 1 uses synthetic data and wont need real student records | Reconsider if a future scope requires real data  |
 
 ## Scope Constraints
 
@@ -178,6 +179,7 @@ Populate the actual table below.
 |Technology| The system should work with programming languages and technologies selected by team members| Planning Notes|
 |Database| Request information should be stored and rerieved through the projects database| Planning Notes|
 |Data security| Project data shouldnt contain passwords or other sensitive information| Data Guidance|
+|Synthetic Data | Development and testing must use synthetic data instead of actual student information| adr-001-use-synthetic-data-for-cycle1.md, data-context.md|
 
 ## Dependencies Affecting Scope
 
