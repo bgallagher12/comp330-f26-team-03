@@ -1,386 +1,150 @@
 # Architecture
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file is the authoritative system-level description of your architecture.
-
-It should explain:
-
-- what the system is and what surrounds it;
-- how the system is structurally organized;
-- the major components and their responsibilities;
-- important interfaces and dependencies;
-- significant constraints and assumptions;
-- the current architecture diagram; and
-- the significant decisions that shaped the architecture.
-
-At early gates, some architectural elements may still be proposed or
-incomplete. State uncertainty explicitly rather than inventing detail.
-
-Do not use this file as a source-code inventory. Focus on meaningful
-architectural structure and engineering reasoning.
-
-IMPORTANT:
-
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample tables and examples are provided only to demonstrate structure.
-- Replace all sample project data with your team's actual engineering evidence.
-- Do not simply rename the sample components and treat the example as your architecture.
--->
-
 ## System Context
 
-<!--
-TEAM CONTENT REQUIRED
+CampusConnect is a student support request and workflow system for the Cycle 1 vertical slice.
 
-Describe the system from the outside looking in.
+The primary users are:
 
-Identify, where relevant:
+- Student Requester — creates a support request and views its current status and available resolution information.
+- Support Reviewer — views submitted requests, changes request status, and records notes or resolution information.
 
-- primary users or actors;
-- external systems or services;
-- important data sources or destinations;
-- trust or organizational boundaries; and
-- what is inside versus outside the system being engineered.
+Users interact with CampusConnect through a user-facing application interface. The application processes requests, applies workflow rules, and stores request information in a persistent data store.
 
-Keep this at the SYSTEM level. Detailed component interactions belong later.
+Cycle 1 uses only synthetic or approved sample data. The system does not connect to real Loyola student records, private university data, or live institutional systems.
 
-EXAMPLE ONLY — DELETE AND REPLACE:
+Student requester and support reviewer roles may be simulated rather than using real institutional authentication.
 
-"The Workflow System allows students to submit requests and authorized staff
-to review and process them. Users access the system through a web application.
-The system relies on an external identity provider for authentication and a
-database for persistent workflow records."
-
-Replace this entire comment with your team's actual system-context description.
--->
+No user-facing AI functionality is currently included in the Cycle 1 architecture. AI may assist the engineering process, but system workflow decisions remain controlled by the application and human users.
 
 ## Architectural Structure
 
-<!--
-TEAM CONTENT REQUIRED
+The current Cycle 1 architecture is planned as a small layered application with clear separation between presentation, application logic, and persistence responsibilities.
 
-Describe the overall architectural approach.
+The major architectural layers are:
 
-Possible structures might include:
+1. User Interface Layer
+   - Provides student requester and support reviewer interactions.
+   - Collects request information.
+   - Displays request status and resolution information.
+   - Sends user actions to the application logic.
 
-- layered application;
-- client/server;
-- modular monolith;
-- service-oriented architecture;
-- event-driven architecture;
-- another justified structure; or
-- a combination of patterns.
+2. Application / Request Processing Layer
+   - Validates submitted request information.
+   - Coordinates request creation and retrieval.
+   - Applies role-specific workflow behavior.
+   - Handles request status updates.
+   - Handles reviewer notes and resolution information.
+   - Coordinates important workflow-history recording.
 
-Do not choose an architectural label merely because it sounds appropriate.
-Explain how the actual system is organized.
+3. Persistence Layer
+   - Stores support requests and related workflow state.
+   - Preserves unique request identifiers.
+   - Supports later request retrieval.
+   - Stores information needed for status, resolution, and inspectable workflow history.
 
-Consider:
+Dependencies should flow from the user interface toward the application logic and from the application logic toward persistence. The user interface should not directly modify persistent request data.
 
-- separation of concerns;
-- major execution boundaries;
-- data flow;
-- control flow;
-- state ownership;
-- deployment boundaries; and
-- major architectural patterns.
-
-If the architecture is still provisional, state that explicitly.
-
-Replace this entire comment with your team's actual architectural description.
--->
+The exact programming language, framework, database technology, and deployment approach remain unresolved under Q-008. These implementation choices should not change the intended separation of responsibilities unless a later architecture decision documents the change.
 
 ## Major Components and Responsibilities
 
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the major architectural components.
-
-Keep this table at a high level. More detailed responsibility boundaries
-belong in:
-
-/docs/architecture/component-responsibilities.md
-
-Use stable component names consistently across:
-
-- architecture.md;
-- component-responsibilities.md;
-- api-contracts.md;
-- architecture diagrams;
-- decision records;
-- implementation; and
-- verification evidence.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL COMPONENTS.
--->
-
 | Component | Primary Responsibility | Key Dependencies |
 |---|---|---|
-| Web Client | Provides the user-facing workflow interface and communicates user actions to the application service. | Application Service |
-| Application Service | Enforces application workflows and coordinates domain operations. | Identity Provider, Persistence Layer |
-| Persistence Layer | Stores and retrieves durable workflow data. | Database |
-| Identity Provider | Authenticates users and provides trusted identity information. | External service |
+| Student Request Interface | Allows a student requester to enter and submit support-request information and view current status and available resolution information | Request Processing Logic |
+| Reviewer Interface | Allows a support reviewer to view submitted requests, update status, and record notes or resolution information | Request Processing Logic |
+| Request Processing Logic | Validates requests, coordinates request creation and retrieval, applies workflow rules, handles status changes, resolution information, and role-specific behavior | Persistence Layer |
+| Persistence Layer | Stores and retrieves support requests, unique identifiers, status, resolution information, and required workflow-history data | Persistent Data Store |
+| Persistent Data Store | Provides durable storage for CampusConnect Cycle 1 request and workflow information | Persistence Layer |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
-
-Do not list every class, file, package, or library.
-
-A component should represent a meaningful architectural responsibility or
-boundary.
--->
+The precise implementation boundaries may be refined as the technology stack and data model are finalized.
 
 ## Interfaces and Dependencies
 
-<!--
-TEAM CONTENT REQUIRED
-
-Describe the important interactions among components and external systems.
-
-Focus on dependencies that matter architecturally.
-
-For each important interaction, consider:
-
-- direction of dependency;
-- type of interface;
-- data exchanged;
-- synchronous versus asynchronous behavior;
-- failure behavior;
-- trust boundaries;
-- security implications; and
-- whether a formal interface contract is required.
-
-Detailed contracts belong in:
-
-/docs/architecture/api-contracts.md
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL INTERACTIONS.
--->
-
 | Source | Target | Interaction | Interface / Protocol | Notes |
 |---|---|---|---|---|
-| Web Client | Application Service | Submit and retrieve workflow requests | HTTPS / JSON | Authenticated requests |
-| Application Service | Identity Provider | Obtain trusted user identity | Provider-defined protocol | External dependency |
-| Application Service | Persistence Layer | Store and retrieve workflow state | Internal interface | Application-controlled boundary |
+| Student Request Interface | Request Processing Logic | Submit a new support request | Application interface; exact protocol TBD | Required request fields remain subject to Q-001 and Q-005 |
+| Student Request Interface | Request Processing Logic | Retrieve request status and resolution information | Application interface; exact protocol TBD | Supports REQ-006 |
+| Reviewer Interface | Request Processing Logic | Retrieve submitted requests | Application interface; exact protocol TBD | Reviewer access rules remain subject to Q-004 |
+| Reviewer Interface | Request Processing Logic | Update request status | Application interface; exact protocol TBD | Valid statuses and transitions remain subject to Q-002 and Q-003 |
+| Reviewer Interface | Request Processing Logic | Record note or resolution | Application interface; exact protocol TBD | Resolution conditions remain subject to Q-006 |
+| Request Processing Logic | Persistence Layer | Create, retrieve, and update request records | Internal application interface | Persistence approach remains dependent on final data design |
+| Persistence Layer | Persistent Data Store | Store and retrieve durable request state | Database interface; technology TBD | Supports unique IDs, retrieval, status, resolution, and required history |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+Detailed interface behavior is maintained in `/docs/architecture/api-contracts.md`.
 
 ## Data and State Ownership
 
-<!--
-TEAM CONTENT REQUIRED WHEN DATA OR STATE OWNERSHIP IS ARCHITECTURALLY SIGNIFICANT
-
-Identify where important system state is authoritative.
-
-This is not intended to become a complete database design.
-
-Consider:
-
-- Which component owns important state?
-- Where is authoritative persistent data stored?
-- Which data is derived or cached?
-- Which external systems remain authoritative for information they provide?
-- Which components are permitted to modify important state?
-- What consistency assumptions exist?
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL STATE OWNERSHIP.
-
-If this section is genuinely not useful for your architecture, the team may
-remove the section after making that decision.
--->
-
 | Data / State | Authoritative Owner | Persistence | Notes |
 |---|---|---|---|
-| Workflow request | Application Service | Database | Persistence Layer provides durable storage |
-| User identity | Identity Provider | External | Application consumes identity but does not own it |
+| Support request | Request Processing Logic | Persistent Data Store | Persistence Layer stores and retrieves the authoritative request record |
+| Request identifier | Request Processing Logic / Persistence Layer | Persistent Data Store | Each submitted request must retain a unique identifier |
+| Current request status | Request Processing Logic | Persistent Data Store | One current status is assumed under ASM-003 |
+| Reviewer note / resolution | Request Processing Logic | Persistent Data Store | Stored with the related support request |
+| Workflow history | Request Processing Logic | Persistent Data Store | Required depth remains unresolved under Q-007 |
+| User role | Application workflow | Simulated for Cycle 1 | Student requester and reviewer roles may be simulated under ASM-002 |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+Only application logic should authorize changes to request state. User-interface components should request changes through the application layer rather than directly modifying stored data.
 
 ## Constraints and Assumptions
 
-<!--
-TEAM CONTENT REQUIRED
-
-Record constraints and assumptions that materially influence the architecture.
-
-A CONSTRAINT is something the architecture must operate within.
-
-Examples may include:
-
-- required deployment platform;
-- required programming language;
-- required external service;
-- security requirement;
-- institutional technology limitation; or
-- compatibility requirement.
-
-An ASSUMPTION is something currently being treated as true without sufficient
-confirmation.
-
-Do not recreate detailed assumption tracking here.
-
-Reference authoritative assumptions in:
-
-/docs/requirements/assumptions-open-questions.md
-
-Similarly, reference risks and decision records rather than duplicating them.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT EVIDENCE.
--->
-
 | ID / Reference | Type | Description | Architectural Impact |
 |---|---|---|---|
-| ASM-001 | Assumption | Users authenticate through an institution-supported identity provider. | Architecture relies on external authentication rather than local credential storage. |
-
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+| ASM-001 | Assumption | CampusConnect uses synthetic sample data rather than real Loyola student records or private university data | Removes the need for live institutional data integration and limits Cycle 1 data handling to synthetic or approved sample data |
+| ASM-002 | Assumption | Student requester and support reviewer roles may be simulated during Cycle 1 | The architecture does not require institutional authentication for the Cycle 1 vertical slice |
+| ASM-003 | Assumption | Each support request has one current workflow status at a time | Request state can be modeled using a single current-status value unless this assumption is later invalidated |
+| ASM-004 | Assumption | Cycle 1 focuses on one narrow support-request workflow | Architecture remains intentionally small and avoids unrelated campus-service workflows |
+| Q-001 | Open Question | Required request information has not yet been finalized | May affect the interface, validation rules, and data model |
+| Q-002 / Q-003 | Open Questions | Supported statuses and valid transitions are not yet finalized | May affect workflow logic, database representation, interfaces, and tests |
+| Q-004 | Open Question | Exact student and reviewer permissions remain unresolved | May affect role boundaries and application authorization logic |
+| Q-006 | Open Question | Conditions for considering a request resolved remain unresolved | May affect workflow and resolution behavior |
+| Q-007 | Open Question | Required status-change and reviewer-action history remains unresolved | May affect persistence and logging design |
+| Q-008 | Open Question | Technology stack has not yet been selected | Framework, database, and implementation details remain provisional |
 
 ## Architecture Diagram
 
-<!--
-TEAM CONTENT REQUIRED
+The authoritative Cycle 1 architecture diagram is maintained separately at:
 
-Replace this comment with your team's current architecture diagram.
+`/docs/architecture/architecture-diagram.png`
 
-A diagram should make important system structure easier to understand than
-prose alone.
-
-Mermaid is acceptable because GitHub renders Mermaid diagrams.
-
-EXAMPLE ONLY — DO NOT RETAIN AS YOUR PROJECT ARCHITECTURE:
-
-    ```mermaid
-    flowchart LR
-        User[User]
-        Web[Web Client]
-        App[Application Service]
-        Identity[Identity Provider]
-        Data[Persistence Layer]
-        DB[(Database)]
-
-        User --> Web
-        Web --> App
-        App --> Identity
-        App --> Data
-        Data --> DB
-    ```
-
-Your actual diagram should:
-
-- use the same component names as the architecture documentation;
-- show important system and external boundaries;
-- show meaningful interaction or dependency directions;
-- remain understandable without requiring source-code knowledge; and
-- remain current when the architecture changes.
-
-DELETE THIS ENTIRE COMMENT and replace it with your actual diagram.
--->
+The diagram should use the same component names defined in this document and in `/docs/architecture/component-responsibilities.md`.
 
 ## Architectural Qualities and Tradeoffs
 
-<!--
-TEAM CONTENT REQUIRED
-
-Identify qualities that materially influence your architecture.
-
-Examples might include:
-
-- maintainability;
-- reliability;
-- security;
-- testability;
-- scalability;
-- performance;
-- usability;
-- recoverability; or
-- deployability.
-
-Do not create a generic list of desirable qualities.
-
-Document qualities that actually influenced architectural choices and explain
-the consequences or tradeoffs involved.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT EVIDENCE.
--->
-
 | Quality / Concern | Architectural Response | Tradeoff / Consequence |
 |---|---|---|
-| Maintainability | Separate workflow logic from presentation and persistence responsibilities. | Adds explicit interfaces and some structural overhead. |
-
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+| Maintainability | Separate user-interface, application-processing, and persistence responsibilities | Introduces explicit boundaries that require coordination between components |
+| Testability | Keep request validation and workflow behavior in application logic rather than embedding it only in the UI | Requires clear interfaces between presentation and application layers |
+| Data integrity | Route request creation and updates through request-processing logic before persistence | Adds application-layer validation but reduces uncontrolled data changes |
+| Traceability | Preserve unique IDs, current status, resolution information, and planned workflow-history evidence | Additional stored history may increase persistence complexity depending on Q-007 |
+| Security / Privacy | Use synthetic data and simulated roles for the bounded Cycle 1 workflow | Does not demonstrate production institutional authentication or real-data security controls |
+| Simplicity | Keep Cycle 1 limited to one narrow workflow and avoid unnecessary external integrations | Some production capabilities are intentionally deferred |
 
 ## Key Architectural Decisions
 
-<!--
-TEAM CONTENT REQUIRED
+No formal Architecture Decision Records have been completed at the current A3 baseline.
 
-Summarize significant architectural decisions here without duplicating the
-complete decision records.
+Several architecture decisions remain dependent on open questions, including:
 
-Reference the authoritative ADR or other decision artifact.
-
-A decision belongs here when it materially shapes the architecture.
-
-If a decision has not yet been made, reference the appropriate open question
-rather than pretending the architecture is settled.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT DECISIONS.
--->
-
-| Decision | Summary | Evidence |
+| Decision | Current State | Evidence |
 |---|---|---|
-| ADR-001 | Use a modular application structure for the initial system. | `/docs/decisions/ADR-001.md` |
+| Technology stack and database selection | Open | Q-008 |
+| Request status model | Open | Q-002, Q-003, ASM-003 |
+| Role and permission boundaries | Open | Q-004, ASM-002 |
+| Workflow-history depth | Open | Q-007 |
+| Request field structure | Open | Q-001 |
 
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+Significant decisions will be recorded in `/docs/decisions/` when finalized.
 
 ## Architecture Evolution
 
-<!--
-Architecture may evolve as:
+No material architecture changes have been recorded yet.
 
-- requirements become clearer;
-- implementation produces evidence;
-- assumptions are validated or invalidated;
-- risks are discovered; and
-- engineering decisions change.
-
-When the architecture changes materially:
-
-1. update this file;
-2. update affected diagrams;
-3. update component-responsibilities.md;
-4. update api-contracts.md;
-5. record significant decisions;
-6. review affected requirements and acceptance criteria;
-7. review affected risks; and
-8. update relevant tests and operational evidence.
-
-Use the table below only for meaningful architectural changes.
-
-A blank table is intentional at project start.
--->
+Architecture changes will be documented when implementation, review findings, resolved assumptions, risks, or other engineering evidence justify a change.
 
 | Effective Gate | Change | Reason | Related Evidence |
 |---|---|---|---|
-|  |  |  |  |
+| A3 | Initial Cycle 1 architecture baseline established | Provide a reviewable architecture before implementation accelerates | REQ-001 through REQ-009; ASM-001 through ASM-004; Q-001 through Q-008 |
 
 ## Expectations
 
@@ -393,21 +157,3 @@ A blank table is intentional at project start.
 - Make significant architectural tradeoffs explicit.
 - Record uncertainty rather than manufacturing architectural certainty.
 - Update related engineering evidence when the architecture materially changes.
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace all sample project data.
-2. Replace all placeholder sections with actual team content.
-3. Confirm component names agree with component-responsibilities.md.
-4. Confirm important interfaces agree with api-contracts.md.
-5. Confirm decision and assumption references are valid.
-6. Confirm the architecture diagram represents the current system.
-7. Review the document for stale or contradictory information.
-8. Remove all instructional HTML comments.
-
-A reviewer should be able to understand the major system structure and the
-engineering reasoning behind it without reading the source code.
--->
