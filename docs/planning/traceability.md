@@ -15,9 +15,11 @@
 | REQ-009 | AC-REQ-009-01 | Not yet available | No dedicated implementation issue identified | Planned repository / data review confirming only synthetic or approved sample data is used | Assumes only synthetic or approved sample data will be used | Planned |
 
 ## Decision Traceability
-
-No significant engineering decisions have been formally recorded at the A2 planning gate. This section will be updated as architecture and implementation decisions are documented in `/docs/decisions/`.
-
+### ADR-001 
+Uses synthetic data for cycle 1
+Documented: docs/decisions/adr-0001-use-synthetics-data-for-cylce1.md
+Current Status: Proposed
+Team should confirm the alternatices considered and approve or revise this decision.
 ## Risk and Assumption Traceability
 
 | Risk / Assumption | Affected Evidence | Current Effect / Action |

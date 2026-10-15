@@ -108,6 +108,9 @@ DELETE the example and populate the actual table below.
 |6|Implement Request Status Updates| Jaylen| Brendan|Planning Notes|TBD|TBD|Task 4|Planned|
 |7|Design Database for storing requests| Carlos| Jaylen|Planning Notes|TBD|TBD|Task 1 & 2| Planned|
 |8|Implement Request History| Carlos| Brendan|Planning Notes|TBD|TBD|Tasks 5 & 7|Planned|
+|9|Finalize Student & Reviewer Permissions| Sherry| Carlos |data-context.md: re1-003, 006, 007 |TBD | TBD | Request workflow decisions | Planned|
+|10|Logging and Data Retention Rules | Team | Team | data-context.md; REQ-008| TBD| TBD| Review data requirements| Planned |
+|11|Cycle 1 Confirmation and Storage| Carlos| Team| adr-0001-use-synthetic-data-for-cycle1.md; data-context.md; REQ-002, 009 | TBD | TBD | Confirm architecture decisions | Planned|
 
 
 

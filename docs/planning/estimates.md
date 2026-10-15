@@ -26,6 +26,7 @@ Estimates are based on the current task scope, known dependencies, and unresolve
 | ASM-002 | EST-001, EST-002 | If real institutional authentication were required, backend access control and frontend role handling would require significantly more work |
 | ASM-003 | EST-001, EST-002, EST-003 | If requests require multiple simultaneous statuses or a more complex state model, backend logic, database design, interface behavior, and tests would need to be revised |
 | ASM-004 | EST-001, EST-002, EST-003 | If Cycle 1 expands beyond one narrow support-request workflow, implementation and testing effort would increase across all major tasks |
+| ASM-005 | EST-001, EST-002, EST-003 | Cycle 1 uses synthetics data but approaches for areas such as authenticaion, data retention, logging etc. remain unresolved. Any changes could increase implementation and tests|
 
 ## Estimate Confidence
 
