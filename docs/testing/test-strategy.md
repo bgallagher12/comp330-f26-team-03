@@ -60,20 +60,8 @@ Do not simply write:
 
 "Make sure the system works."
 
-- Ensure
+Replace this comment with the team's actual testing objectives.
 -->
-Purpose of testing is to verify the applications main features work and meet the requirements. It will focus on ensuring that users can complete support requests and that those requests are handles appropriately. 
-
-### Testing Goals
-Ensure the features in Cycle 1 work as expected
-Ensure students can submit support requests
-Ensure students can view support requests
-Check that reviewers can manage requests
-Find bugs and problems with how information is displayed or saved
-Test how the application handles invalid inputs such as invalid ID number
-Ensure valid inputs are processed are handled correctly
-Find defects in the interaction between application components
-Ensure changes and bugs do not cause existing features to breaks
 
 ## Testing Principles
 

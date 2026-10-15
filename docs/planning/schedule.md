@@ -1,248 +1,59 @@
 # Schedule
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records the team's current project schedule and milestone plan.
-
-A schedule should explain WHEN important work or evidence is expected to be
-ready and what dependencies influence that timing.
-
-Do not create a detailed calendar merely for appearance.
-
-Focus on:
-
-- phase gates;
-- meaningful milestones;
-- major deliverables;
-- important dependencies;
-- target dates;
-- current forecast;
-- schedule changes.
-
-The authoritative course deadlines remain defined by Sakai/course materials.
-
-This file records the team's project-specific execution plan within those
-constraints.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
-
 ## Schedule Basis
 
-<!--
-TEAM CONTENT REQUIRED
+The Cycle 1 schedule is based on the current task plan, team ownership, project dependencies, and team availability.
 
-Briefly explain how this schedule was constructed.
-
-Consider:
-
-- course deadlines;
-- scope;
-- estimates;
-- dependencies;
-- team availability;
-- risk;
-- sequencing constraints.
-
-Do not restate the entire course schedule.
-
-Replace this comment with the team's actual planning basis.
--->
+The team will complete major component work before integration and leave time for testing, fixes, and documentation before submission.
 
 ## Milestones
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable milestone IDs:
-
-MS-###
-
-Examples:
-
-MS-001
-MS-002
-
-Milestone
-Describe a meaningful project outcome, not simply "work on project."
-
-Target Date
-The current planned date.
-
-Required By
-Reference the phase gate or external deadline that constrains the milestone.
-
-Dependencies
-Reference predecessor work, requirements, decisions, or other evidence.
-
-Owner
-Identify primary coordination responsibility.
-
-Status
-Suggested values:
-
-- Planned
-- In Progress
-- Complete
-- At Risk
-- Deferred
-
-EXAMPLE ONLY:
-
 | ID | Milestone | Target Date | Required By | Dependencies | Owner | Status |
 |---|---|---|---|---|---|---|
-| MS-001 | Initial requirements baseline ready for review | YYYY-MM-DD | A2 | Team charter, initial stakeholder analysis | Planning & Process Lead | Planned |
-
-DELETE the example and populate the actual table below.
--->
-
-| ID | Milestone | Target Date | Required By | Dependencies | Owner | Status |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| MS-001 | Database and ER diagram baseline completed | Before integration | Cycle 1 | Cycle 1 requirements | Carlos | Complete |
+| MS-002 | Student request frontend prepared | Before integration | Cycle 1 | Request fields and requirements | Sherry | In Progress |
+| MS-003 | Backend request-processing design prepared | Before integration | Cycle 1 | Request fields and database structure | Sanjana, Jaylen | In Progress |
+| MS-004 | Frontend, backend, and database structures reviewed together | After component work | Cycle 1 | MS-001, MS-002, MS-003 | Team | Planned |
+| MS-005 | Cycle 1 request workflow integrated | After interface review | Cycle 1 | MS-004 | Team | Planned |
+| MS-006 | Final testing, fixes, and documentation completed | Before submission | Cycle 1 | MS-005 | Team | Planned |
 
 ## Phase-Gate Readiness
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use this section to make the team's internal readiness plan visible.
-
-Do not duplicate the full assignment instructions.
-
-The point is to identify when the team intends to have its evidence ready
-relative to each applicable phase gate.
-
-EXAMPLE ONLY:
-
 | Gate | Internal Readiness Target | Key Evidence / Deliverables | Status |
 |---|---|---|---|
-| A2 | YYYY-MM-DD | Requirements, estimates, schedule, risk baseline | Planned |
-
-Populate actual planning below.
--->
-
-| Gate | Internal Readiness Target | Key Evidence / Deliverables | Status |
-|---|---|---|---|
-|  |  |  |  |
+| A2 | A2 submission | Task plan, risk register, schedule, ownership, and dependencies | Complete |
+| Cycle 1 | Before Cycle 1 submission | Integrated workflow, testing evidence, documentation, and reviewed pull requests | Planned |
 
 ## Major Dependencies
 
-<!--
-TEAM CONTENT REQUIRED
-
-Document schedule dependencies that materially affect sequencing.
-
-Examples:
-
-- requirement must be clarified before architecture decision;
-- API contract needed before parallel implementation;
-- external service access required before integration;
-- test environment required before verification.
-
-Do not list trivial dependencies.
-
-EXAMPLE ONLY:
-
 | Predecessor / Dependency | Dependent Work | Schedule Impact if Delayed | Related Risk |
 |---|---|---|---|
-| Authentication decision | Protected workflow implementation | Blocks authorization implementation | R-003 |
-
-Populate actual dependencies below.
--->
-
-| Predecessor / Dependency | Dependent Work | Schedule Impact if Delayed | Related Risk |
-|---|---|---|---|
-|  |  |  |  |
+| Database and ER design | Backend implementation | Backend may need updates or rework | R-001 |
+| Agreement on request fields and status values | Frontend and backend | Components may not integrate correctly | R-002 |
+| Backend request-processing decisions | Request workflow | Integration may be delayed | R-003 |
+| Completion of individual component work | Integration | Integration cannot begin until major components are ready | R-005 |
+| Pull request review and merge | Final testing | Merge conflicts may delay verification | R-004 |
 
 ## Near-Term Planning Window
 
-<!--
-TEAM CONTENT REQUIRED
-
-The milestone schedule provides the broader view.
-
-Use this section for the next meaningful planning horizon.
-
-Depending on how your team works, that may be:
-
-- one week;
-- two weeks;
-- until the next phase gate.
-
-Avoid maintaining a second detailed task list here.
-
-Detailed work ownership belongs in:
-
-/docs/planning/task-plan.md
--->
-
 | Time Window | Planned Outcome | Related Milestone(s) | Key Dependency / Risk |
 |---|---|---|---|
-|  |  |  |  |
+| Current work | Complete frontend and backend planning/tasks | MS-002, MS-003 | R-002, R-003 |
+| Integration checkpoint | Compare components and resolve interface differences | MS-004 | R-002, R-004 |
+| Integration | Connect the Cycle 1 request workflow | MS-005 | R-001, R-003, R-005 |
+| Final buffer | Test, fix problems, review documentation, and prepare submission | MS-006 | R-004, R-005 |
 
 ## Schedule Changes
 
-<!--
-TEAM CONTENT REQUIRED WHEN MATERIAL SCHEDULE CHANGES OCCUR
-
-Plans change.
-
-Do not silently overwrite meaningful schedule changes.
-
-Record changes when:
-
-- a milestone moves materially;
-- a dependency causes delay;
-- scope change affects timing;
-- estimate refinement changes the forecast;
-- risk materializes;
-- work completes significantly earlier or later than expected.
-
-A blank table is intentional at project start.
--->
-
 | Date | Milestone / Gate | Previous Target | New Target | Reason | Related Evidence |
 |---|---|---|---|---|---|
-|  |  |  |  |  |  |
 
 ## Schedule Risks
 
-<!--
-TEAM CONTENT REQUIRED
-
-Do not create a second risk register.
-
-Reference schedule-related risks maintained in:
-
-/docs/planning/risk-register.md
-
-Use this section only to identify which current risks materially threaten
-schedule outcomes.
--->
-
 | Risk ID | Affected Milestone / Gate | Schedule Exposure |
 |---|---|---|
-|  |  |  |
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace blank scaffold rows with actual planning data or remove unnecessary rows.
-2. Confirm dates agree with current course deadlines.
-3. Confirm milestones describe meaningful outcomes.
-4. Confirm major dependencies are visible.
-5. Confirm detailed work remains in task-plan.md rather than being duplicated here.
-6. Confirm schedule risks reference risk-register.md.
-7. Record material forecast changes rather than silently rewriting the schedule.
-8. Remove ALL instructional HTML comments.
-
-The completed schedule should show when meaningful project outcomes are
-expected and why the team believes that timing is achievable.
--->
+| R-001 | MS-003, MS-004 | Database changes may cause backend rework. |
+| R-002 | MS-002, MS-003, MS-004 | Interface differences may delay integration. |
+| R-003 | MS-003, MS-005 | Unclear backend rules may delay the request workflow. |
+| R-004 | MS-004, MS-005, MS-006 | Merge conflicts may reduce time available for testing. |
+| R-005 | MS-005, MS-006 | Late integration may leave less time for fixes. |

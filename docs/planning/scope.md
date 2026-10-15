@@ -90,14 +90,20 @@ SCP-002
 SCP-003
 -->
 
+
+
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
-|---|---|---|
-|1||Student Request Submission|TBD| Students submit their name, student ID, loyola email, description of request and its category
-|2| Request ID | TBD | Each request will be a assigned an ID number  |
-|3|Request Line| TBD| Requests are viewed, tracked adn manaed|
-|4|Status Updates|TBD|Reviewers can change the update status of a request while theyre working on it|
-|5|Notes|TBD|Reviewers are able to add notes after a request is resolved|
-|6|Request Status|TBD|Students will be able to monitor the status of their requests|
+|---|---|---|---|
+|SCP-001| Student Request Submission | TBD| Students submit their support requests|
+|SCP-002|Request Validation|TBD|Checking Request Information|
+|SCP-003|Request Categories| TBD| Organizing Requests by categories|
+|SCP-004|Backend Request Processing|TBD|Requests are receivedvalidated and prepared for review|
+|SCP-005|Request Dashboard|TBD|Requests can be viewed and managed|
+|SCP-006|Status Updates|TBD|Reviewers can update requests|
+|SCP-007|Notes|TBD|Reviewers can add notes after the request is resolved|
+|SCP-008|Database and ER Diagram| TBD| Initial database and ER diagram|
+|SCP-009|Request History|TBD| Requests can be recorded|
+
 
 
 
@@ -129,7 +135,7 @@ Populate the actual table below.
 
 | Item | Reason Excluded | Future Consideration |
 |---|---|---|
-| Sensitive student data in the repository | Data from the project shouldnt have personal or sensitive information  |Use protected storage if real data is ever required  |
+| Sensitive student data in the repository | Data from the project shouldnt contain personal or sensitive information  |Use protected storage if real data is ever required  |
 |API keys| Secrets shouldnt be stored in the Git repository|Use an appropriate secure configuration method|
 |Large datasets| git is not supposed to used as general storage for large datasets| Store the data using a more appropriate method|
 
@@ -197,10 +203,10 @@ corresponding risk-register entry.
 
 | Dependency | Why It Matters | Owner / Source | Related Risk |
 |---|---|---|---|
-| Database | The database should be able to save requests, statusesm notes, resolution, request history | Team Mmeber  |TBD  |
-|Backend| Needs to Process requests and interact with the database|Team|TBD|
-|Frontend|Interface should allow students to submit and their requests and reviewers should be able to managae the requests|Team|TBD|
-|Data|Appropraite data should be used to test creating requests, status changes and incomplete requests|Team|TBD|
+| Database | The database should be able to save requests, statusesm notes, resolution, request history | Carlos  |TBD  |
+|Backend| Needs to Process requests and interact with the database|Everyone|TBD|
+|Frontend|Interface should allow students to submit and their requests and reviewers should be able to managae the requests|Sherry & Jaylen|TBD|
+|Data|Appropraite data should be used to test creating requests, status changes and incomplete requests|Carlos|TBD|
 
 ## Deferred Scope
 
