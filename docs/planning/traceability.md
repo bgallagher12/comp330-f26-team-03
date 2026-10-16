@@ -4,8 +4,8 @@
 
 | Requirement | Acceptance Criteria | Architecture / Design | Implementation | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|
-| REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | Not yet available | Issue #4 - Create Student Request Frontend Page (@sh3rry19); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test / demonstration of valid request creation and rejection of requests missing required information | Request contents remain an open design question | Planned |
-| REQ-002 | AC-REQ-002-01 | Not yet available | Issue #5 - Create ER Diagram and Initial Database (@CarlosA019); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration confirming unique identifiers and later retrieval | Persistence mechanism and identifier approach are not yet finalized | Planned |
+| REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | Not yet available | Issue #4 - Create Student Request Frontend Page (@sh3rry19); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test or demonstration to confirm that valid requests can be submitted and requests missing required fields are rejected | Request contents remain an open design question | Planned |
+| REQ-002 | AC-REQ-002-01 | Not yet available | Issue #5 - Create ER Diagram and Initial Database (@CarlosA019); Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned or test demonstration to confirm that each request received a unique ID and can be retrieved later| Persistence mechanism and identifier approach are not yet finalized | Planned |
 | REQ-003 | AC-REQ-003-01 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned test / demonstration showing a support reviewer can access submitted request information | Reviewer access behavior remains subject to role-design decisions | Planned |
 | REQ-004 | AC-REQ-004-01, AC-REQ-004-02 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration confirming status changes are stored and displayed | Request statuses and valid status transitions remain unresolved | Planned |
 | REQ-005 | AC-REQ-005-01 | Not yet available | Issue #3 - Design Initial Backend Request Processing Logic (@jaylene05, @SanjGurl16) | Planned automated test / demonstration showing reviewer notes or resolution information are saved | Definition of a resolved request remains an open question | Planned |
@@ -19,7 +19,7 @@
 ## Decision Traceability
 
 ADR-0001: Use synthetic data for Cycle 1
-Documented: docs/decisions/adr-001-use-synthetic-data-for-cycle1
+Documented: docs/decisions/adr-001-use-synthetic-data-for-cycle1.md
 Current Status: Proposed
 Team must confirm if alternative considered and approve the decision before its considered accepted as the architecture baseline.
 
@@ -40,7 +40,7 @@ Team must confirm if alternative considered and approve the decision before its 
 |Logging and Retention are still not finalized | docs/architecture/data-context.md, docs/architecture/component-responsibilities.md;  REQ-008| Define the history, logging and retention behavior before finalizing implementation |
 ## Change Impact Traceability
 
-The architecture, API contract and component responsibilities provide the design evidence for the current requirements. None of the material from the requirements will change what is recorded in this section. The team will plan and implement work when unresolved architecture decisions are finalized or when requirements, assumptions or deign changes.
+The architecture, API contract and component responsibilities provide the current design context for the current requirements. No specific changed to the requirements will change what is recorded in this section. The team will plan and implement work when unresolved architecture decisions are finalized or when requirements, assumptions or deign changes.
 
 ## Traceability Gaps
 
