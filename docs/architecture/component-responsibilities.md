@@ -1,353 +1,294 @@
 # Component Responsibilities
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file defines the responsibilities and boundaries of the system's major
-architectural components.
-
-It should make clear:
-
-- what each component owns;
-- what each component is responsible for;
-- what each component explicitly does NOT own;
-- what each component depends on;
-- what depends on each component; and
-- where important architectural responsibility boundaries exist.
-
-This is NOT a source-code directory, package inventory, class list, or list
-of every technical dependency.
-
-Use the same component names used in:
-
-/docs/architecture/architecture.md
-
-IMPORTANT:
-
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample rows and sample component descriptions must be replaced with your
-  team's actual architecture.
-- Do not simply rename the sample components and retain the example design.
--->
-
 ## Component Responsibility Matrix
-
-<!--
-TEAM CONTENT REQUIRED
-
-Replace the sample rows below with your team's actual major components.
-
-COLUMN GUIDANCE
-
-Component
-Use the authoritative architectural component name.
-
-Primary Responsibilities
-Describe what the component is accountable for.
-
-Does Not Own
-Explicitly identify responsibilities that could otherwise become ambiguous.
-This helps prevent responsibility leakage and architectural drift.
-
-Depends On
-Identify significant architectural dependencies.
-
-Used By
-Identify significant consumers.
-
-Related Requirements
-Reference requirements materially implemented, constrained, or supported by
-the component.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM.
--->
 
 | Component | Primary Responsibilities | Does Not Own | Depends On | Used By | Related Requirements |
 |---|---|---|---|---|---|
-| Web Client | Present workflow information, collect user input, and initiate application actions | Authoritative workflow rules, durable data storage, authentication authority | Application Service | End Users | REQ-001, REQ-002 |
-| Application Service | Enforce workflow behavior, coordinate domain operations, and make application-level authorization decisions | User-interface rendering, identity-provider internals, physical database implementation | Identity Provider, Persistence Layer | Web Client | REQ-001, REQ-002 |
-| Persistence Layer | Provide controlled durable storage and retrieval of application state | Workflow policy, presentation logic, user authentication | Database | Application Service | REQ-001, REQ-002 |
-| Identity Provider | Establish authenticated user identity | Application workflow authorization and business rules | External identity infrastructure | Application Service | REQ-001 |
-
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
-
-Do not create a component merely because a repository folder or package exists.
-
-A component should represent a meaningful architectural responsibility or
-boundary.
--->
+| Student Request Interface | Collect student request information, submit requests, and display current request status and available resolution information | Authoritative workflow rules, persistent storage, reviewer permissions, direct database access | Request Processing Logic | Student Requester | REQ-001, REQ-006 |
+| Reviewer Interface | Display submitted requests, allow reviewer status updates, and allow reviewer notes or resolution information to be entered | Authoritative workflow rules, persistent storage, direct database access | Request Processing Logic | Support Reviewer | REQ-003, REQ-004, REQ-005, REQ-007 |
+| Request Processing Logic | Validate requests, coordinate creation and retrieval, enforce role-specific workflow behavior, process status updates, process reviewer notes/resolution information, and coordinate workflow-history recording | User-interface presentation and physical database implementation | Persistence Layer | Student Request Interface, Reviewer Interface | REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008 |
+| Persistence Layer | Provide controlled storage and retrieval of support requests, identifiers, statuses, resolution information, and workflow-history data | Workflow policy, role decisions, presentation logic | Persistent Data Store | Request Processing Logic | REQ-002, REQ-004, REQ-005, REQ-006, REQ-008 |
+| Persistent Data Store | Durably store CampusConnect request and workflow records | Application workflow rules, role permissions, user-interface behavior | None within the current application boundary | Persistence Layer | REQ-002, REQ-004, REQ-005, REQ-006, REQ-008, REQ-009 |
 
 ## Detailed Component Responsibilities
 
-<!--
-TEAM CONTENT REQUIRED WHERE ADDITIONAL DETAIL IS USEFUL
-
-Use one subsection for each major component when the responsibility matrix
-alone is not sufficient.
-
-Suggested structure:
-
-### Component Name
+### Student Request Interface
 
 **Purpose**
 
-Describe why the component exists.
+Provide the user-facing interface for student requesters during the Cycle 1 workflow.
 
 **Owns**
 
-- Important responsibility or state owned by this component.
+- presentation of request-submission fields;
+- collection of student-entered request information;
+- initiation of request submission;
+- presentation of request status; and
+- presentation of available resolution information.
 
 **Does Not Own**
 
-- Related responsibility intentionally assigned elsewhere.
+- authoritative validation or workflow rules;
+- durable request storage;
+- reviewer-only workflow behavior;
+- direct database access; or
+- final authorization decisions.
 
 **Inputs**
 
-- Important commands, events, requests, or data received.
+- student-entered request information;
+- student actions such as submit or view request; and
+- request information returned by the Request Processing Logic.
 
 **Outputs**
 
-- Important responses, events, state changes, or information produced.
+- request-submission operations;
+- request-retrieval operations; and
+- rendered request, status, validation, and resolution information.
 
 **Dependencies**
 
-- Important internal or external dependencies.
+- Request Processing Logic.
 
 **Failure Responsibilities**
 
-Describe what the component is responsible for when:
-
-- input is invalid;
-- a dependency fails;
-- an operation cannot be completed; or
-- another meaningful failure occurs.
+The Student Request Interface should display validation or application failures clearly and should not indicate that a request was successfully created or updated when the Request Processing Logic reports a failure.
 
 **Related Evidence**
 
-- Requirements:
-- Acceptance Criteria:
-- API / Interface Contracts:
-- Decisions:
-- Tests:
+- Requirements: `REQ-001`, `REQ-006`
+- Acceptance Criteria: `AC-REQ-001-01`, `AC-REQ-001-02`, `AC-REQ-006-01`
+- API / Interface Contracts: maintained in `/docs/architecture/api-contracts.md`
 
-The two sections below are WORKED EXAMPLES ONLY.
-
-DELETE AND REPLACE THEM WITH ACTUAL COMPONENT DESCRIPTIONS.
--->
-
-### Web Client
-
-<!--
-SAMPLE COMPONENT — DELETE AND REPLACE BEFORE SUBMISSION
--->
+### Reviewer Interface
 
 **Purpose**
 
-Provide the interactive interface through which users access workflow capabilities.
+Provide the user-facing interface through which a support reviewer can inspect and process submitted requests.
 
 **Owns**
 
-- presentation of workflow information;
-- collection of user input;
-- client-side interaction state; and
-- communication of user-initiated operations to the Application Service.
+- presentation of submitted request information;
+- initiation of reviewer status updates;
+- collection of reviewer notes or resolution information; and
+- presentation of reviewer workflow actions.
 
 **Does Not Own**
 
 - authoritative workflow rules;
-- durable workflow state;
-- authentication authority; or
-- direct database access.
+- persistent request state;
+- direct database access; or
+- final determination of whether an operation is valid.
 
 **Inputs**
 
-- user actions;
-- application responses; and
-- authenticated session context.
+- reviewer actions;
+- submitted request data;
+- current request status; and
+- existing reviewer note or resolution information.
 
 **Outputs**
 
-- application requests; and
-- rendered user-visible state.
+- request-retrieval operations;
+- requested status changes;
+- reviewer note or resolution updates; and
+- rendered reviewer workflow information.
 
 **Dependencies**
 
-- Application Service.
+- Request Processing Logic.
 
 **Failure Responsibilities**
 
-The client should present application or connectivity failures without
-manufacturing successful state or silently hiding relevant failures.
+The Reviewer Interface should display failed or rejected workflow operations and must not represent an unsuccessful status or resolution update as completed.
 
 **Related Evidence**
 
-- Requirements: `REQ-001`, `REQ-002`
-- API / Interface Contracts: `API-001`, `API-002`
+- Requirements: `REQ-003`, `REQ-004`, `REQ-005`, `REQ-007`
+- Acceptance Criteria: `AC-REQ-003-01`, `AC-REQ-004-01`, `AC-REQ-004-02`, `AC-REQ-005-01`, `AC-REQ-007-01`, `AC-REQ-007-02`
+- API / Interface Contracts: maintained in `/docs/architecture/api-contracts.md`
 
-### Application Service
-
-<!--
-SAMPLE COMPONENT — DELETE AND REPLACE BEFORE SUBMISSION
--->
+### Request Processing Logic
 
 **Purpose**
 
-Coordinate application behavior and enforce workflow-level rules.
+Coordinate CampusConnect application behavior and enforce the Cycle 1 workflow rules.
 
 **Owns**
 
-- workflow orchestration;
 - application-level validation;
-- application authorization decisions based on trusted identity;
-- coordination of persistence operations; and
+- request creation and retrieval coordination;
+- role-specific workflow behavior;
+- request status-update processing;
+- reviewer note and resolution processing;
+- unique-identifier coordination;
+- workflow-history coordination; and
 - application-level error handling.
 
 **Does Not Own**
 
-- browser presentation;
-- external authentication mechanisms; or
-- physical database implementation details.
+- user-interface presentation;
+- physical database implementation; or
+- direct user interaction.
 
 **Inputs**
 
-- authenticated application requests.
+- request-submission commands;
+- request-retrieval commands;
+- reviewer status-update commands;
+- reviewer note or resolution commands; and
+- role context for the current operation.
 
 **Outputs**
 
-- application responses;
-- workflow state changes; and
-- persistence operations.
+- validated request records;
+- request information;
+- status changes;
+- note or resolution changes;
+- persistence operations; and
+- application errors when an operation cannot be completed.
 
 **Dependencies**
 
-- Identity Provider;
 - Persistence Layer.
 
 **Failure Responsibilities**
 
-The service must reject invalid or unauthorized operations and must not report
-a successful state change when the required operation was not completed.
+The Request Processing Logic must reject invalid or unauthorized operations, identify missing required information where appropriate, and must not report a successful state change unless the required operation has been completed.
 
 **Related Evidence**
 
-- Requirements: `REQ-001`, `REQ-002`
-- API / Interface Contracts: `API-001`, `API-002`
+- Requirements: `REQ-001` through `REQ-008`
+- Acceptance Criteria: `AC-REQ-001-01` through `AC-REQ-008-01`
+- API / Interface Contracts: maintained in `/docs/architecture/api-contracts.md`
 
-<!--
-DELETE AND REPLACE THE SAMPLE COMPONENT SECTIONS ABOVE.
+### Persistence Layer
 
-You do not need a lengthy detailed subsection for every component if the
-responsibility matrix already makes the boundary clear.
+**Purpose**
 
-Use additional detail where ownership, failure behavior, or architectural
-boundaries would otherwise remain ambiguous.
--->
+Provide a controlled boundary between application workflow logic and durable request storage.
+
+**Owns**
+
+- storage and retrieval operations;
+- translation between application request data and persistent records;
+- preservation of unique request identifiers;
+- persistence of current status;
+- persistence of reviewer notes or resolution information; and
+- persistence of required workflow-history information.
+
+**Does Not Own**
+
+- workflow validation rules;
+- role authorization rules;
+- user-interface behavior; or
+- reviewer decision-making.
+
+**Inputs**
+
+- create-request operations;
+- retrieve-request operations;
+- status-update operations;
+- resolution-update operations; and
+- history-recording operations.
+
+**Outputs**
+
+- stored request records;
+- retrieved request records;
+- persistence confirmations; and
+- persistence errors.
+
+**Dependencies**
+
+- Persistent Data Store.
+
+**Failure Responsibilities**
+
+The Persistence Layer must report storage or retrieval failures to the Request Processing Logic and must not report successful persistence when the underlying operation fails.
+
+**Related Evidence**
+
+- Requirements: `REQ-002`, `REQ-004`, `REQ-005`, `REQ-006`, `REQ-008`
+- Acceptance Criteria: `AC-REQ-002-01`, `AC-REQ-004-01`, `AC-REQ-004-02`, `AC-REQ-005-01`, `AC-REQ-006-01`, `AC-REQ-008-01`
+- API / Interface Contracts: maintained in `/docs/architecture/api-contracts.md`
+
+### Persistent Data Store
+
+**Purpose**
+
+Provide durable storage for CampusConnect Cycle 1 request and workflow data.
+
+**Owns**
+
+- stored request records;
+- stored unique identifiers;
+- stored current status;
+- stored reviewer notes or resolution information; and
+- stored workflow-history information required by the final Cycle 1 design.
+
+**Does Not Own**
+
+- application workflow policy;
+- role permissions;
+- validation rules; or
+- user-interface behavior.
+
+**Inputs**
+
+- persistence operations from the Persistence Layer.
+
+**Outputs**
+
+- stored data;
+- retrieved data; and
+- database or storage errors.
+
+**Dependencies**
+
+- No internal CampusConnect component beyond the Persistence Layer boundary.
+
+**Failure Responsibilities**
+
+The data store must expose storage or retrieval failures through the Persistence Layer so that the application does not incorrectly assume that state was saved.
+
+**Related Evidence**
+
+- Requirements: `REQ-002`, `REQ-004`, `REQ-005`, `REQ-006`, `REQ-008`, `REQ-009`
+- Acceptance Criteria: `AC-REQ-002-01`, `AC-REQ-004-01`, `AC-REQ-005-01`, `AC-REQ-006-01`, `AC-REQ-008-01`, `AC-REQ-009-01`
 
 ## Responsibility Boundaries
 
-<!--
-TEAM CONTENT REQUIRED FOR IMPORTANT OR EASILY CONFUSED BOUNDARIES
-
-Document boundaries where ambiguity could create defects or architectural
-drift.
-
-Questions to consider where relevant:
-
-- Where is input validated?
-- Where are authoritative authorization decisions made?
-- Which component owns authoritative state?
-- Which components may modify that state?
-- Where are business rules enforced?
-- Who handles retries or failures?
-- Who converts between internal and external representations?
-- Who owns audit or logging responsibilities?
-- Where are transaction boundaries established?
-
-Do not answer irrelevant questions merely to fill the table.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM.
--->
-
 | Concern | Owning Component | Boundary / Rule |
 |---|---|---|
-| Workflow rule enforcement | Application Service | User-interface code may guide users but does not establish authoritative workflow validity. |
-| Persistent workflow state | Persistence Layer / Database | Application components access durable state through the persistence boundary. |
-| User authentication | Identity Provider | The application consumes trusted identity but does not manage user credentials. |
-
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+| Request input presentation | Student Request Interface | The interface collects and displays information but does not establish authoritative workflow validity |
+| Reviewer workflow presentation | Reviewer Interface | The interface exposes reviewer actions but the Request Processing Logic determines whether operations are allowed |
+| Request validation | Request Processing Logic | User interfaces may provide convenience validation, but authoritative validation occurs in application logic |
+| Role-specific workflow behavior | Request Processing Logic | Student and reviewer permissions are enforced at the application boundary rather than relying only on hidden UI controls |
+| Persistent request state | Persistence Layer / Persistent Data Store | Durable state is accessed through the persistence boundary; user interfaces do not directly modify stored records |
+| Unique request identifiers | Request Processing Logic / Persistence Layer | Request creation must result in a preserved unique identifier; exact generation strategy remains dependent on the final persistence design |
+| Status changes | Request Processing Logic | Reviewer actions request a status change, but workflow logic determines whether the change is valid before persistence |
+| Reviewer notes / resolution information | Request Processing Logic | Reviewer input is processed through application logic before being stored |
+| Workflow history | Request Processing Logic / Persistence Layer | Application logic determines what actions should be recorded; persistence stores the resulting history |
+| Synthetic-data constraint | All application components | Components must operate without requiring real student records or private Loyola data |
 
 ## Shared Responsibilities
 
-<!--
-Some concerns legitimately span multiple components.
-
-Examples may include:
-
-- security;
-- observability;
-- validation;
-- error handling;
-- performance;
-- logging; or
-- traceability.
-
-Do not assign an important cross-cutting concern vaguely to "everyone."
-
-Describe how responsibility is divided.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT.
-
-If this section adds no meaningful information to your architecture, the team
-may remove it after making that decision.
--->
-
 | Concern | Components | Responsibility Split |
 |---|---|---|
-| Security | Web Client, Application Service, Identity Provider | Identity Provider establishes identity; Application Service enforces authorization; Web Client presents permitted actions but is not the authoritative security boundary. |
-
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+| Validation | Student Request Interface, Reviewer Interface, Request Processing Logic | Interfaces may provide user-friendly checks, while Request Processing Logic performs authoritative validation |
+| Role handling | Student Request Interface, Reviewer Interface, Request Processing Logic | Interfaces present role-appropriate actions; Request Processing Logic remains the authoritative enforcement point |
+| Error handling | Interfaces, Request Processing Logic, Persistence Layer | Lower layers report failures upward; application logic interprets failures; interfaces communicate relevant failures to users |
+| Logging / history | Request Processing Logic, Persistence Layer, Persistent Data Store | Application logic determines important workflow events; persistence records the required history; exact depth remains subject to Q-007 |
+| Traceability | All major components | Component behavior should remain linked to requirements, interface contracts, tests, and review evidence as implementation develops |
 
 ## Component Changes
 
-<!--
-Component boundaries may evolve.
-
-When a component is:
-
-- added;
-- removed;
-- split;
-- merged; or
-- given materially different responsibilities;
-
-review and update:
-
-1. this file;
-2. architecture.md;
-3. the architecture diagram;
-4. api-contracts.md;
-5. significant decision records;
-6. affected requirements and acceptance criteria;
-7. tests; and
-8. relevant risk or operational evidence.
-
-Use the table below for meaningful changes.
-
-A blank table is intentional at project start.
--->
+No material component-boundary changes have been recorded yet.
 
 | Effective Gate | Component | Change | Reason | Related Decision |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| A3 | All Cycle 1 components | Initial component-responsibility baseline established | Provide clear ownership and boundaries before implementation accelerates | No formal ADR yet |
 
 ## Expectations
 
@@ -360,22 +301,3 @@ A blank table is intentional at project start.
 - Avoid duplicating source-code structure without architectural meaning.
 - Avoid vague shared ownership of critical responsibilities.
 - Update component boundaries when the architecture changes.
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Delete and replace all sample component data.
-2. Confirm every listed component exists in the current architecture.
-3. Confirm component names agree with architecture.md.
-4. Confirm interactions agree with api-contracts.md.
-5. Review for missing, overlapping, or ambiguous responsibilities.
-6. Confirm referenced requirements and contracts exist.
-7. Remove all instructional HTML comments.
-
-A reviewer should be able to use this file to answer:
-
-"Which component is responsible for this behavior, state, or architectural
-decision?"
--->
