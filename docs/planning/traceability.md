@@ -17,12 +17,12 @@
 
 
 ## Decision Traceability
+### ADR-0001 — Synthetic Data for Cycle 1
 
-ADR-0001: Use synthetic data for Cycle 1
-Documented: docs/decisions/adr-001-use-synthetic-data-for-cycle1.md
-Current Status: Proposed
-Team must confirm if alternative considered and approve the decision before its considered accepted as the architecture baseline.
-
+- **Document:** `docs/decisions/adr-0001-use-synthetic-data-for-cycle-1.md`
+- **Status:** Proposed
+- **Related Requirement:** REQ-009
+- **Remaining Action:** Confirm alternatives and reasoning with the team before accepting this decision.
 
 ## Risk and Assumption Traceability
 
