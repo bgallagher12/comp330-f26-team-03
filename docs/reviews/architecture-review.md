@@ -1,434 +1,199 @@
 # Architecture Review
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records a review of the project's current architecture.
-
-An architecture review should evaluate whether the architecture is appropriate
-for the requirements, constraints, risks, quality concerns, and evidence
-currently available.
-
-The goal is NOT to ask:
-
-"Does the architecture diagram look complete?"
-
-The goal is to ask questions such as:
-
-- Does the architecture address important requirements?
-- Are component responsibilities clear?
-- Are important interfaces and dependencies understood?
-- Are architectural assumptions visible?
-- Are important failure and security boundaries explicit?
-- Are significant architectural decisions justified?
-- Are there contradictions among architecture artifacts?
-- What risks or unresolved questions remain?
-- What must change before the architecture can be considered ready?
-
-Reference the authoritative architecture evidence in:
-
-/docs/architecture/architecture.md
-/docs/architecture/component-responsibilities.md
-/docs/architecture/api-contracts.md
-/docs/decisions/
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
-- Do not claim that an architecture was reviewed if the review did not occur.
--->
-
 ## Review Identification
 
-**Review Date:**  
-**Applicable Gate / Milestone:**  
-**Architecture Baseline / Commit:**  
-**Reviewer(s):**  
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify exactly what architecture baseline was reviewed.
-
-Where practical, reference:
-
-- Git commit;
-- branch;
-- phase-gate baseline;
-- architecture version.
-
-Do not leave placeholder metadata in the completed review.
--->
+**Review Date:** Pending formal peer review  
+**Applicable Gate / Milestone:** A1 — Project Launch / Cycle 1  
+**Architecture Baseline / Commit:** To be recorded when the review begins  
+**Document Prepared By:** Brendan Gallagher  
+**Assigned Reviewer:** Carlos Alcala  
+**Review Status:** Preliminary documentation assessment; formal peer review pending
 
 ## Review Scope
 
-<!--
-TEAM CONTENT REQUIRED
+This review examines the architecture documentation supporting Campus Connect, a student support request and workflow system developed by Team 03.
 
-Describe what was included in this review.
+The preliminary assessment covers:
 
-Possible evidence may include:
+- `docs/architecture/architecture.md`
+- `docs/architecture/component-responsibilities.md`
+- `docs/architecture/api-contracts.md`
+- The Campus Connect project README
 
-- architecture.md;
-- architecture diagram;
-- component-responsibilities.md;
-- api-contracts.md;
-- ADRs;
-- requirements;
-- acceptance criteria;
-- assumptions;
-- risk register.
+The formal review should also consider:
 
-Also identify anything explicitly excluded.
+- `docs/architecture/data-context.md`
+- Relevant architecture decision records in `docs/decisions/`
+- Requirements and acceptance criteria in `docs/requirements/`
+- Relevant risks and assumptions
 
-Replace this comment with the actual review scope.
--->
+The review focuses on whether the documented architecture adequately supports the planned Cycle 1 functionality.
+
+Production deployment and future integrations are outside the scope of this preliminary assessment.
 
 ## Architecture Summary
 
-<!--
-TEAM CONTENT REQUIRED
+Campus Connect is intended to provide a system through which students can submit support requests and track their progress.
 
-Briefly summarize the architecture being reviewed.
+Support reviewers will be able to process requests, update their statuses, and document resolutions.
 
-Do not reproduce architecture.md.
+Cycle 1 focuses on implementing a limited end-to-end workflow using synthetic data.
 
-Capture only enough context for the review findings to make sense.
+The planned workflow includes:
 
-Replace this comment with the actual summary.
--->
+- Student request submission
+- Unique request identification
+- Reviewer processing
+- Request status updates
+- Resolution tracking
+- Student visibility into request outcomes
+
+The repository's current architecture documentation has not yet established a verified component structure, data persistence approach, or set of application interfaces.
+
+The existing architecture files contain starter examples that must be replaced with actual project-specific information.
 
 ## Review Criteria
 
-<!--
-TEAM CONTENT REQUIRED
-
-Identify the criteria used to evaluate the architecture.
-
-Use only criteria that matter to the project.
-
-Possible areas include:
-
-- requirements alignment;
-- separation of responsibilities;
-- interface clarity;
-- data ownership;
-- security;
-- reliability;
-- maintainability;
-- testability;
-- deployability;
-- observability;
-- failure handling;
-- operational support;
-- scalability;
-- traceability.
-
-EXAMPLE ONLY:
-
 | Review Area | Review Question | Related Evidence |
 |---|---|---|
-| Requirements alignment | Does the architecture provide a credible path to satisfy the current requirements? | requirements.md, architecture.md |
-| Responsibility boundaries | Are important component responsibilities and non-responsibilities explicit? | component-responsibilities.md |
-
-Delete the example and populate the actual table below.
--->
-
-| Review Area | Review Question | Related Evidence |
-|---|---|---|
-|  |  |  |
+| Requirements Alignment | Does the architecture support the planned Cycle 1 request workflow? | README, requirements |
+| Component Responsibilities | Are responsibilities assigned to actual system components? | component-responsibilities.md |
+| Interface Clarity | Are interactions between components clearly documented? | api-contracts.md |
+| Data Ownership | Is authoritative request data identified and assigned an owner? | data-context.md |
+| Security | Are student and reviewer access boundaries addressed? | Architecture and data documentation |
+| Testability | Can the Cycle 1 workflow be tested using synthetic data? | README, tests |
+| Traceability | Are significant architectural decisions documented and supported by evidence? | ADRs, requirements |
 
 ## Findings
 
-<!--
-TEAM CONTENT REQUIRED
+The following preliminary findings are based on inspection of the available architecture documentation.
 
-Record actual review findings.
-
-Use stable identifiers:
-
-ARF-###
-
-Examples:
-
-ARF-001
-ARF-002
-
-Finding Type may include:
-
-- Strength
-- Concern
-- Gap
-- Risk
-- Question
-- Required Change
-
-Severity / Importance should use a simple team-defined scale when useful.
-
-Suggested values:
-
-- High
-- Medium
-- Low
-
-Do not manufacture findings merely to populate the review.
-
-EXAMPLE ONLY:
+They are not yet formal findings from the assigned peer reviewer.
 
 | ID | Type | Finding | Importance | Evidence | Required Action |
 |---|---|---|---|---|---|
-| ARF-001 | Concern | Authorization responsibility is described in architecture.md but not explicitly assigned in component-responsibilities.md | Medium | Architecture / component responsibility comparison | Clarify authoritative authorization boundary |
+| ARF-001 | Gap | The main architecture document still contains starter instructions, sample components, and an example diagram rather than a verified Campus Connect architecture. | High (proposed) | architecture.md | Complete the system context, architecture structure, component descriptions, and diagram using the team's actual design. |
+| ARF-002 | Gap | Component responsibilities are represented by starter examples rather than verified project-specific responsibilities and boundaries. | High (proposed) | component-responsibilities.md | Identify actual components, ownership boundaries, dependencies, and failure responsibilities. |
+| ARF-003 | Gap | API contracts contain sample endpoints, request fields, and interface descriptions that have not been confirmed as Campus Connect contracts. | High (proposed) | api-contracts.md | Replace sample contracts with the team's actual interfaces and document relevant inputs, outputs, security rules, and failure behavior. |
 
-DELETE the example and populate actual findings below.
--->
+**Reviewer Confirmation:** Pending
 
-| ID | Type | Finding | Importance | Evidence | Required Action |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
+**Author Response:** Preliminary findings documented for review. Final responses will be recorded after reviewer feedback.
+
+**Finding Dispositions:** Pending. Each finding will be marked Accepted, Deferred, or Rejected with supporting justification after review.
 
 ## Requirements Alignment
 
-<!--
-TEAM CONTENT REQUIRED
-
-Evaluate whether important requirements have a plausible architectural
-realization.
-
-Do not attempt to duplicate the complete traceability matrix.
-
-Focus on architectural relationships significant enough to review.
-
-EXAMPLE ONLY:
+The Campus Connect README describes the intended Cycle 1 workflow. The current architecture documentation does not yet provide enough verified project-specific detail to confirm architectural alignment.
 
 | Requirement / Concern | Architectural Response | Review Result | Gap / Action |
 |---|---|---|---|
-| REQ-001 | Web Client -> Application Service -> Persistence Layer | Adequate | None |
+| Student request submission | Planned Cycle 1 capability | Not verified | Confirm supporting components and interfaces. |
+| Unique request IDs | Planned Cycle 1 capability | Not verified | Define responsibility for generating and maintaining identifiers. |
+| Reviewer processing | Planned Cycle 1 capability | Not verified | Define reviewer workflow responsibilities. |
+| Request status updates | Planned Cycle 1 capability | Not verified | Define status ownership and update behavior. |
+| Resolution tracking | Planned Cycle 1 capability | Not verified | Define how resolutions are recorded and retrieved. |
+| Student outcome visibility | Planned Cycle 1 capability | Not verified | Confirm retrieval interfaces and access boundaries. |
 
-Populate actual evidence below.
--->
-
-| Requirement / Concern | Architectural Response | Review Result | Gap / Action |
-|---|---|---|---|
-|  |  |  |  |
+These results reflect documentation readiness rather than completed implementation testing.
 
 ## Component and Responsibility Review
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review whether component boundaries are clear enough to prevent:
-
-- duplicated responsibility;
-- missing responsibility;
-- ambiguous ownership;
-- security responsibility leakage;
-- architectural coupling that contradicts the intended design.
-
-Reference:
-
-/docs/architecture/component-responsibilities.md
-
-Populate findings only where useful.
--->
-
 | Component / Boundary | Review Result | Concern / Strength | Action |
 |---|---|---|---|
-|  |  |  |  |
+| Major components | Incomplete documentation | Current component matrix uses starter examples rather than verified Campus Connect components. | Replace examples with actual components. |
+| Request workflow ownership | Not verified | Responsibility for request submission, processing, and resolution is not established in the reviewed document. | Assign responsibilities to confirmed components. |
+| Data ownership | Not verified | Authoritative ownership of workflow state is not confirmed. | Align component responsibilities with data-context.md. |
+| Security boundaries | Not verified | Authentication and authorization boundaries are represented by starter examples. | Document the team's actual security responsibilities. |
+| Failure handling | Not verified | Existing descriptions are examples rather than confirmed project behavior. | Document important failure responsibilities. |
+
+The team should maintain consistent component names across architecture diagrams, responsibility documentation, and interface contracts.
 
 ## Interface and Dependency Review
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review important interfaces and dependencies.
-
-Consider:
-
-- consumer/provider clarity;
-- input/output expectations;
-- failure behavior;
-- security expectations;
-- external dependencies;
-- compatibility concerns.
-
-Reference:
-
-/docs/architecture/api-contracts.md
--->
-
 | Interface / Dependency | Review Result | Concern / Strength | Action |
 |---|---|---|---|
-|  |  |  |  |
+| Request submission | Not verified | The documented submission endpoint is a starter example. | Confirm the actual interface and request contract. |
+| Request status retrieval | Not verified | The documented retrieval endpoint is a starter example. | Confirm the actual interface and response contract. |
+| Reviewer workflow operations | Not verified | The reviewed file does not establish project-specific reviewer operation contracts. | Document required reviewer interactions. |
+| Authentication and authorization | Not verified | Existing security expectations belong to sample contracts. | Confirm access-control expectations. |
+| Failure behavior | Not verified | Error-handling descriptions are not yet tied to confirmed interfaces. | Define relevant validation, authorization, and failure responses. |
+
+The current documentation is insufficient to confirm whether the proposed interfaces align with the team's implementation.
 
 ## Quality Attribute Review
 
-<!--
-TEAM CONTENT REQUIRED
-
-Evaluate quality concerns that actually matter to the architecture.
-
-Examples may include:
-
-- security;
-- maintainability;
-- reliability;
-- testability;
-- performance;
-- deployability;
-- recoverability;
-- observability.
-
-Do not include a quality merely because it appears in this comment.
-
-EXAMPLE ONLY:
-
 | Quality Concern | Current Architectural Support | Evidence | Remaining Concern |
 |---|---|---|---|
-| Testability | Business logic separated from presentation boundary | architecture.md, tests | Integration boundary still needs explicit contract tests |
+| Security | Cycle 1 uses synthetic data, reducing reliance on real student records during development. | README | Actual access-control boundaries remain unverified. |
+| Maintainability | The repository provides separate architecture, component, and interface documentation. | Repository documentation structure | Actual component separation remains undocumented. |
+| Testability | Cycle 1 is intended to use synthetic data for the end-to-end workflow. | README | Test coverage and interface verification have not been assessed. |
+| Traceability | The repository provides locations for requirements, ADRs, and review records. | Repository documentation structure | Links between actual decisions, requirements, interfaces, and tests require verification. |
 
-Populate actual review evidence below.
--->
-
-| Quality Concern | Current Architectural Support | Evidence | Remaining Concern |
-|---|---|---|---|
-|  |  |  |  |
+These observations do not establish that the architecture meets the quality criteria.
 
 ## Architecture Risks and Open Questions
 
-<!--
-TEAM CONTENT REQUIRED
-
-Reference rather than duplicate authoritative risks and open questions.
-
-Relevant sources:
-
-/docs/planning/risk-register.md
-/docs/requirements/assumptions-open-questions.md
-
-Capture only those that materially affect architecture readiness.
--->
-
 | Risk / Question | Architectural Impact | Required Resolution / Monitoring |
 |---|---|---|
-|  |  |  |
+| Actual architecture structure is not documented. | Component interactions and design boundaries cannot be evaluated reliably. | Complete and verify architecture.md. |
+| Component ownership is unclear. | Workflow responsibilities may be duplicated or omitted. | Complete component-responsibilities.md. |
+| API contracts are unverified. | Consumers and providers may have inconsistent expectations. | Complete and validate api-contracts.md. |
+| Persistence technology and data ownership are not confirmed in the reviewed architecture. | Request storage and state management remain unclear. | Confirm persistence decisions and align with data-context.md. |
+| Authentication and authorization design is not confirmed. | Student and reviewer access boundaries cannot be evaluated. | Confirm security approach and document relevant responsibilities. |
+
+These concerns should be checked against the team's risk register and assumptions documentation before the formal review is finalized.
 
 ## Decision Record Review
 
-<!--
-TEAM CONTENT REQUIRED
+The repository provides a location for Architecture Decision Records.
 
-Review whether significant architectural choices have appropriate decision
-evidence.
+A proposed ADR concerning the use of synthetic data during Cycle 1 has been prepared separately.
 
-Reference ADRs from:
-
-/docs/decisions/
-
-Questions to consider:
-
-- Was a meaningful choice made?
-- Were alternatives considered?
-- Are tradeoffs visible?
-- Does the current architecture agree with the ADR?
-- Has evidence changed enough to revisit the decision?
-
-Populate actual evidence below.
--->
+The team must confirm whether synthetic data represents an actual architectural decision or an existing project requirement.
 
 | ADR / Decision | Review Result | Current? | Revisit Needed? | Notes |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| Proposed ADR-0001 — Synthetic data for Cycle 1 | Pending confirmation | Proposed | To be determined | Confirm decision status, owners, alternatives, and rationale with the team. |
+
+Additional significant architectural decisions should be documented if they have been made.
 
 ## Required Actions
 
-<!--
-TEAM CONTENT REQUIRED
-
-Convert review findings requiring work into concrete actions.
-
-Use action IDs when useful:
-
-ARA-###
-
-Examples:
-
-ARA-001
-ARA-002
-
-Actions should have:
-
-- clear outcome;
-- owner;
-- target;
-- evidence of completion.
-
-EXAMPLE ONLY:
+The following actions are proposed based on the preliminary documentation findings. Owners and target dates require team confirmation.
 
 | Action ID | Required Action | Driver | Owner | Target | Status |
 |---|---|---|---|---|---|
-| ARA-001 | Clarify authorization ownership in component-responsibilities.md | ARF-001 | Architecture & Development Lead | Before A3 review | Planned |
+| ARA-001 | Replace starter content in architecture.md with the verified system architecture and diagram. | ARF-001 | To be assigned | Before formal architecture approval | Proposed |
+| ARA-002 | Document actual components, responsibilities, dependencies, and ownership boundaries. | ARF-002 | To be assigned | Before formal architecture approval | Proposed |
+| ARA-003 | Replace sample API contracts with verified project interfaces and relevant security and failure behavior. | ARF-003 | To be assigned | Before formal architecture approval | Proposed |
 
-DELETE the example and populate actual actions below.
--->
-
-| Action ID | Required Action | Driver | Owner | Target | Status |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
+Completion evidence should include links to the relevant GitHub commits or pull requests.
 
 ## Review Conclusion
 
-<!--
-TEAM CONTENT REQUIRED
+**Review Outcome:** Pending formal peer review.
 
-State the review conclusion based on the evidence.
+**Preliminary Assessment:** The available architecture documentation is not yet ready for formal approval because significant portions remain starter examples rather than verified Campus Connect design information.
 
-Suggested outcomes:
+The preliminary findings identify documentation gaps that prevent a complete evaluation of architectural readiness.
 
-- Ready
-- Ready with Minor Actions
-- Conditionally Ready
-- Not Ready
+The assigned reviewer must confirm the findings, examine the applicable architecture baseline, and determine the formal review outcome.
 
-Define the conclusion in terms of the architecture baseline reviewed.
-
-Do not mark architecture Ready merely because the document is complete.
-
-The conclusion should reflect whether significant architecture risks, gaps,
-contradictions, or unresolved decisions remain.
-
-Replace this comment with the actual conclusion and rationale.
--->
-
-**Review Outcome:**  
+This document does not represent architecture approval or a completed peer review.
 
 ## Follow-Up
 
-<!--
-TEAM CONTENT REQUIRED WHEN REVIEW ACTIONS REMAIN
+Carlos Alcala will be requested to review the architecture documentation through the team's GitHub pull request workflow.
 
-State when or how open architecture-review actions will be checked.
+Following the review:
 
-If no follow-up is required, state that explicitly.
--->
+1. Record the actual review date and architecture commit.
+2. Add or revise findings based on reviewer feedback.
+3. Record Brendan Gallagher's responses to the findings.
+4. Mark each finding as Accepted, Deferred, or Rejected, with justification.
+5. Confirm owners and target dates for required actions.
+6. Link relevant GitHub issues, commits, or pull requests as evidence.
+7. Record the final review conclusion when supported by the completed review.
 
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Complete review identification.
-2. Confirm the architecture baseline actually reviewed.
-3. Base findings on real engineering evidence.
-4. Do not invent strengths or concerns.
-5. Confirm component and interface names agree with architecture artifacts.
-6. Reference risks, assumptions, and ADRs rather than duplicating them.
-7. Convert meaningful findings into concrete actions.
-8. Base the review outcome on evidence, not document completeness.
-9. Remove unused sections.
-10. Remove ALL instructional HTML comments.
-
-The completed review should demonstrate critical evaluation of the architecture,
-not merely approval of the team's own design.
--->
+Outstanding findings will remain open until resolved or explicitly accepted as deferred work by the team.

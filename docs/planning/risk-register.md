@@ -25,7 +25,7 @@ Most current risks are rated Medium because they could cause some rework or dela
 |---|---|---|
 | R-001 | Backend work requires fields or relationships that are not represented in the database design. | ER diagram and backend changes |
 | R-002 | Frontend and backend use different field names, categories, or status values. | Pull request review |
-| R-003 | Required fields or request-processing rules are still undecided when implementation begins. | Backend planning notes |
+| R-003 | Required fields or request-processing rules are still undecided when implementation begins. | Architecture documents and backend planning notes|
 | R-004 | Multiple pull requests modify the same shared file or Git reports merge conflicts. | GitHub pull requests |
 | R-005 | Components are still unfinished when the team is ready to begin integration. | Task plan and team review |
 | R-006 | Permissions are still unclear| data-context.md |

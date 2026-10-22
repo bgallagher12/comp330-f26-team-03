@@ -1,447 +1,513 @@
 # API and Interface Contracts
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records significant contracts between architectural components and
-between the system and external systems.
-
-"API" does not mean only public HTTP endpoints.
-
-A contract may describe:
-
-- HTTP/REST interactions;
-- internal service interfaces;
-- events or messages;
-- external service integrations;
-- command/query boundaries;
-- file or data exchange formats; or
-- other interactions where both sides need a stable, reviewable agreement.
-
-Do not document every function call.
-
-Document interfaces whose behavior, data, errors, security expectations, or
-evolution matter to the architecture.
-
-Use component names consistent with:
-
-/docs/architecture/architecture.md
-/docs/architecture/component-responsibilities.md
-
-IMPORTANT:
-
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample contracts and sample data must be replaced with your team's actual
-  interface contracts.
-- Do not simply rename the example endpoints or fields.
--->
-
 ## Contract Summary
-
-<!--
-TEAM CONTENT REQUIRED
-
-Use unique identifiers in the form:
-
-API-###
-
-Examples:
-
-API-001
-API-002
-API-003
-
-The API prefix may be used for significant interface contracts even when the
-interaction is not HTTP.
-
-If your team adopts another consistent identifier convention, document it and
-use it throughout the repository.
-
-Recommended status values:
-
-- Proposed
-- Accepted
-- Implemented
-- Verified
-- Changed
-- Deprecated
-- Removed
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH ACTUAL PROJECT CONTRACTS.
--->
 
 | ID | Consumer | Provider | Purpose | Interface / Protocol | Related Requirements | Status |
 |---|---|---|---|---|---|---|
-| API-001 | Web Client | Application Service | Submit a new workflow request | HTTPS / JSON | REQ-001 | Proposed |
-| API-002 | Web Client | Application Service | Retrieve workflow request status | HTTPS / JSON | REQ-002 | Proposed |
-| API-003 | Application Service | Identity Provider | Obtain trusted authenticated identity | Provider-defined authentication protocol | REQ-001 | Proposed |
-
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+| API-001 | Student Request Interface | Request Processing Logic | Submit a new support request | Internal application interface; exact protocol TBD | REQ-001 | Proposed |
+| API-002 | Student Request Interface | Request Processing Logic | Retrieve a student's request status and available resolution information | Internal application interface; exact protocol TBD | REQ-006 | Proposed |
+| API-003 | Reviewer Interface | Request Processing Logic | Retrieve submitted support requests for review | Internal application interface; exact protocol TBD | REQ-003 | Proposed |
+| API-004 | Reviewer Interface | Request Processing Logic | Update the status of a support request | Internal application interface; exact protocol TBD | REQ-004, REQ-007 | Proposed |
+| API-005 | Reviewer Interface | Request Processing Logic | Record a reviewer note or resolution | Internal application interface; exact protocol TBD | REQ-005, REQ-007 | Proposed |
+| API-006 | Request Processing Logic | Persistence Layer | Create, retrieve, and update persistent request records | Internal persistence interface | REQ-002, REQ-004, REQ-005, REQ-006, REQ-008 | Proposed |
+| API-007 | Persistence Layer | Persistent Data Store | Store and retrieve durable request and workflow data | Database interface; technology TBD | REQ-002, REQ-004, REQ-005, REQ-006, REQ-008, REQ-009 | Proposed |
 
 ## Detailed Contracts
 
-<!--
-TEAM CONTENT REQUIRED FOR SIGNIFICANT CONTRACTS
+### API-001 — Submit Support Request
 
-Use a detailed subsection for each important interface contract.
-
-Suggested structure:
-
-### API-### — Contract Name
-
-**Consumer:**
-**Provider:**
-**Purpose:**
-**Related Requirements:**
-**Status:**
-
-#### Interaction
-
-Describe the interaction and its direction.
-
-For HTTP:
-- include method and path when known.
-
-For events:
-- identify producer, consumer, and event.
-
-For internal interfaces:
-- identify the architectural boundary.
-
-#### Request / Input
-
-Describe meaningful input.
-
-Use a table, schema, example, or link to authoritative schema evidence.
-
-#### Response / Output
-
-Describe expected output.
-
-#### Failure Behavior
-
-Describe important failure conditions and how they are represented.
-
-#### Authentication / Authorization
-
-Describe security expectations relevant to the interaction.
-
-#### Contract Rules
-
-Describe important:
-
-- invariants;
-- preconditions;
-- postconditions;
-- idempotency expectations;
-- ordering requirements;
-- transaction expectations; or
-- other behavior both sides must understand.
-
-#### Verification
-
-Reference tests or other evidence demonstrating that the implementation
-conforms to the contract.
-
-#### Notes / Open Questions
-
-Reference unresolved questions instead of inventing missing contract details.
-
-The contracts below are WORKED EXAMPLES ONLY.
-
-DELETE AND REPLACE THEM WITH YOUR ACTUAL PROJECT CONTRACTS.
--->
-
-### API-001 — Submit Workflow Request
-
-<!--
-SAMPLE CONTRACT — DELETE AND REPLACE BEFORE SUBMISSION
--->
-
-**Consumer:** Web Client  
-**Provider:** Application Service  
-**Purpose:** Submit a new workflow request for processing.  
+**Consumer:** Student Request Interface  
+**Provider:** Request Processing Logic  
+**Purpose:** Submit a new student support request for validation and creation.  
 **Related Requirements:** `REQ-001`  
 **Status:** Proposed
 
 #### Interaction
 
-`POST /api/requests`
+The Student Request Interface sends student-provided request information to the Request Processing Logic.
 
-The Web Client sends an authenticated request to create a workflow request.
+The exact transport mechanism remains unresolved until the technology stack is selected under `Q-008`.
 
 #### Request / Input
 
-| Field | Required | Description |
-|---|---|---|
-| `requestType` | Yes | Identifies the type of workflow being requested. |
-| `description` | Yes | User-provided information required to process the request. |
+The request contains the support-request information collected from the student.
 
-<!--
-THE FIELDS ABOVE ARE SAMPLE DATA.
-
-DELETE AND REPLACE THEM WITH YOUR ACTUAL CONTRACT.
-
-Do not infer project fields merely because they appear in this example.
--->
+The exact required fields remain unresolved under `Q-001`.
 
 #### Response / Output
 
-On successful creation, the service returns a representation containing the
-new request identifier and current workflow status.
-
-<!--
-As the contract matures, document protocol details such as response structures
-or status codes when they are actually known.
-
-Do not invent protocol detail simply to make an early artifact look complete.
--->
+On successful creation, the Request Processing Logic returns enough information for the interface to confirm that the request was created, including the request's unique identifier and current status when available.
 
 #### Failure Behavior
 
-The service rejects requests that are invalid or unauthorized and returns
-enough structured information for the consumer to distinguish relevant
-failure conditions.
+The operation must fail when required information is missing or invalid.
+
+When required information is missing, the response must identify enough information for the Student Request Interface to explain the problem to the student.
+
+A failed operation must not create a support request.
 
 #### Authentication / Authorization
 
-The interaction requires an authenticated user.
+Cycle 1 may use simulated roles under `ASM-002`.
 
-The Application Service remains responsible for authoritative authorization
-decisions.
+Only behavior associated with the student requester role may initiate this contract.
 
 #### Contract Rules
 
-- A successful response represents a workflow request that was actually created.
-- Invalid required input must not create a workflow request.
-- The client must not infer success solely from local state.
+- Valid required information results in creation of a support request.
+- Missing required information must not create a request.
+- A successful creation must produce a unique request identifier.
+- The interface must not display a successful submission unless the Request Processing Logic confirms creation.
+- Only synthetic or approved sample data may be used.
 
 #### Verification
 
-`AC-REQ-001-01`, `AC-REQ-001-02`
-
-<!--
-THE REFERENCES ABOVE ARE SAMPLE DATA.
-
-Replace them with actual verification evidence.
-
-As implementation matures, verification may also reference:
-
-- integration tests;
-- contract tests;
-- end-to-end tests; or
-- other repository-visible evidence.
--->
+- `AC-REQ-001-01`
+- `AC-REQ-001-02`
+- Related unique-identifier behavior: `AC-REQ-002-01`
 
 #### Notes / Open Questions
 
-None currently documented.
+- `Q-001` — Required request information.
+- `Q-005` — Handling missing or incomplete information.
+- `Q-008` — Technology stack and concrete interface protocol.
 
 ---
 
-### API-002 — Retrieve Workflow Status
+### API-002 — Retrieve Student Request Status
 
-<!--
-SAMPLE CONTRACT — DELETE AND REPLACE BEFORE SUBMISSION
--->
-
-**Consumer:** Web Client  
-**Provider:** Application Service  
-**Purpose:** Retrieve the current state of a workflow request.  
-**Related Requirements:** `REQ-002`  
+**Consumer:** Student Request Interface  
+**Provider:** Request Processing Logic  
+**Purpose:** Retrieve a submitted request's current status and available resolution information for the student requester.  
+**Related Requirements:** `REQ-006`, `REQ-007`  
 **Status:** Proposed
 
 #### Interaction
 
-`GET /api/requests/{requestId}`
+The Student Request Interface requests information for an existing submitted support request.
 
 #### Request / Input
 
-The consumer provides the identifier of the workflow request being retrieved.
+The consumer provides information sufficient to identify the requested support request.
+
+A request identifier is expected to be used, although the final interface form depends on the implementation selected under `Q-008`.
 
 #### Response / Output
 
-The service returns the request's current workflow status when the authenticated
-user is authorized to view the request.
+The provider returns:
+
+- the request's current status; and
+- available resolution information associated with the request.
 
 #### Failure Behavior
 
-The contract must distinguish relevant conditions such as:
+Relevant failures may include:
 
-- request does not exist;
-- caller is not authorized to view the request; and
-- service cannot currently complete the operation.
+- the request cannot be found;
+- the requester is not permitted to view the request; or
+- stored request information cannot be retrieved.
+
+The interface must not fabricate or display stale information as authoritative when retrieval fails.
 
 #### Authentication / Authorization
 
-The caller must be authenticated.
+The provider determines whether the current simulated student role may view the identified request.
 
-The provider determines whether the caller is authorized to view the identified
-request.
+The Student Request Interface is not the authoritative permission boundary.
 
 #### Contract Rules
 
-- A caller must not receive protected request information solely because they know a request identifier.
-- Returned status must represent authoritative application state.
+- Returned status must reflect authoritative stored state.
+- Only information permitted for the student requester should be returned.
+- Reviewer-only actions must not be exposed through this contract.
 
 #### Verification
 
-`AC-REQ-002-01`
+- `AC-REQ-006-01`
+- `AC-REQ-007-01`
 
 #### Notes / Open Questions
 
-None currently documented.
+- `Q-004` — Student vs. reviewer permissions.
+- `Q-006` — Resolution conditions and available resolution information.
+- `Q-008` — Technology stack and concrete interface protocol.
 
-<!--
-DELETE AND REPLACE ALL SAMPLE CONTRACTS ABOVE.
+---
 
-The examples demonstrate the expected structure and level of reasoning.
+### API-003 — Retrieve Submitted Requests for Review
 
-They do NOT define required behavior for your project.
--->
+**Consumer:** Reviewer Interface  
+**Provider:** Request Processing Logic  
+**Purpose:** Allow a support reviewer to access submitted support requests and their submitted information.  
+**Related Requirements:** `REQ-003`, `REQ-007`  
+**Status:** Proposed
+
+#### Interaction
+
+The Reviewer Interface requests submitted support-request information from the Request Processing Logic.
+
+#### Request / Input
+
+The consumer provides reviewer role context and, where appropriate, a request identifier or request-selection input.
+
+#### Response / Output
+
+The provider returns request information that the reviewer is permitted to inspect.
+
+#### Failure Behavior
+
+Relevant failures may include:
+
+- request not found;
+- reviewer role is not permitted to access the request;
+- stored request information cannot be retrieved.
+
+#### Authentication / Authorization
+
+The operation is available only to the support reviewer role.
+
+Cycle 1 may simulate reviewer identity and role behavior under `ASM-002`.
+
+#### Contract Rules
+
+- Student requester behavior must not receive reviewer-only capabilities through this contract.
+- Returned request information must come from authoritative application state.
+- The Reviewer Interface must not directly access the Persistent Data Store.
+
+#### Verification
+
+- `AC-REQ-003-01`
+- `AC-REQ-007-02`
+
+#### Notes / Open Questions
+
+- `Q-004` — Exact reviewer permissions.
+- `Q-008` — Technology stack and concrete interface protocol.
+
+---
+
+### API-004 — Update Request Status
+
+**Consumer:** Reviewer Interface  
+**Provider:** Request Processing Logic  
+**Purpose:** Request a change to the current status of an existing support request.  
+**Related Requirements:** `REQ-004`, `REQ-007`, `REQ-008`  
+**Status:** Proposed
+
+#### Interaction
+
+The Reviewer Interface sends a requested status change for an existing support request.
+
+#### Request / Input
+
+The operation requires:
+
+- identification of the target request;
+- the requested new status; and
+- reviewer role context.
+
+#### Response / Output
+
+On success, the provider returns confirmation of the stored status change and the resulting current status.
+
+#### Failure Behavior
+
+Relevant failures may include:
+
+- request not found;
+- unsupported status;
+- invalid status transition;
+- caller is not permitted to change status; or
+- status could not be persisted.
+
+A failed update must not be represented as successful.
+
+#### Authentication / Authorization
+
+Only the support reviewer role may perform reviewer status changes.
+
+The Request Processing Logic is the authoritative enforcement point.
+
+#### Contract Rules
+
+- The new status must be valid under the final status model.
+- Invalid transitions must not modify stored state.
+- Successful status changes must be persisted.
+- The updated status must be returned accurately when the request is later viewed.
+- Important status changes may require history evidence under `REQ-008`.
+
+#### Verification
+
+- `AC-REQ-004-01`
+- `AC-REQ-004-02`
+- `AC-REQ-007-01`
+- `AC-REQ-007-02`
+- Related history behavior: `AC-REQ-008-01`
+
+#### Notes / Open Questions
+
+- `Q-002` — Supported request statuses.
+- `Q-003` — Valid status transitions.
+- `Q-007` — Required status-change history.
+
+---
+
+### API-005 — Record Reviewer Note or Resolution
+
+**Consumer:** Reviewer Interface  
+**Provider:** Request Processing Logic  
+**Purpose:** Save a reviewer note or resolution with an existing support request.  
+**Related Requirements:** `REQ-005`, `REQ-006`, `REQ-007`, `REQ-008`  
+**Status:** Proposed
+
+#### Interaction
+
+The Reviewer Interface sends reviewer-provided note or resolution information for an existing support request.
+
+#### Request / Input
+
+The operation requires:
+
+- identification of the target request;
+- note or resolution information; and
+- reviewer role context.
+
+#### Response / Output
+
+On success, the provider confirms that the reviewer information has been associated with the request.
+
+#### Failure Behavior
+
+Relevant failures may include:
+
+- request not found;
+- caller is not permitted to modify reviewer information;
+- submitted information is invalid; or
+- information could not be persisted.
+
+#### Authentication / Authorization
+
+Only reviewer-authorized behavior may create or modify reviewer notes or resolution information.
+
+#### Contract Rules
+
+- Reviewer information must be stored with the correct request.
+- A failed persistence operation must not be reported as successful.
+- Student-visible resolution information must follow the final visibility rules.
+- Important reviewer actions may require history evidence under `REQ-008`.
+
+#### Verification
+
+- `AC-REQ-005-01`
+- `AC-REQ-006-01`
+- `AC-REQ-007-02`
+- Related history behavior: `AC-REQ-008-01`
+
+#### Notes / Open Questions
+
+- `Q-004` — Role permissions and visibility.
+- `Q-006` — Definition of a resolved request.
+- `Q-007` — Required reviewer-action history.
+
+---
+
+### API-006 — Request Persistence Operations
+
+**Consumer:** Request Processing Logic  
+**Provider:** Persistence Layer  
+**Purpose:** Create, retrieve, and update durable CampusConnect request records.  
+**Related Requirements:** `REQ-002`, `REQ-004`, `REQ-005`, `REQ-006`, `REQ-008`  
+**Status:** Proposed
+
+#### Interaction
+
+The Request Processing Logic sends persistence operations to the Persistence Layer rather than accessing the Persistent Data Store directly.
+
+#### Request / Input
+
+Operations may include:
+
+- create a request;
+- retrieve a request;
+- store an updated status;
+- store reviewer note or resolution information; and
+- record required workflow-history information.
+
+Exact method signatures and schemas remain dependent on the final implementation.
+
+#### Response / Output
+
+The Persistence Layer returns:
+
+- stored or retrieved request information;
+- persistence confirmation; or
+- a persistence failure.
+
+#### Failure Behavior
+
+Relevant failures may include:
+
+- requested record does not exist;
+- data cannot be stored;
+- data cannot be retrieved; or
+- the Persistent Data Store is unavailable.
+
+Persistence failures must be reported to the Request Processing Logic.
+
+#### Authentication / Authorization
+
+This is an internal application boundary.
+
+User-role authorization should already be evaluated by the Request Processing Logic before state-changing persistence operations are requested.
+
+#### Contract Rules
+
+- Created requests must preserve a unique identifier.
+- Retrieved records must correspond to stored authoritative state.
+- Failed writes must not be reported as successful.
+- Persistence behavior must support the required status, resolution, and history information defined for Cycle 1.
+
+#### Verification
+
+- `AC-REQ-002-01`
+- `AC-REQ-004-01`
+- `AC-REQ-004-02`
+- `AC-REQ-005-01`
+- `AC-REQ-006-01`
+- `AC-REQ-008-01`
+
+#### Notes / Open Questions
+
+- `Q-001` — Request data fields.
+- `Q-002` / `Q-003` — Status model.
+- `Q-007` — Required history depth.
+- `Q-008` — Database and implementation technology.
+
+---
+
+### API-007 — Persistent Data Store Boundary
+
+**Consumer:** Persistence Layer  
+**Provider:** Persistent Data Store  
+**Purpose:** Store and retrieve durable CampusConnect Cycle 1 data.  
+**Related Requirements:** `REQ-002`, `REQ-004`, `REQ-005`, `REQ-006`, `REQ-008`, `REQ-009`  
+**Status:** Proposed
+
+#### Interaction
+
+The Persistence Layer communicates with the selected persistent storage technology.
+
+The database or storage technology has not yet been finalized.
+
+#### Request / Input
+
+Persistent data may include:
+
+- support-request information;
+- unique request identifier;
+- current request status;
+- reviewer note or resolution information; and
+- required workflow-history information.
+
+#### Response / Output
+
+The data store returns persisted or retrieved records, or an identifiable storage failure.
+
+#### Failure Behavior
+
+Relevant failures include:
+
+- storage unavailable;
+- write failure;
+- retrieval failure; or
+- requested record does not exist.
+
+Failures must propagate through the Persistence Layer rather than being silently ignored.
+
+#### Authentication / Authorization
+
+The Persistent Data Store is not directly exposed to student or reviewer interfaces.
+
+Only the Persistence Layer should access this boundary in the current architecture.
+
+#### Contract Rules
+
+- Data must remain durable enough to support later request retrieval.
+- Unique identifiers must remain associated with the correct request.
+- Stored status and resolution information must represent confirmed application state.
+- Only synthetic or approved sample data may be stored for Cycle 1.
+
+#### Verification
+
+- `AC-REQ-002-01`
+- `AC-REQ-004-01`
+- `AC-REQ-005-01`
+- `AC-REQ-006-01`
+- `AC-REQ-008-01`
+- `AC-REQ-009-01`
+
+#### Notes / Open Questions
+
+- `Q-007` — Required workflow-history depth.
+- `Q-008` — Database technology and persistence implementation.
 
 ## Data Contract Guidance
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+The detailed request-data schema is not yet finalized because required request fields remain unresolved under `Q-001` and the technology stack remains unresolved under `Q-008`.
 
-Where an interface exchanges structured data, document the contract at an
-appropriate level of precision.
-
-Possible approaches include:
-
-- Markdown field tables;
-- JSON examples;
-- JSON Schema;
-- OpenAPI;
-- protocol definitions;
-- typed interfaces; or
-- another repository-visible schema.
-
-Avoid maintaining several independent definitions of the same contract.
-
-If OpenAPI or another machine-readable artifact becomes authoritative, this
-file may summarize the architectural contract and link to that source instead
-of duplicating every field.
-
-Example:
-
-Authoritative schema:
-/openapi/openapi.yaml
-
-Architecture evidence:
-This file summarizes the interface and links to the authoritative schema.
--->
+Once those decisions are finalized, the team should maintain one authoritative definition of the request data contract and reference it from this document rather than maintaining conflicting duplicate schemas.
 
 ## Failure Contracts
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+Important contract failures for Cycle 1 include:
 
-Failure behavior is part of an interface contract.
-
-Do not define only the successful path.
-
-Consider relevant conditions such as:
-
-- invalid input;
-- missing required data;
-- unauthorized access;
-- forbidden operations;
-- missing resources;
-- duplicate requests;
-- dependency failures;
-- timeout;
-- concurrency conflicts;
-- unavailable services; or
-- partial completion.
-
-Not every contract needs every failure condition.
-
-Document failures consumers need to understand or that materially affect
-system behavior.
--->
+| Failure Condition | Responsible Boundary | Expected Behavior |
+|---|---|---|
+| Missing required request information | API-001 / Request Processing Logic | Reject submission, do not create the request, and identify missing information |
+| Request not found | API-002, API-003, API-004, API-005 | Report that the requested record could not be found and do not fabricate state |
+| Unauthorized role action | API-002 through API-005 / Request Processing Logic | Reject the operation without modifying protected state |
+| Unsupported or invalid status transition | API-004 / Request Processing Logic | Reject the transition and preserve the existing status |
+| Persistence failure | API-006, API-007 | Report failure upward and do not report the operation as successfully persisted |
+| Private or real university data introduced | System-wide constraint | Reject or remove the data from Cycle 1 project use and review compliance with ASM-001 and REQ-009 |
 
 ## Security Boundaries
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+Cycle 1 uses simulated student requester and support reviewer roles under `ASM-002`; production institutional authentication is outside the current scope.
 
-For contracts crossing trust boundaries, consider:
+The following security boundaries still apply:
 
-- authentication;
-- authorization;
-- confidentiality;
-- integrity;
-- input validation;
-- secret handling;
-- sensitive-data exposure;
-- least privilege;
-- replay behavior; and
-- duplicate-operation concerns.
-
-Do not rely on a user interface to enforce an authoritative security rule.
-
-Reference authoritative security requirements or decisions rather than
-unnecessarily duplicating them.
--->
+- User interfaces are not authoritative authorization boundaries.
+- Request Processing Logic determines whether role-specific actions are allowed.
+- Reviewer-only actions must not be made available to the student requester role.
+- Student and reviewer interfaces must not directly access the Persistent Data Store.
+- Persistent data must use only synthetic or approved sample information under `ASM-001` and `REQ-009`.
+- Role and visibility rules must be updated when `Q-004` is resolved.
 
 ## Contract Compatibility and Change
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-An interface change may affect multiple components.
-
-Before materially changing an accepted contract:
-
-1. identify consumers;
-2. identify affected requirements and acceptance criteria;
-3. determine compatibility impact;
-4. update provider and consumer evidence;
-5. update tests;
-6. record a significant architectural decision when appropriate; and
-7. preserve enough history to understand the change.
-
-Do not silently change one side of a contract while leaving the other side
-documented against an older interface.
-
-The blank table below is intentional at project start.
--->
+No material contract changes have been recorded yet.
 
 | Effective Gate | Contract | Change | Compatibility Impact | Related Evidence |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| A3 | API-001 through API-007 | Initial Cycle 1 interface-contract baseline established | Initial baseline; no earlier accepted contracts replaced | REQ-001 through REQ-009 |
 
 ## Verification and Traceability
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+Interface contracts are currently proposed architecture evidence. They should not be marked `Verified` until implementation and reviewable verification evidence exist.
 
-Important contracts should become traceable to implementation and verification.
+Expected traceability includes:
 
-A useful evidence chain may look like:
+- `REQ-001` → `AC-REQ-001-01`, `AC-REQ-001-02` → `API-001`
+- `REQ-002` → `AC-REQ-002-01` → `API-006`, `API-007`
+- `REQ-003` → `AC-REQ-003-01` → `API-003`
+- `REQ-004` → `AC-REQ-004-01`, `AC-REQ-004-02` → `API-004`, `API-006`
+- `REQ-005` → `AC-REQ-005-01` → `API-005`, `API-006`
+- `REQ-006` → `AC-REQ-006-01` → `API-002`, `API-006`
+- `REQ-007` → `AC-REQ-007-01`, `AC-REQ-007-02` → `API-002`, `API-003`, `API-004`, `API-005`
+- `REQ-008` → `AC-REQ-008-01` → `API-004`, `API-005`, `API-006`, `API-007`
+- `REQ-009` → `AC-REQ-009-01` → `API-007`
 
-REQ-001
-  ->
-AC-REQ-001-01
-  ->
-API-001
-  ->
-Provider implementation
-  ->
-Consumer implementation
-  ->
-Contract or integration test
-
-The exact chain will evolve as the project matures.
-
-Do not claim that a contract is Verified until appropriate evidence exists.
--->
+Implementation and test references should be added as the contracts move from Proposed to Implemented and Verified.
 
 ## Expectations
 
@@ -456,21 +522,3 @@ Do not claim that a contract is Verified until appropriate evidence exists.
 - Update both sides of a contract when it changes.
 - Add verification evidence as implementation matures.
 - Record unresolved behavior explicitly rather than inventing contract details.
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Delete and replace all sample contracts and sample data.
-2. Confirm every retained contract represents an actual architectural interface.
-3. Confirm consumer and provider names agree with component-responsibilities.md.
-4. Confirm component names agree with architecture.md.
-5. Confirm requirement and acceptance-criteria references are valid.
-6. Confirm documented interfaces match the current implementation where implementation exists.
-7. Confirm important failure and security behavior is represented.
-8. Remove all instructional HTML comments.
-
-A reviewer should be able to understand what each side of an important
-architectural boundary is entitled to expect from the other.
--->
