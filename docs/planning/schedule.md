@@ -57,3 +57,36 @@ The team will complete major component work before integration and leave time fo
 | R-003 | MS-003, MS-005 | Unclear backend rules may delay the request workflow. |
 | R-004 | MS-004, MS-005, MS-006 | Merge conflicts may reduce time available for testing. |
 | R-005 | MS-005, MS-006 | Late integration may leave less time for fixes. |
+
+## A3 First Integration Commitment
+
+**Planning status:** Proposed; confirm at the next team meeting.
+
+**Goal:** Demonstrate one synthetic student support request moving
+from submission to application processing, persistent storage,
+retrieval by ID, reviewer status update, and student status retrieval.
+
+| Milestone | Proposed Target | Primary | Backup | Verification |
+|---|---|---|---|---|
+| Confirm fields, statuses, and role rules | 2026-10-27 | Jaylen | Sherry | Record agreed rules and interface changes |
+| Confirm persistence approach | 2026-10-28 | Sanjana | Carlos | Document storage decision and data ownership |
+| Connect request submission to storage | 2026-10-30 | Sanjana | Jaylen | Create a synthetic request and retrieve its unique ID |
+| Verify reviewer update and student retrieval | 2026-11-02 | Jaylen | Sanjana | Confirm saved status is returned correctly |
+| Review failure cases and record evidence | 2026-11-02 | Sherry | Carlos | Record missing-field, unauthorized-action, and storage-failure results |
+
+### Acceptance and Evidence
+
+Integration is not complete until the team records evidence that:
+
+1. A synthetic request can be submitted and receives a unique ID.
+2. The saved request can be retrieved after submission.
+3. A reviewer can update its status and the updated status is retained.
+4. The student interface can retrieve the current status.
+5. Invalid input and unauthorized actions do not incorrectly report success.
+6. Persistence failures are reported rather than hidden.
+7. Relevant test output, commits, or pull requests are linked.
+
+**Current verification status:** Not yet demonstrated or verified.
+These milestones represent planned future work, not passing tests.
+
+Dates and assignments require confirmation by the team.
