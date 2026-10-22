@@ -32,7 +32,7 @@ Purpose of testing is to verify the application's main features work and meet th
 | Components | Chekcs whether interface component work | Request Form, Request List, Reviewer controls | Incorrect display, missing error messages |
 |Integration | Checks whether different parts of the application work together correctly| Sumbission Form, Request Handling, Saving Data, Retrieving Data  | Requests not being saved, incorrect data loaded |
 |System  | Checks whether a complete workflow works from start to end  | Submitting a request and its updated through the reviewer workflow| Missing updates  |
-| Acceptance | Verify implemented features meet Cycle 1 requirements  | Main student and reviewer workflows  |  | Features fo not meet project requirements
+| Acceptance | Verify implemented features meet Cycle 1 requirements | Main student and reviewer workflows | Features do not meet project requirements |
 
 ## Test Types
 
@@ -135,4 +135,3 @@ If theres a failed test, we will record whether the test was fixed or whether th
 |Use of localStorage  | Data is stored in the browser  | Review storage needs if the app expands  | Architected documents |
 | Automated testing is not confirmed | Some buys may go undetected | Add tests where appropriate and possible  | Test results  |
 | Test results and peer reviews may be incomplete  | Some issues may remain unresolved  | Run tests and record results |  Test cases and review records |
-
