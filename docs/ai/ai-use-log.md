@@ -12,6 +12,7 @@ Routine spelling, formatting, or simple syntax assistance does not need to be lo
 | 2026-09-20 | Carlos | ChatGPT | Documentation | Drafted and organized `docs/ai/ai-policy.md` and `docs/ai/ai-use-log.md` | Reviewed and modified the project structure based on the 330 guides |
 | 2026-09-28 | Jaylene | ChatGPT | Backend Planning | Reviewed Issue #3 and helped structure `src/main.py` request-processing logic, including validation, reviewer information, category behavior, open questions, and requirement traceability | Reviewed the suggestions against Issue #3 and the project requirements, then manually incorporated and verified the changes before committing |
 |2026-09-29|Sherry|ChatGPT|Coding Assistance|Used AI to help review any errors of frontend page|Reviewed suggestions and tested the frontend page to verify the form|
+|2026-11-04|Sanjana|ChatGPT|Backend Implementation & Testing|Used AI to help structure and review `src/review_service.py`, including functions to list submitted requests, retrieve requests by ID, validate reviewer resolutions, and save resolutions through `mock_backend.py`. Also used AI assistance to develop `tests/test_review_service.py`.|Reviewed and adapted the suggested code to the existing project structure. Ran `uv run --active pytest -v tests/test_review_service.py` and confirmed all six tests passed. Changes were committed to the `sanjana/reviewer-service` branch.
 
 ## Logging Expectations
 
