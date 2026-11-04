@@ -19,3 +19,7 @@ dist/
 # COMP 330 instructor/local review output
 # Generated review evidence is local and must not be committed
 comp330-reviews/
+
+# Local SQLite files
+data/*.db
+data/*.db-*
