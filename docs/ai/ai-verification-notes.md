@@ -8,12 +8,12 @@ This file records detailed verification evidence for significant AI-assisted eng
 
 **Date:** 2026-11-03
 **AI Tool:** ChatGPT
-**Related AI Use Log Entry:** 2026-11-03
+**Related AI Use Log Entry:** 2026-11-03 - Jaylen
 **Related Evidence:** Issue #27, `src/request_service.py`, `tests/test_request_service.py`, commit `85d392b`
 
 #### AI Contribution
 
-ChatGPT was used as a support tool while I worked on the student-side request service for Issue #27.
+ChatGPT was used as a support tool while Jaylen worked on the student-side request service for Issue #27.
 
 AI assistance included:
 
@@ -22,13 +22,13 @@ AI assistance included:
 - helping troubleshoot an import-path error;
 - reviewing the code and staged changes for possible problems.
 
-I entered and reviewed the implementation myself, decided which suggestions to use, and tested the resulting behavior before committing it.
+Jaylen entered and reviewed the implementation, decided which suggestions to use, and tested the resulting behavior before committing it.
 
 #### Human Verification Performed
 
-I compared the implementation with the requirements listed in Issue #27 and reviewed each function and test before committing the changes.
+Jaylen compared the implementation with the requirements listed in Issue #27 and reviewed each function and test before committing the changes.
 
-I verified that:
+Jaylen verified that:
 
 - all required request fields are checked before submission;
 - `student_id` remains stored as text;
@@ -38,7 +38,7 @@ I verified that:
 - unknown request IDs return an error;
 - reviewer resolutions can be retrieved through the student-side status function.
 
-I ran:
+Jaylen ran:
 
 `python3 -m unittest tests.test_request_service`
 
@@ -48,7 +48,7 @@ The result was:
 
 The initial implementation was committed after 6 tests passed. A seventh test covering unique request IDs and retrieval for `AC-REQ-002-01` was added afterward, and the full suite was rerun successfully.
 
-I also reviewed the staged Git diff before committing to make sure only the intended source and test files were included.
+Jaylen also reviewed the staged Git diff before committing to make sure only the intended source and test files were included.
 
 #### Result
 
@@ -65,6 +65,52 @@ The current implementation uses `src/mock_backend.py` as temporary storage.
 The real database integration has not yet been implemented or tested. Once Carlos's database functions are available, the storage calls will need to be replaced and the student-side tests will need to be run again against the real integration.
 
 Student request ownership and authorization behavior has also not yet been defined, so this implementation does not currently claim or test those permissions.
+
+---
+
+### AVN-002 — Reviewer Service Implementation and Testing
+
+**Date:** 2026-11-04
+**AI Tool:** ChatGPT
+**Related AI Use Log Entry:** 2026-11-04 - Sanjana
+**Related Evidence:** `src/review_service.py`, `tests/test_review_service.py`
+
+#### AI Contribution
+
+ChatGPT assisted with structuring and reviewing the reviewer-side request processing service.
+
+Assistance included implementing functions to list submitted requests, retrieve requests by ID, validate reviewer resolutions, and save resolutions through `mock_backend.py`.
+
+ChatGPT also assisted with developing and reviewing unit tests for the reviewer service.
+
+#### Human Verification Performed
+
+Sanjana reviewed and adapted the suggested implementation to fit the existing project structure.
+
+Verification included:
+
+- Reviewing the service functions and their backend calls.
+- Running `uv run --active pytest -v tests/test_review_service.py`.
+- Testing retrieval of existing and nonexistent requests.
+- Testing submitted-request listing.
+- Testing successful resolution saving.
+- Testing rejection of blank resolutions.
+- Testing prevention of duplicate resolutions.
+
+All six tests passed.
+
+#### Result
+
+The reviewer service successfully passed all six mock-backed tests. The implementation was committed to the `sanjana/reviewer-service` branch.
+
+The implementation uses temporary in-memory storage through `mock_backend.py`. Real database integration has not yet been completed.
+
+#### Remaining Concerns
+
+- Integration with Carlos's database functions remains pending.
+- Reviewer authorization has not yet been implemented or verified.
+- Integration with Sherry's terminal interface remains to be confirmed.
+- The current tests do not establish end-to-end reviewer workflow correctness.
 
 ---
 
