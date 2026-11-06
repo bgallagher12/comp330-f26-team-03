@@ -71,7 +71,7 @@ Initialize the database from the repository root:
     python -m src.main
 
 This creates the database and table if needed and preserves existing requests.
-The terminal menu is not connected to this entry point yet.
+This command also launches the terminal menu.
 
 ## Running tests
 
