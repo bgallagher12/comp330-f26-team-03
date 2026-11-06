@@ -38,6 +38,8 @@ def init_db():
 
 
 def submit_request(details):
+    if not isinstance(details,dict):
+        raise ValueError("Request should be a dictionary")
     record = {}
 
     for field in REQUIRED_FIELDS:

@@ -1,8 +1,8 @@
 """Reviewer-side request processing service.
-Uses temporary in-memory storage through mock_backend.py.
+Uses shared SQLite storage.
 """
 
-from mock_backend import (
+from src.database import (
     list_pending_requests as _list_pending_requests,
     get_request_for_review as _get_request_for_review,
     resolve_request as _resolve_request,

@@ -23,3 +23,6 @@ comp330-reviews/
 # Local SQLite files
 data/*.db
 data/*.db-*
+
+.venv/
+.pytest_cache/

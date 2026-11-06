@@ -220,18 +220,10 @@ Cycle 1 Goal
 # ============================================================
 
 def main():
-    """
-    Start the CampusConnect application.
+    """Initialize CampusConnect storage."""
+    from src.database import init_db
 
-    TODO:
-    - Initialize application components.
-    - Start the application/server.
-    - Add startup validation if needed.
-    """
-
-    # TODO: Start application
-    pass
-
+    init_db()
 
 if __name__ == "__main__":
     main()

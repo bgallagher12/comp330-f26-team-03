@@ -1,18 +1,29 @@
 import unittest
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
 
-from src.request_service import submit_request, get_request_status
-from src.mock_backend import resolve_request
+from src import database
+from src.student_service import submit_request, get_request_status
+from src.reviewer_service import save_resolution
 
+class TestStudentService(unittest.TestCase):
 
-class TestRequestService(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
 
-    # Verify that a request with all required information is successfully created.
-    # This test checks that the backend generates a request ID,
-    # starts the request with the "submitted" status,
-    # and keeps student_id stored as text.
+        storage = patch.object(
+            database, "DB_PATH", Path(temporary.name) / "requests.db"
+        )
+        storage.start()
+        self.addCleanup(storage.stop)
+
+        database.init_db()
+
     def test_valid_request_submission(self):
         details = {
-            "student_id": "12345",
+            "student_id": "00123",
             "student_name": "Test Student",
             "student_email": "test@example.com",
             "title": "Need tutoring help",
@@ -24,7 +35,7 @@ class TestRequestService(unittest.TestCase):
 
         self.assertIn("request_id", result)
         self.assertEqual(result["status"], "submitted")
-        self.assertEqual(result["student_id"], "12345")
+        self.assertEqual(result["student_id"], "00123")
 
     # Verify that a request is rejected when required information is missing.
     # This test uses an empty description and confirms that the service
@@ -104,7 +115,7 @@ class TestRequestService(unittest.TestCase):
         submitted_request = submit_request(details)
         request_id = submitted_request["request_id"]
 
-        resolve_request(request_id, "Student account access was restored.")
+        save_resolution(request_id, "Student account access was restored.")
 
         result = get_request_status(request_id)
 
