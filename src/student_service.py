@@ -1,17 +1,11 @@
 """
 Student-side request service for CampusConnect.
 
-This file contains the functions Sherry's terminal interface will call
-when a student submits a request or checks the status of an existing request.
-
-For now, these functions use mock_backend.py as temporary storage.
-Later, the mock backend can be replaced with Carlos's real database functions.
+Validates student requests and retrieves their status
+using shared SQLite storage.
 """
 
-# Import the temporary storage functions from mock_backend.py.
-# The imported functions are renamed with a leading underscore so it is clear
-# that they are internal helpers used by this service file.
-from src.mock_backend import (
+from src.database import (
     submit_request as _save_request,
     get_request_status as _get_request_status,
 )
@@ -36,6 +30,8 @@ VALID_CATEGORIES = {"Technology", "Tutoring", "Facilities", "Other"}
 # whitespace is removed so student_id remains text as required by Issue #27.
 # The request is only passed to storage after validation succeeds.
 def submit_request(details):
+    if not isinstance(details,dict):
+        raise ValueError("Request details must be a dictionary.")
     validated_details = {}
 
     for field in REQUIRED_FIELDS:
