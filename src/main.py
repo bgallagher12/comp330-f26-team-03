@@ -220,10 +220,13 @@ Cycle 1 Goal
 # ============================================================
 
 def main():
-    """Initialize CampusConnect storage."""
+    """Initialize storage and launch the terminal interface."""
     from src.database import init_db
+    from src.cli import run
 
     init_db()
+    run()
+
 
 if __name__ == "__main__":
     main()

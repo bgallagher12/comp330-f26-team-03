@@ -1,11 +1,9 @@
-from src.mock_backend import (
-    submit_request,
-    get_request_status,
-    list_pending_requests,
-    get_request_for_review,
-    resolve_request,
+from src.student_service import submit_request, get_request_status
+from src.reviewer_service import (
+    list_submitted_requests as list_pending_requests,
+    get_request as get_request_for_review,
+    save_resolution as resolve_request,
 )
-
 categories = ["Technology", "Tutoring", "Facilities", "Other"]
 
 
@@ -42,6 +40,9 @@ def choose_category():
     """
     Asks the user to choose a categroy for their request
     """
+    print("Categories:")
+    for number, category in enumerate(categories, start=1):
+        print(f"{number}. {category}")
     try:
         # Asks the user for the category choice
         category_choice = int(input("Enter your category option: "))
@@ -100,23 +101,13 @@ def get_request_id():
 
 
 def view_request_status():
-    """
-    Finds a request and displays its status
-    """
-    # Gets the request ID
+    """Find a request and display its status and resolution."""
     request_id = get_request_id()
     if request_id is None:
         return
+
     request = get_request_status(request_id)
-
-    if not request:
-        print("Request Not Found")
-        return
-
-    status = request["status"]
-    print(f"Request ID: {request_id}")
-    print(f"Status: {status}")
-
+    display_request(request)
 
 def review_pending_requests():
     """
@@ -131,30 +122,24 @@ def review_pending_requests():
         print("Pending Request")
         display_request(p)
 
-
 def resolve_requests():
-    """
-    Shows a request and lets the reviewer resolve and save it
-    """
+    """Show a request and let the reviewer resolve it."""
     request_id = get_request_id()
-
-    request = get_request_status(request_id)
-
-    if not request:
-        print("Request ID not found")
+    if request_id is None:
         return
+
+    request = get_request_for_review(request_id)
     print("Request To Resolve")
     display_request(request)
 
-    resolution = input("Enter the resolution for this request: ")
+    resolution = input("Enter the resolution for this request: ").strip()
     if not resolution:
         print("You cannot leave the resolution empty")
         return
 
     updated = resolve_request(request_id, resolution)
-    print("equest is resolved")
+    print("Request is resolved")
     display_request(updated)
-
 
 def run():
     """
@@ -163,21 +148,26 @@ def run():
     while True:
         menu()
         choice = input("Choose an option: ").strip()
+        try:
+            match choice:
+                case "1":
+                    submit_request_menu()
+                case "2":
+                    view_request_status()
+                case "3":
+                    review_pending_requests()
+                case "4":
+                    resolve_requests()
+                case "5":
+                    print("You are Exiting the App")
+                    break
+                case _:
+                    print("Invalid Choice. Please choose an option from 1-5.")
+        except ValueError as error:
+            print(error)
 
-        match choice:
-            case "1":
-                submit_request_menu()
-            case "2":
-                view_request_status()
-            case "3":
-                review_pending_requests()
-            case "4":
-                resolve_requests()
-            case "5":
-                print("You are Exiting the App")
-                break
-            case _:
-                print("Invalid Choice. Please choose an option from 1-5.")
+if __name__ == "__main__":
+    from src.database import init_db
 
-
-run()
+    init_db()
+    run()
