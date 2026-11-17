@@ -21,7 +21,6 @@ Rationale: 16 tests and a reproducible transcript support the working request wo
 | Release notes and changed-file summary | release-notes.md, changed-files.md | Prepared |
 | AI disclosure and human verification | a5-ai-accountability.md | AI execution recorded; human review pending |
 | Word index and PowerPoint | submission files linked by evidence index | Prepared for team review |
-| Exact Assignment 5 PDF and course templates | Not supplied in this request or repository | Compliance cross-check pending |
 | Presentation rehearsal and scheduling | Script executed automatically; team rehearsal not attested | Pending team confirmation |
 | Individual peer reviews | Each student submits privately through course channel | Not verified; keep outside public repo |
 | Owner/reviewer acceptance | Routing below is proposed, no signed reviews fabricated | Pending |

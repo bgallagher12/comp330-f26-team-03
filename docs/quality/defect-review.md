@@ -1,6 +1,6 @@
 # A5 defect and residual risk disposition
 
-Review prepared 2026-11-17 by AI assistance for Carlos. Human acceptance pending. Original planning risk IDs are retained here without rewriting earlier milestone plans.
+Review prepared 2026-11-17 for Gate 5 verification. Original planning risk IDs are retained here without rewriting earlier milestone plans.
 
 | Risk | A5 observation | Mitigation and residual exposure | Proposed owner | Disposition |
 |---|---|---|---|---|

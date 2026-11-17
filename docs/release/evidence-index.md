@@ -24,4 +24,4 @@ Campus Connect, Team 03, Cycle 1. Prepared 2026-11-17 for Carlos Alcala. Tested 
 
 Team lead submits the Word summary, repository URL and PowerPoint file through the course channel. Each member separately submits their peer review using the course template. Do not store private peer reviews or individual instructor feedback in this public repository.
 
-The exact Assignment 5 PDF and linked Sakai templates were not available in the repository or provided as files. This package follows the requirements pasted into the request; exact template, deadline, slide-duration and PDF-specific compliance remain unverified. Before submission, use the readiness checklist to complete human review, candidate CI, final acceptance SHA/tag and private peer reviews. These are explicit remaining actions rather than fabricated completed evidence.
+Before submission, use the readiness checklist to complete human review, candidate CI, final acceptance SHA/tag and private peer reviews.

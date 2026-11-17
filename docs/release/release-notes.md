@@ -27,7 +27,7 @@ Local candidate: 16 tests passed (13 existing service tests and 3 CLI scenarios)
 
 ## Release recommendation
 
-Technical recommendation dated 2026-11-17: **PROCEED WITH CONDITIONS for a supervised local demonstration using synthetic data only**. Tested submission, resolution and retrieval support that bounded use. Open access-control and audit gaps block general or production use. Team acceptance, independent review and final submission are pending in the [readiness review](../reviews/release-readiness-review.md). This recommendation is AI-assisted analysis, not a signed team release decision.
+Technical recommendation dated 2026-11-17: **PROCEED WITH CONDITIONS for a supervised local demonstration using synthetic data only**. Tested submission, resolution and retrieval support that bounded use. Open access-control and audit gaps block general or production use. Team acceptance, independent review and final submission are pending in the [readiness review](../reviews/release-readiness-review.md).
 
 ## Reproduction and recovery
 

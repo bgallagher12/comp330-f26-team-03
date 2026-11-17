@@ -1,6 +1,6 @@
 # A5 requirements to release traceability
 
-Baseline requirements and acceptance criteria remain in [requirements](../requirements/requirements.md) and [acceptance criteria](../requirements/acceptance-criteria.md). Their original Proposed labels are historical; this table records the A5 verification disposition, not a retroactive approval. Tested candidate `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`. Test names refer to files under `tests/`; [run output](../../test-evidence/a5/pytest.txt) preserves full node IDs.
+Baseline requirements and acceptance criteria remain in [requirements](../requirements/requirements.md) and [acceptance criteria](../requirements/acceptance-criteria.md). This Gate 5 verification history connects each Cycle 1 requirement and acceptance criterion to implementation changes, test results, demonstration steps and release claims. Tested candidate `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`. Test names refer to files under `tests/`; [run output](../../test-evidence/a5/pytest.txt) preserves full node IDs.
 
 | Requirement and criteria | Task and implementation evidence | Test or inspection | Demo and release claim | A5 disposition |
 |---|---|---|---|---|

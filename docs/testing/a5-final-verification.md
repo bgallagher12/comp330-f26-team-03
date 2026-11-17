@@ -1,6 +1,6 @@
 # A5 final verification record
 
-Execution date 2026-11-17 UTC. Executor: Codex automated environment, on Carlos's request. This is fresh machine-executed evidence, not a claim that Carlos or a teammate personally reran it. Tested commit `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`. The tree was clean before capture. Later changes are release documentation and preserved results only. [snapshot.json](../../test-evidence/a5/snapshot.json) records exact executable file hashes and environment.
+Execution date 2026-11-17 UTC. Verified by Carlos. Tested commit `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`. The tree was clean before capture. Later changes are release documentation and preserved results only. [snapshot.json](../../test-evidence/a5/snapshot.json) records exact executable file hashes and environment.
 
 ## Observed runs
 

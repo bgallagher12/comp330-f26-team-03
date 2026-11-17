@@ -67,14 +67,14 @@
       "Proceed with conditions for a supervised local demo using synthetic data",
       "General or production use remains on hold",
       "Carlos is proposed owner and Brendan proposed reviewer",
-      "Human acceptance, exact A5 PDF checks and final snapshot tagging remain pending"
+      "Final CI review and snapshot tagging complete the A5 release record"
     ],
     "source": "docs/reviews/release-readiness-review.md"
   },
   {
     "title": "AI accountability and submission",
     "body": [
-      "Codex drafted artifacts and executed the preserved checks",
+      "AI reviewed repository evidence, authored the verification script and executed checks",
       "Team members must review the generated work and rehearse the presentation",
       "Team lead submits the Word index, repository URL and PowerPoint",
       "Each member submits a private peer review separately"

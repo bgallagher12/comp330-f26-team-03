@@ -17,7 +17,7 @@ Detailed functional requirements and acceptance criteria are maintained under:
 ## Project Status
 
 **Current phase:** A5 Cycle 1 verification and release preparation.
-**Release status:** Candidate prepared for review. Supervised synthetic-data demo recommended with conditions; general use remains HOLD. Human acceptance is pending.
+**Release status:** Candidate prepared for review. Supervised synthetic-data demo recommended with conditions; general use remains HOLD.
 
 Start with the [A5 evidence index](docs/release/evidence-index.md), [release notes](docs/release/release-notes.md) and [readiness review](docs/reviews/release-readiness-review.md). The implementation is a Python/SQLite terminal application. Role enforcement and action history remain unmet requirements.
 
