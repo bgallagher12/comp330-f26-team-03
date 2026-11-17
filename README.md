@@ -16,9 +16,10 @@ Detailed functional requirements and acceptance criteria are maintained under:
 
 ## Project Status
 
-**Current Phase Gate:** A1 — Project Launch
-**Release Cycle:** Cycle 1
-**Status:** Active Development
+**Current phase:** A5 Cycle 1 verification and release preparation.
+**Release status:** Candidate prepared for review. Supervised synthetic-data demo recommended with conditions; general use remains HOLD.
+
+Start with the [A5 evidence index](docs/release/evidence-index.md), [release notes](docs/release/release-notes.md) and [readiness review](docs/reviews/release-readiness-review.md). The implementation is a Python/SQLite terminal application. Role enforcement and action history remain unmet requirements.
 
 ## Team
 
@@ -67,46 +68,26 @@ Detailed evidence should remain in its authoritative artifact rather than being 
 
 ## Build, Run, and Test
 
-Campus Connect is currently in the Project Launch phase. Build, run, and test procedures will be updated as the implementation stack and development environment are finalized.
-
-### Prerequisites
-
-Current prerequisites:
-
-* Git
-* GitHub access to the private Team 03 repository
-
-Additional runtimes, package managers, frameworks, databases, or development tools will be documented once the team selects the implementation stack.
-
-### Setup
-
-Clone the repository:
+Verified runtimes: local Python 3.12.14 and historical CI Python 3.14.10. Use Git to clone the repository. The application uses standard-library SQLite and needs no build step. Local A5 verification used Python 3.12.14; existing CI uses Python 3.14. Run commands from the repository root so `src` can be imported.
 
 ```bash
 git clone https://github.com/bgallagher12/comp330-f26-team-03.git
 cd comp330-f26-team-03
-git status
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m src.main
 ```
 
-Additional project-specific setup instructions will be added as implementation begins.
+On Windows activate with `.venv\Scripts\activate`. The app creates `data/campusconnect.db` on first launch. Use synthetic data only. Menu options submit, retrieve, list pending and resolve requests. Both student and reviewer operations are exposed in one menu; access controls are not implemented. `scripts/campus.html` is an earlier browser prototype, not the integrated interface.
 
-### Build
+```bash
+python -m compileall -q src tests scripts/verify_a5.py
+python -m pytest -v
+python scripts/verify_a5.py
+```
 
-The build process has not yet been established.
-
-This section will be updated once the team selects and configures the Campus Connect technology stack.
-
-### Run
-
-Runtime instructions will be added once an executable version of Campus Connect exists.
-
-### Test
-
-Automated testing instructions will be added as the testing infrastructure is established.
-
-Testing documentation and evidence will be maintained under:
-
-[`docs/testing/`](docs/testing/)
+The last command runs a repeatable demonstration with temporary databases and prints observed inputs/output and PASS results. It does not modify your development database. See [demo script](docs/release/demo-script.md), [final test evidence](docs/testing/a5-final-verification.md) and [known limitations](docs/release/known-limitations.md).
 
 ## Engineering Workflow
 

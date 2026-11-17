@@ -1,363 +1,46 @@
-# Release Demonstration Script
+# A5 repeatable demonstration
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+Candidate A5-RC1, tested revision `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`, prepared 2026-11-17.
+Owner proposed: Carlos. Reviewer proposed: Brendan. Presentation date and presenters must be confirmed by the team.
 
-This file defines how the team will demonstrate the release.
+## Environment and starting state
 
-A good engineering demonstration is NOT simply a tour of screens.
+From the repository root, use one of the verified runtimes: local verification used Python 3.12.14 and historical CI used Python 3.14.10. The app uses only the standard library. Tests require `python -m pip install -r requirements-dev.txt`.
 
-The demonstration should show meaningful system behavior and connect that
-behavior to engineering evidence.
+```bash
+git rev-parse HEAD
+python -m pytest -v
+python scripts/verify_a5.py
+```
 
-A reviewer should be able to see:
+The verification script copies the real `src/` into a temporary directory and runs `python -m src.main` in separate processes. Each scenario starts with an empty database. Workflow session 2 reuses session 1's database, proving restart persistence. It asserts output, exit status and final SQLite rows. It never opens or deletes the normal development database. Expect three PASS results. If the revision differs, compare the source hashes to [snapshot.json](../../test-evidence/a5/snapshot.json) before using the recorded evidence.
 
-- what capability is being demonstrated;
-- why it matters;
-- what requirement or acceptance criterion it supports;
-- what the expected result is;
-- what evidence demonstrates that the behavior is real;
-- relevant failure or negative-path behavior where appropriate;
-- known limitations that should not be hidden.
+## Scenario D1 request to resolution and restart
 
-The demo should be repeatable.
+REQ-001 through REQ-006, with the restrictions in the traceability summary.
+For a live interactive run use `python -m src.main` in a separate disposable checkout with no database. If using an existing database, use the returned ID rather than assuming 1.
 
-Do NOT script behavior that does not actually work.
-
-Do NOT hide known failures by avoiding them without acknowledging the
-limitation.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
-
-## Demonstration Identification
-
-**Release / Version:**  
-**Git Tag / Commit:**  
-**Demo Environment:**  
-**Demo Date:**  
-**Presenter(s):**  
-
-<!--
-TEAM CONTENT REQUIRED
-
-Use the same release identification as:
-
-/docs/release/release-notes.md
-
-Identify the actual environment being demonstrated.
-
-Do not leave placeholder metadata in the completed artifact.
--->
-
-## Demonstration Objective
-
-<!--
-TEAM CONTENT REQUIRED
-
-In a short paragraph, explain what this demonstration is intended to prove or
-show.
-
-Do not write only:
-
-"Demonstrate the application."
-
-Instead identify the meaningful release behavior being demonstrated.
-
-Replace this comment with the team's actual objective.
--->
-
-## Pre-Demo Checks
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify checks needed before the demonstration begins.
-
-Examples may include:
-
-- correct release deployed;
-- health check passes;
-- required dependencies available;
-- demo accounts available;
-- test data prepared;
-- browser/session reset;
-- relevant evidence accessible.
-
-Do not include unnecessary ceremony.
-
-EXAMPLE ONLY:
-
-| Check | Expected Result | Action if Not Ready |
+| Step | Exact input | Expected observation |
 |---|---|---|
-| Release identity | Deployment matches expected Git tag | Stop and correct deployment before demo |
+| Submit | 1; Tony Tiger; 00123; tonytiger@example.com; Calculus I help; Please help me understand a concept before Friday.; 2 | Request Submitted, ID 1, category Tutoring, status submitted |
+| Review | 3 | Pending Request includes ID 1 |
+| Resolve | 4; 1; Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111. | Request is resolved, saved resolution |
+| Retrieve | 2; 1 | Status resolved and same resolution |
+| Exit | 5 | Clean exit |
+| Restart same checkout | python -m src.main, then 2; 1; 3; 5 | Saved resolution survives restart, no pending requests |
 
-Populate actual checks below.
--->
+Each semicolon separates one Enter key press. The script records precise per-line input arrays and full output in [cli-transcript.json](../../test-evidence/a5/cli-transcript.json), workflow sessions 1 and 2.
 
-| Check | Expected Result | Action if Not Ready |
-|---|---|---|
-|  |  |  |
+## Scenario D2 unknown and malformed IDs
 
-## Demo Scenario 1 — Title
+Fresh database. Inputs: `2`, `99999`, `2`, `abc`, `5`, each on a new line. Expect `Request not found.`, then `Request ID must be a whole number`, return to the menu, and clean exit. No rows may be created. Evidence: invalid-id scenario in the preserved CLI transcript.
 
-<!--
-TEAM CONTENT REQUIRED
+## Scenario D3 invalid request
 
-Rename this section for an actual release capability.
+Fresh database. Choose 1, use D1 identity/title, enter an empty description, choose category 2, then 3 and 5. Expect `description is required.` and `There are no pending requests`. Final database must be empty. Evidence: validation scenario and AC-REQ-001-02.
 
-Use additional Demo Scenario sections as needed.
+## Engineering callouts and fallback
 
-Each scenario should demonstrate a meaningful engineering behavior.
+Show the single request table in `src/schema.sql` and the CLI to service to SQLite imports. Show the requirements disposition before claiming completion. State explicitly that reviewer controls are available to all users and there is no history of who resolved a request. These limitations make the demo unsuitable for real student records.
 
-Suggested content:
-
-**Purpose**
-Why is this scenario worth showing?
-
-**Related Requirements**
-Which requirement IDs apply?
-
-**Related Acceptance Criteria**
-Which acceptance criteria apply?
-
-**Starting State**
-What must be true before the scenario begins?
-
-**Steps**
-What will the presenter do?
-
-**Expected Result**
-What should the system visibly do?
-
-**Evidence**
-What repository, test, runtime, or traceability evidence supports the claim?
-
-**Known Limitations**
-What should the reviewer know about behavior that is intentionally limited?
-
-Delete this instructional comment and complete the scenario.
--->
-
-### Purpose
-
-### Related Requirements
-
-### Related Acceptance Criteria
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-3. 
-
-### Expected Result
-
-### Evidence
-
-### Known Limitations
-
-## Demo Scenario 2 — Title
-
-<!--
-OPTIONAL TEAM CONTENT
-
-Copy the Scenario 1 structure for another meaningful capability.
-
-Do not create scenarios merely to make the demo longer.
-
-Delete this section if only one scenario is appropriate.
--->
-
-### Purpose
-
-### Related Requirements
-
-### Related Acceptance Criteria
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-3. 
-
-### Expected Result
-
-### Evidence
-
-### Known Limitations
-
-## Negative / Failure Scenario
-
-<!--
-TEAM CONTENT REQUIRED WHEN A MEANINGFUL FAILURE PATH SHOULD BE DEMONSTRATED
-
-A strong engineering demo often includes at least one important negative or
-failure behavior.
-
-Examples ONLY:
-
-- invalid input rejected;
-- unauthorized operation denied;
-- missing resource handled correctly;
-- duplicate request prevented;
-- dependency failure surfaced safely.
-
-Do not manufacture a failure scenario that does not matter to the system.
-
-The purpose is to demonstrate that correctness includes handling invalid or
-unsafe conditions, not only the happy path.
-
-Remove this section if there is genuinely no meaningful negative scenario.
--->
-
-### Purpose
-
-### Related Requirement / Criterion
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-
-### Expected Result
-
-### Evidence
-
-## Architecture / Engineering Evidence Callout
-
-<!--
-TEAM CONTENT REQUIRED
-
-During or after the behavior demonstration, identify a small number of
-engineering artifacts that help explain WHY the system works the way it does.
-
-Possible evidence:
-
-- architecture diagram;
-- API contract;
-- ADR;
-- traceability summary;
-- automated test;
-- observability evidence.
-
-Do not turn the demo into a documentation reading session.
-
-Choose only evidence that materially helps the reviewer understand the
-engineering behind the demonstrated behavior.
--->
-
-| Evidence | What It Demonstrates | When to Show |
-|---|---|---|
-|  |  |  |
-
-## Known Limitations to Acknowledge
-
-<!--
-TEAM CONTENT REQUIRED
-
-Reference relevant limitations from:
-
-/docs/release/known-limitations.md
-
-Do not hide an important limitation simply because it makes the demonstration
-less polished.
-
-The goal is accurate engineering communication.
-
-EXAMPLE ONLY:
-
-| Limitation ID | What to State During Demo |
-|---|---|
-| LIM-002 | Automated recovery has not yet been implemented; recovery remains manual |
-
-Populate actual limitations below or remove this section if none materially
-affect the demonstration.
--->
-
-| Limitation ID | What to State During Demo |
-|---|---|
-|  |  |
-
-## Demo Evidence / Results
-
-<!--
-TEAM CONTENT REQUIRED AFTER THE DEMONSTRATION WHEN USEFUL
-
-Record whether the planned demonstration actually worked.
-
-This can provide useful release evidence.
-
-Do not mark a scenario successful before the demonstration occurs.
-
-EXAMPLE ONLY:
-
-| Scenario | Result | Evidence / Observation | Follow-Up |
-|---|---|---|---|
-| Workflow submission | Passed | Expected status displayed; RUN-021 | None |
-
-Populate actual results after execution if your team uses this section.
--->
-
-| Scenario | Result | Evidence / Observation | Follow-Up |
-|---|---|---|---|
-|  |  |  |  |
-
-## Recovery / Backup Demo Plan
-
-<!--
-TEAM CONTENT REQUIRED
-
-A live demonstration can fail for reasons unrelated to the software:
-
-- network outage;
-- external service unavailable;
-- deployment unavailable;
-- presentation environment problem.
-
-Identify a reasonable fallback that still preserves engineering integrity.
-
-Examples might include:
-
-- verified local environment;
-- previously captured runtime evidence;
-- test result;
-- repository-visible evidence.
-
-A fallback should NOT pretend that live behavior occurred when it did not.
-
-If the live system fails, state that accurately and use preserved evidence only
-to show what had previously been verified.
-
-Replace this comment with the team's actual fallback approach.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before the demonstration:
-
-1. Confirm release identification matches release-notes.md.
-2. Confirm the demo environment contains the intended release.
-3. Replace generic scenario titles with actual capabilities.
-4. Remove unused scenario sections.
-5. Confirm requirements and acceptance criteria exist.
-6. Confirm every expected result has actually been verified.
-7. Include meaningful negative-path behavior where appropriate.
-8. Acknowledge known limitations honestly.
-9. Confirm the fallback plan does not misrepresent prerecorded evidence as live behavior.
-10. Remove ALL instructional HTML comments.
-
-The completed demo script should guide a concise, repeatable engineering
-demonstration of what the release actually does and what evidence supports it.
--->
+Observed rehearsal: all three automated scenarios passed on 2026-11-17 in the preserved transcript. A live classroom presentation has not been observed by this package. If it fails, state the failure and show the dated transcript or automated tests as earlier evidence, never as a live success.

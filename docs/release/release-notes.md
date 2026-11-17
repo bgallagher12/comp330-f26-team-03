@@ -1,294 +1,34 @@
-# Release Notes
+# Campus Connect A5 Cycle 1 release notes
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+Prepared 2026-11-17. Candidate A5-RC1. Tested revision: `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`.
+Application baseline: `9aa33e33c9431331db791394c1eddbca6e118896` (existing `a4-construction-integration` tag).
+The candidate adds verification only; `src/` is unchanged. This is a new A5 evidence package, not a reconstruction of an earlier submission cutoff. No A5 acceptance tag or team approval is claimed.
 
-This file describes the release being presented or delivered.
+## Delivered capabilities
 
-Release notes should tell a reviewer:
-
-- what release this is;
-- what capabilities are included;
-- what meaningful changes were made;
-- what was verified;
-- what defects were resolved;
-- what remains limited or incomplete; and
-- where supporting engineering evidence can be found.
-
-Release notes are NOT a complete commit history.
-
-Focus on changes and capabilities that matter to users, reviewers, operators,
-or downstream engineering work.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
-- Do not claim features, fixes, verification, or deployment results that do
-  not actually exist.
--->
-
-## Release Identification
-
-**Release / Version:**  
-**Release Date:**  
-**Release Gate / Milestone:**  
-**Git Tag / Commit:**  
-**Deployment / Environment:**  
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify the actual release.
-
-Use the Git tag, commit, deployment, or other repository-visible identifier
-that defines exactly what code and evidence this release represents.
-
-Do not leave placeholder metadata in the completed artifact.
-
-If a field does not apply, remove it rather than leaving it blank.
--->
-
-## Release Summary
-
-<!--
-TEAM CONTENT REQUIRED
-
-Provide a short summary of the release.
-
-Explain:
-
-- the primary purpose of this release;
-- the most important capabilities now available; and
-- the overall maturity or readiness represented by the release.
-
-Keep this concise.
-
-Do not repeat the entire scope or requirements document.
-
-Replace this comment with the team's actual release summary.
--->
-
-## Included Capabilities
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify meaningful capabilities included in this release.
-
-Reference related requirements where useful.
-
-Do not list every small code change.
-
-EXAMPLE ONLY:
-
-| Capability | Related Requirements | Release Status |
+| Release claim | Actual behavior | Evidence |
 |---|---|---|
-| Authenticated workflow submission | REQ-001, REQ-003 | Included and verified |
+| RN-01 Submission | Six required fields, four categories, generated ID and timestamp, initial submitted state | Student suite; CLI workflow and validation scenarios |
+| RN-02 Reviewer workflow | List submitted requests, retrieve details, save a nonempty resolution and resolved state | Reviewer suite; CLI workflow |
+| RN-03 Student outcome | Retrieve saved resolution after a new Python process starts | CLI workflow session 2; student resolved-retrieval test |
+| RN-04 Rejected operations | Missing description/category validation, unknown/nonnumeric ID, blank or repeated resolution rejection | Service suites and CLI negative scenarios; historical manual log |
 
-Delete the example and populate the actual table below.
--->
+All current observations are indexed in [final verification](../testing/a5-final-verification.md). RN-04 does not claim every service negative path is exercised through the CLI.
 
-| Capability | Related Requirements | Release Status |
-|---|---|---|
-|  |  |  |
+## Not delivered and known limits
 
-## Significant Changes
+REQ-007 student/reviewer access restrictions are not implemented. Both menus are available to every operator (DEF-A5-001 / LIM-001). REQ-008 action history is not implemented (DEF-A5-002 / LIM-002). REQ-004 supports only submitted to resolved. REQ-005 supports one final resolution, not an editable notes history. Email format and length are not validated. The browser files in `scripts/` are a separate prototype and are not the integrated release interface. No routing, notifications, SSO, hosted deployment, backup automation or production operations are claimed.
 
-<!--
-TEAM CONTENT REQUIRED
+See [limitations](known-limitations.md), [defects](../quality/defect-log.md), and [risk dispositions](../quality/defect-review.md). The original requirements remain unchanged; restricted or unmet criteria are explicit in [traceability](traceability-summary.md).
 
-Summarize meaningful changes since the previous release or baseline.
+## Validation and CI
 
-Possible categories include:
+Local candidate: 16 tests passed (13 existing service tests and 3 CLI scenarios), syntax check exit 0, and three repeatable CLI scenarios passed. Python 3.12.14 / pytest 9.2.0 on Linux. This differs from historical CI's Python 3.14.10. The successful baseline CI run is [42170410768](https://github.com/bgallagher12/comp330-f26-team-03/actions/runs/42170410768), with 13 tests. Candidate CI must be assessed separately; see [CI evidence](../testing/ci-evidence.md). No deployment pipeline exists.
 
-- new capability;
-- changed behavior;
-- architectural change;
-- interface change;
-- security improvement;
-- reliability improvement;
-- operational improvement;
-- documentation or evidence improvement.
+## Release recommendation
 
-Do not reproduce the Git commit log.
+Technical recommendation dated 2026-11-17: **PROCEED WITH CONDITIONS for a supervised local demonstration using synthetic data only**. Tested submission, resolution and retrieval support that bounded use. Open access-control and audit gaps block general or production use. Team acceptance, independent review and final submission are pending in the [readiness review](../reviews/release-readiness-review.md).
 
-EXAMPLE ONLY:
+## Reproduction and recovery
 
-| Area | Change | Why It Matters | Related Evidence |
-|---|---|---|---|
-| Workflow validation | Added server-side required-field validation | Prevents invalid workflow records from being created | REQ-004, AC-REQ-004-02, PR #21 |
-
-Populate actual changes below.
--->
-
-| Area | Change | Why It Matters | Related Evidence |
-|---|---|---|---|
-|  |  |  |  |
-
-## Verification Summary
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the evidence supporting this release.
-
-Do not copy the entire test plan or traceability matrix.
-
-Reference authoritative verification evidence.
-
-Consider:
-
-- automated tests;
-- acceptance verification;
-- integration tests;
-- runtime evidence;
-- defect verification;
-- deployment checks;
-- observability evidence.
-
-Do not claim "all tests passed" unless the supporting evidence exists.
-
-EXAMPLE ONLY:
-
-| Verification Area | Result | Evidence |
-|---|---|---|
-| Workflow submission acceptance criteria | Passed | AC-REQ-001-01, AC-REQ-001-02, test report |
-
-Populate actual evidence below.
--->
-
-| Verification Area | Result | Evidence |
-|---|---|---|
-|  |  |  |
-
-## Defects Resolved
-
-<!--
-TEAM CONTENT REQUIRED WHEN DEFECTS WERE RESOLVED
-
-Reference actual defects from:
-
-/docs/quality/defect-log.md
-
-Do not invent defects merely to populate release notes.
-
-If no tracked defects were resolved in this release, state that in the finished
-artifact or remove this section.
--->
-
-| Defect ID | Summary | Resolution Evidence |
-|---|---|---|
-|  |  |  |
-
-## Known Limitations
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize only the most important limitations affecting this release.
-
-The authoritative detailed record is:
-
-/docs/release/known-limitations.md
-
-Do not duplicate the entire limitations file.
-
-Reference limitation IDs where possible.
--->
-
-| Limitation ID | Summary | Impact |
-|---|---|---|
-|  |  |  |
-
-## Deployment / Operational Notes
-
-<!--
-TEAM CONTENT REQUIRED WHEN THE RELEASE IS DEPLOYED OR OPERATED
-
-Document release-specific operational information that a reviewer or operator
-needs to know.
-
-Examples might include:
-
-- deployment completed successfully;
-- configuration change required;
-- database migration performed;
-- service restart required;
-- first-run behavior;
-- environment-specific limitation.
-
-Do not duplicate the complete runbook.
-
-Reference:
-
-/docs/operations/runbook.md
-
-Remove this section if there is no release-specific operational information.
--->
-
-## Compatibility / Migration Notes
-
-<!--
-TEAM CONTENT REQUIRED ONLY WHEN RELEVANT
-
-Document any change that affects:
-
-- existing data;
-- API consumers;
-- configuration;
-- deployment;
-- external integrations;
-- previously supported behavior.
-
-If no compatibility or migration concern exists, remove this section.
--->
-
-## Evidence References
-
-<!--
-TEAM CONTENT REQUIRED
-
-Provide concise references to the most important release evidence.
-
-Possible references include:
-
-- requirements;
-- acceptance criteria;
-- traceability-summary.md;
-- test evidence;
-- runtime evidence;
-- defect log;
-- ADRs;
-- pull requests;
-- release tag;
-- deployment evidence.
-
-Do not create a giant index of the repository.
-
-Reference evidence most useful for reviewing this release.
--->
-
-| Evidence | Location / Reference | Purpose |
-|---|---|---|
-|  |  |  |
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Complete the actual release identification.
-2. Confirm the Git tag / commit identifies the release being described.
-3. Include only capabilities actually present in the release.
-4. Confirm verification statements point to real evidence.
-5. Confirm resolved defects exist in defect-log.md.
-6. Confirm limitations agree with known-limitations.md.
-7. Remove unsupported claims about readiness or quality.
-8. Remove sections that genuinely do not apply.
-9. Remove ALL instructional HTML comments.
-
-The completed release notes should accurately describe what was delivered,
-what changed, what was verified, and what remains limited.
--->
+Use [demo-script.md](demo-script.md). Automated verification uses disposable databases. Normal app data remains in `data/campusconnect.db`. If a live demo fails, disclose it and show the preserved transcript labeled as a prior run. Stop a damaged demo instance and use a fresh disposable verification run. No verified production backup/restore procedure is available.
