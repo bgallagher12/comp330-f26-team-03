@@ -1,0 +1,44 @@
+{
+  "candidate": "A5-RC1",
+  "tested_commit": "3ee8d8866cebaca40c1550e1f34a8d94bc011dda",
+  "application_baseline": "9aa33e33c9431331db791394c1eddbca6e118896",
+  "executed_at_utc": "2026-11-17T18:01:09.238096+00:00",
+  "executor": "AI-assisted verification environment",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "pytest": "9.2.0",
+  "source_matches_baseline": true,
+  "commands": {
+    "python -m compileall -q src tests scripts/verify_a5.py": {
+      "exit_code": 0
+    },
+    "python -m pytest -v --junitxml=test-evidence/a5/junit.xml": {
+      "exit_code": 0,
+      "passed": 16
+    },
+    "python scripts/verify_a5.py": {
+      "exit_code": 0,
+      "passed_scenarios": 3
+    }
+  },
+  "sha256": {
+    ".github/workflows/ci.yml": "d631253cbb8cf93b3cff9d9a431fadd6baffd292efc7e545438e3b9882c754bf",
+    "requirements-dev.txt": "543a97dbbb696f6cc90304e2b2a3140e70ec7bb2b9545949c612578e789e0b39",
+    "scripts/verify_a5.py": "b40aaaef48da5fe282b86ce4a658cf7d31fa85e9764e5a9551517f90e7b2f408",
+    "src/cli.py": "6e07b8e71d620bddbb076e59a89abefc2ffef33e3e867f77a5c48a83ed9e7249",
+    "src/database.py": "18f9dd9d45f9405d3eb536eec32a4066215de1e4fa1ead254c0fb9e45170da1e",
+    "src/main.py": "287085726a2c0f42ccd04263e99099170b6f673127256cab8d721f6835a1e9c4",
+    "src/mock_backend.py": "120de592b19ee4f88e6a49d0e51c9b5181263911a25aa44c8ea15419463a5fb7",
+    "src/reviewer_service.py": "cc2408344d548ae5a0d9c609d5600da0981bca2021939e49121cca8965ebe18a",
+    "src/schema.sql": "e37c48a17646e46c28fe3fc31b2af0982d6c7bb38bd726687e920d83ae6bb7ce",
+    "src/student_service.py": "01781160a117763c0fa603170555a67ee4546ed14a176d3c0110b2aa37f0621b",
+    "tests/test_cli_release.py": "cb3815f22385846ca7371f83515224bf4ea5c5ef1c2b8c6462abac645141f14d",
+    "tests/test_reviewer_service.py": "8ba8265624e10af83b11618208e046d857e4b1f1ef53071aee15ad7789b8b62b",
+    "tests/test_student_service.py": "b333b6beccc0ea0c8ba21c1476bb590ea9e63d3a019bf280464f20a4fcc91dff"
+  },
+  "evidence_sha256": {
+    "test-evidence/a5/cli-transcript.json": "ae5cf5bddc965f19a5e5065be10d5dc4bf27b5f2c64ce745b65dfd31e37bacfa",
+    "test-evidence/a5/junit.xml": "9d357487481344215140ba2c1966c27f64416609e0245b692ecff8427ca64acc",
+    "test-evidence/a5/pytest.txt": "476d1209a5fb5f7f09b5aa8d51615d0cd727e9dbd868a32e0f934ab44886407d"
+  }
+}

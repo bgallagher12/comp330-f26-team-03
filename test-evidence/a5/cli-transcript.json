@@ -1,0 +1,102 @@
+{
+  "tested_commit": "3ee8d8866cebaca40c1550e1f34a8d94bc011dda",
+  "python": "3.12.14",
+  "initial_state": "Empty temporary database per scenario; workflow session 2 reuses session 1 database",
+  "source_sha256": {
+    "src/DATABASE.md": "55c782b32cd83ace149f638bada9fe1134287712d60d402f1957a56d66893d2f",
+    "src/README.md": "89264a9b9493784dea41711f1f934c62e30f48906d65651be41af828d80bf2ee",
+    "src/cli.py": "6e07b8e71d620bddbb076e59a89abefc2ffef33e3e867f77a5c48a83ed9e7249",
+    "src/database.py": "18f9dd9d45f9405d3eb536eec32a4066215de1e4fa1ead254c0fb9e45170da1e",
+    "src/main.py": "287085726a2c0f42ccd04263e99099170b6f673127256cab8d721f6835a1e9c4",
+    "src/mock_backend.py": "120de592b19ee4f88e6a49d0e51c9b5181263911a25aa44c8ea15419463a5fb7",
+    "src/reviewer_service.py": "cc2408344d548ae5a0d9c609d5600da0981bca2021939e49121cca8965ebe18a",
+    "src/schema.sql": "e37c48a17646e46c28fe3fc31b2af0982d6c7bb38bd726687e920d83ae6bb7ce",
+    "src/student_service.py": "01781160a117763c0fa603170555a67ee4546ed14a176d3c0110b2aa37f0621b"
+  },
+  "results": [
+    {
+      "scenario": "workflow",
+      "result": "PASS",
+      "sessions": [
+        {
+          "inputs": [
+            "1",
+            "Tony Tiger",
+            "00123",
+            "tonytiger@example.com",
+            "Calculus I help",
+            "Please help me understand a concept before Friday.",
+            "2",
+            "3",
+            "4",
+            "1",
+            "Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111.",
+            "2",
+            "1",
+            "5"
+          ],
+          "stdout": "1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter your name: Enter your student ID: Enter your student email: Enter the request title: Enter the request description: Categories:\n1. Technology\n2. Tutoring\n3. Facilities\n4. Other\nEnter your category option: Request Submitted\nRequest ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: submitted\nResolution: Not Yet Resolved\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Pending Request\nRequest ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: submitted\nResolution: Not Yet Resolved\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter the request ID: Request To Resolve\nRequest ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: submitted\nResolution: Not Yet Resolved\nEnter the resolution for this request: Request is resolved\nRequest ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: resolved\nResolution: Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111.\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter the request ID: Request ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: resolved\nResolution: Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111.\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: You are Exiting the App\n",
+          "exit_code": 0
+        },
+        {
+          "inputs": [
+            "2",
+            "1",
+            "3",
+            "5"
+          ],
+          "stdout": "1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter the request ID: Request ID: 1\nStudent: Tony Tiger\nTitle: Calculus I help\nDescription: Please help me understand a concept before Friday.\nCategory: Tutoring\nStatus: resolved\nResolution: Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111.\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: There are no pending requests\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: You are Exiting the App\n",
+          "exit_code": 0
+        }
+      ],
+      "final_rows": [
+        [
+          1,
+          "00123",
+          "resolved",
+          "Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111."
+        ]
+      ]
+    },
+    {
+      "scenario": "invalid-id",
+      "result": "PASS",
+      "sessions": [
+        {
+          "inputs": [
+            "2",
+            "99999",
+            "2",
+            "abc",
+            "5"
+          ],
+          "stdout": "1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter the request ID: Request not found.\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter the request ID: Request ID must be a whole number\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: You are Exiting the App\n",
+          "exit_code": 0
+        }
+      ],
+      "final_rows": []
+    },
+    {
+      "scenario": "validation",
+      "result": "PASS",
+      "sessions": [
+        {
+          "inputs": [
+            "1",
+            "Tony Tiger",
+            "00123",
+            "tonytiger@example.com",
+            "Calculus I help",
+            "",
+            "2",
+            "3",
+            "5"
+          ],
+          "stdout": "1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: Enter your name: Enter your student ID: Enter your student email: Enter the request title: Enter the request description: Categories:\n1. Technology\n2. Tutoring\n3. Facilities\n4. Other\nEnter your category option: description is required.\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: There are no pending requests\n1. Submit a Request \n2. View Request Status\n3. Review Pending Requests\n4. Resolve Request\n5. Exit\nChoose an option: You are Exiting the App\n",
+          "exit_code": 0
+        }
+      ],
+      "final_rows": []
+    }
+  ]
+}

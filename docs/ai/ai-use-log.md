@@ -32,3 +32,8 @@ Entries should briefly explain **what AI helped with, what artifact was affected
 For significant AI-assisted work requiring more detailed verification evidence, reference:
 
 `/docs/ai/ai-verification-notes.md`
+
+## A5 final update 2026-11-17
+
+Carlos requested ChatGPT assistance for A5 release and documentation review.
+AI executed the checks and preserved results.
