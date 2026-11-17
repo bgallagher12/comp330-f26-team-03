@@ -32,3 +32,7 @@ Entries should briefly explain **what AI helped with, what artifact was affected
 For significant AI-assisted work requiring more detailed verification evidence, reference:
 
 `/docs/ai/ai-verification-notes.md`
+
+## A5 final update 2026-11-17
+
+Carlos requested ChatGPT/Codex assistance for A5 release evidence, a reproducible CLI regression, documentation, Word summary and presentation. Codex executed the checks and preserved results. Human verification and independent acceptance are pending; no personal execution or teammate approval is inferred. See [A5 AI accountability](a5-ai-accountability.md).

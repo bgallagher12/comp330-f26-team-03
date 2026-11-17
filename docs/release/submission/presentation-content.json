@@ -1,0 +1,84 @@
+[
+  {
+    "title": "Campus Connect",
+    "subtitle": "A5 Cycle 1 release review",
+    "body": [
+      "Team 03 · COMP 330",
+      "November 17, 2026",
+      "Candidate prepared for team review"
+    ],
+    "source": "docs/release/evidence-index.md"
+  },
+  {
+    "title": "Release scope",
+    "body": [
+      "Python terminal interface with SQLite persistence",
+      "Submit a synthetic request, review it, save a resolution and retrieve the outcome",
+      "Application source matches 9aa33e33c943",
+      "Tested candidate 3ee8d8866ceb"
+    ],
+    "source": "docs/release/release-notes.md"
+  },
+  {
+    "title": "Request workflow demonstration",
+    "body": [
+      "Tony Tiger submits a Calculus I tutoring request",
+      "Reviewer lists pending requests and saves office hours",
+      "Student retrieves the resolution after restarting the application",
+      "Unknown IDs and blank descriptions return useful errors"
+    ],
+    "source": "docs/release/demo-script.md",
+    "note": "Run python scripts/verify_a5.py from the repository root. It uses disposable storage. For exact input arrays and actual output show test-evidence/a5/cli-transcript.json. D1 shows AC-REQ-001 through 006 with the restrictions documented in traceability. D2 and D3 show error paths. Do not call the recorded rehearsal a live presentation."
+  },
+  {
+    "title": "Final verification evidence",
+    "body": [
+      "16 tests passed locally on Linux and Python 3.12.14",
+      "13 existing service tests and 3 new CLI scenarios",
+      "CLI checks launch the real app in separate processes",
+      "Transcript, JUnit results and executable hashes preserve the observations"
+    ],
+    "source": "docs/testing/a5-final-verification.md"
+  },
+  {
+    "title": "CI and release control",
+    "body": [
+      "Baseline GitHub Actions run 42170410768 passed 13 tests",
+      "Historical CI used Python 3.14.10",
+      "The new candidate still needs PR CI and independent review",
+      "No deployment pipeline or production validation exists"
+    ],
+    "source": "docs/testing/ci-evidence.md"
+  },
+  {
+    "title": "Requirement disposition and open defects",
+    "body": [
+      "REQ-001 through 006 support the bounded workflow",
+      "REQ-004 and 005 have only a final resolution transition",
+      "REQ-007 is unmet: every user can access reviewer actions",
+      "REQ-008 is unmet: no reviewer identity or action history",
+      "Synthetic fixtures support REQ-009 for this demonstration"
+    ],
+    "source": "docs/release/traceability-summary.md"
+  },
+  {
+    "title": "Release recommendation",
+    "body": [
+      "Proceed with conditions for a supervised local demo using synthetic data",
+      "General or production use remains on hold",
+      "Carlos is proposed owner and Brendan proposed reviewer",
+      "Human acceptance, exact A5 PDF checks and final snapshot tagging remain pending"
+    ],
+    "source": "docs/reviews/release-readiness-review.md"
+  },
+  {
+    "title": "AI accountability and submission",
+    "body": [
+      "Codex drafted artifacts and executed the preserved checks",
+      "Team members must review the generated work and rehearse the presentation",
+      "Team lead submits the Word index, repository URL and PowerPoint",
+      "Each member submits a private peer review separately"
+    ],
+    "source": "docs/ai/a5-ai-accountability.md"
+  }
+]
