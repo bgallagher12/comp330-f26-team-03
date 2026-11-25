@@ -16,10 +16,10 @@ Detailed functional requirements and acceptance criteria are maintained under:
 
 ## Project Status
 
-**Current phase:** A5 Cycle 1 verification and release preparation.
-**Release status:** Candidate prepared for review. Supervised synthetic-data demo recommended with conditions; general use remains HOLD.
+**Current phase:** Assignment 6 Cycle 2 release candidate.
+**Release scope:** Supervised local demonstration using synthetic data, pending team review and final CI.
 
-Start with the [A5 evidence index](docs/release/evidence-index.md), [release notes](docs/release/release-notes.md) and [readiness review](docs/reviews/release-readiness-review.md). The implementation is a Python/SQLite terminal application. Role enforcement and action history remain unmet requirements.
+Start with the [A6 release evidence](docs/release/assignment6-final-release-package.md), [release notes](docs/release/final-release-notes.md), and [runbook](docs/operations/runbook.md). The [A5 tag](https://github.com/bgallagher12/comp330-f26-team-03/releases/tag/a5-verification-release) preserves the Cycle 1 evidence.
 
 ## Team
 
@@ -68,7 +68,7 @@ Detailed evidence should remain in its authoritative artifact rather than being 
 
 ## Build, Run, and Test
 
-Verified runtimes: local Python 3.12.14 and historical CI Python 3.14.10. Use Git to clone the repository. The application uses standard-library SQLite and needs no build step. Local A5 verification used Python 3.12.14; existing CI uses Python 3.14. Run commands from the repository root so `src` can be imported.
+Run commands from the repository root with Python 3.10+ and standard-library SQLite. Local A6 verification used Python 3.12.14. The GitHub Actions workflow targets Python 3.14.
 
 ```bash
 git clone https://github.com/bgallagher12/comp330-f26-team-03.git
@@ -79,15 +79,21 @@ python -m pip install -r requirements-dev.txt
 python -m src.main
 ```
 
-On Windows activate with `.venv\Scripts\activate`. The app creates `data/campusconnect.db` on first launch. Use synthetic data only. Menu options submit, retrieve, list pending and resolve requests. Both student and reviewer operations are exposed in one menu; access controls are not implemented. `scripts/campus.html` is an earlier browser prototype, not the integrated interface.
+On Windows activate with `.venv\Scripts\activate`. The app stores synthetic requests in `data/campusconnect.db`. At the sign-in prompt, a first-time student types `/register`, then enters an email, student ID, and password. Tony uses `tonytiger@example.com` and `00123` for the demo. He signs in with his email and password, and the app uses the linked ID automatically. Choose **My Requests** to select a ticket by its menu number. A resolved request shows **[Update available]** until you open it and the response is displayed. SQLite remembers when it was opened. Both terminals use the same database. In the reviewer terminal, create the demo instructor account once, then sign in to the existing review queue. `scripts/campus.html` is the earlier browser prototype.
 
 ```bash
-python -m compileall -q src tests scripts/verify_a5.py
-python -m pytest -v
-python scripts/verify_a5.py
+python -m src.main --add-reviewer demo-instructor
+python -m src.main --reviewer
 ```
 
-The last command runs a repeatable demonstration with temporary databases and prints observed inputs/output and PASS results. It does not modify your development database. See [demo script](docs/release/demo-script.md), [final test evidence](docs/testing/a5-final-verification.md) and [known limitations](docs/release/known-limitations.md).
+The trusted operator handles reviewer accounts and links student accounts to IDs that already have requests. The database stores a salted password hash. Signed-in reviewers share the queue, and this checkout is for supervised synthetic-data demos. See the [runbook](docs/operations/runbook.md) for setup and recovery.
+
+```bash
+python -m compileall -q src tests
+python -m pytest -q
+```
+
+See the [demo walkthrough](docs/release/demo-script.md), [testing evidence](docs/testing/final-test-evidence.md), and [known limitations](docs/release/known-limitations.md).
 
 ## Engineering Workflow
 

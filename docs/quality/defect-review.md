@@ -16,3 +16,14 @@ Review prepared 2026-11-17 for Gate 5 verification. Original planning risk IDs a
 Names describe proposed review routing for this package and existing service domains, not claims that members have approved risk acceptance. No A6 work is commissioned by this document.
 
 Recommended disposition: a supervised synthetic-data demonstration is technically defensible with the stated limits. General release remains HOLD. The dated human decision and review links belong in [release-readiness-review.md](../reviews/release-readiness-review.md).
+
+## Cycle 2 disposition
+
+| Defect or gap | Severity | Owner for review | A6 candidate disposition and proof |
+|---|---|---|---|
+| DEF-A5-001 unrestricted reviewer menu | High | Carlos / Sanjana | Mitigated for the supervised CLI. Default menu denies review and resolve. Unknown instructor accounts and incorrect passwords fail closed. Shared staff access and host trust remain. |
+| A6 finding under REQ-006: request number alone revealed requester details and resolution | High | Carlos / Sanjana | Fixed on the student path. Tests verify owner-scoped list, detail and seen writes. Unknown accounts and wrong passwords are denied. Owner access and the seen state survive restart. |
+| DEF-A5-002 absent reviewer action history | High | Brendan | Deferred. Fixed outcome events support diagnosis. There is no identity or durable action history. |
+| CLI exits with a traceback on invalid storage | Medium | Jaylen and Dominic / Brendan | Addressed for tested invalid SQLite file. App emits a fixed failure signal and exits. See the [runbook](../operations/runbook.md). |
+
+See [final testing](../testing/final-test-evidence.md) for the regression evidence and [technical limits](../release/known-limitations.md) for the general-use decision.

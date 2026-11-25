@@ -522,3 +522,9 @@ Implementation and test references should be added as the contracts move from Pr
 - Update both sides of a contract when it changes.
 - Add verification evidence as implementation matures.
 - Record unresolved behavior explicitly rather than inventing contract details.
+
+## Cycle 2 student and reviewer workflows
+
+The CLI verifies a student account at startup and uses that session’s student ID for each student service operation. The CLI supplies that owner ID in `submit_request(details)`, which stores it with the request. `list_requests(student_id)` returns request ID, title, status, and seen timestamp for that owner. `get_request(student_id, request_id)` returns the selected request ID, title, status, and resolution only for a matching owner. Once the CLI prints the response, `mark_response_seen(student_id, request_id)` sets the first-open timestamp for that resolved request.
+
+The default CLI dispatches student actions only. The local `--reviewer` entry point verifies the username and password of an operator-provisioned account in SQLite. Reviewer service functions remain internal Python calls within the trusted host boundary. [Permission boundaries](../security/permission-boundaries.md) defines the candidate limits.

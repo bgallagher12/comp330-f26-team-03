@@ -157,3 +157,23 @@ Architecture changes will be documented when implementation, review findings, re
 - Make significant architectural tradeoffs explicit.
 - Record uncertainty rather than manufacturing architectural certainty.
 - Update related engineering evidence when the architecture materially changes.
+
+## Cycle 2 implementation
+
+The runnable system is a local Python CLI with standard-library SQLite. `src.main` verifies a registered student or provisioned reviewer account against its salted password hash before opening the selected CLI. `src.cli` dispatches mode-specific actions via the student and reviewer services. Those services use `src.database` and the operator-owned `data/campusconnect.db`.
+
+- Student submission uses the signed-in student ID. **My Requests** lists only rows for that ID and shows a badge on resolved rows with a null `response_seen_at`. Detail retrieval matches both student ID and request ID. After the CLI displays a response, a conditional write records the first open.
+- The reviewer workflow uses numeric request IDs and can read the shared queue. An atomic conditional update persists the only allowed transition, `submitted` to `resolved`, with the resolution.
+- Startup adds the nullable seen timestamp to existing request tables. Prior rows keep their state and become visible to the account provisioned for their stored student ID.
+- SQLite stores student and reviewer accounts in separate tables, each with a per-account salt and password hash. New student accounts use an email address for sign-in and link it to a student ID. Self-registration accepts unclaimed IDs without preexisting requests. Provisioning and login use the existing SQLite file.
+- The host operator controls both processes and the DB path. The gate is appropriate for a supervised CLI demo. University identity verification, request assignment, and durable workflow history are open.
+
+```mermaid
+flowchart TB
+    Student["Student CLI"] --> StudentService["Student service"]
+    Reviewer["Reviewer CLI"] --> ReviewerService["Reviewer service"]
+    StudentService --> Database["SQLite"]
+    ReviewerService --> Database
+```
+
+The [Cycle 1 diagram](architecture-diagram.png) remains the historical baseline. See [current permissions](../security/permission-boundaries.md) and [runbook](../operations/runbook.md) for Cycle 2 control points.

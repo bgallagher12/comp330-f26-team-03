@@ -1,46 +1,19 @@
-# A5 repeatable demonstration
+# Cycle 2 demo walkthrough
 
-Candidate A5-RC1, tested revision `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`, prepared 2026-11-17.
-Owner proposed: Carlos. Reviewer proposed: Brendan. Presentation date and presenters must be confirmed by the team.
-
-## Environment and starting state
-
-From the repository root, use one of the verified runtimes: local verification used Python 3.12.14 and historical CI used Python 3.14.10. The app uses only the standard library. Tests require `python -m pip install -r requirements-dev.txt`.
+Use two interactive terminals in the same disposable checkout with a clean synthetic database. From the repository root, provision the demo reviewer once. Set private passwords at the prompts.
 
 ```bash
-git rev-parse HEAD
-python -m pytest -v
-python scripts/verify_a5.py
+python -m src.main --add-reviewer demo-instructor
 ```
 
-The verification script copies the real `src/` into a temporary directory and runs `python -m src.main` in separate processes. Each scenario starts with an empty database. Workflow session 2 reuses session 1's database, proving restart persistence. It asserts output, exit status and final SQLite rows. It never opens or deletes the normal development database. Expect three PASS results. If the revision differs, compare the source hashes to [snapshot.json](../../test-evidence/a5/snapshot.json) before using the recorded evidence.
+Start Terminal 1 with `python -m src.main` and Terminal 2 with `python -m src.main --reviewer`. Use `other@example.com` for the second student in D5. Keep passwords out of shared recordings.
 
-## Scenario D1 request to resolution and restart
-
-REQ-001 through REQ-006, with the restrictions in the traceability summary.
-For a live interactive run use `python -m src.main` in a separate disposable checkout with no database. If using an existing database, use the returned ID rather than assuming 1.
-
-| Step | Exact input | Expected observation |
+| Step | Do | Expected evidence |
 |---|---|---|
-| Submit | 1; Tony Tiger; 00123; tonytiger@example.com; Calculus I help; Please help me understand a concept before Friday.; 2 | Request Submitted, ID 1, category Tutoring, status submitted |
-| Review | 3 | Pending Request includes ID 1 |
-| Resolve | 4; 1; Office hours Monday 4-6 or Wednesday 12-3 at Dumbach 111. | Request is resolved, saved resolution |
-| Retrieve | 2; 1 | Status resolved and same resolution |
-| Exit | 5 | Clean exit |
-| Restart same checkout | python -m src.main, then 2; 1; 3; 5 | Saved resolution survives restart, no pending requests |
+| D1 | In Terminal 1, type `/register`. Enter `tonytiger@example.com`, student ID `00123`, and a password. Sign in with the email and password. Choose option 1 and submit as Tony Tiger, `tonytiger@example.com`, title `Calculus I help`, a tutoring description, category 2. Optionally submit `Projector issue` under category 1. | The requests are saved under the linked ID `00123`. |
+| D2 | Choose option 2 and open `Calculus I help` by its list number. | **My Requests** shows the ticket as **Submitted** with no response. |
+| D3 | In Terminal 2, sign in as `demo-instructor`. Use option 3 to find the request ID in the pending queue. Use option 4 and that ID to enter `Office hours Monday 4–6 in Dumbach 111.` | The request changes to **Resolved**. |
+| D4 | Back in Terminal 1, open **My Requests**. Press Enter to return, then reopen the list and select `Calculus I help`. Open the list once more and repeat after restarting and signing in. | **[Update available]** survives the first return to the menu. The answer appears when Tony opens the request. The badge stays cleared, and the response can still be read after restart. |
+| D5 | Exit Terminal 1 and register `other@example.com` with student ID `00987`. Sign in and open **My Requests** and try reviewer menu option 4. | Tony’s request is absent and the reviewer option is rejected. |
 
-Each semicolon separates one Enter key press. The script records precise per-line input arrays and full output in [cli-transcript.json](../../test-evidence/a5/cli-transcript.json), workflow sessions 1 and 2.
-
-## Scenario D2 unknown and malformed IDs
-
-Fresh database. Inputs: `2`, `99999`, `2`, `abc`, `5`, each on a new line. Expect `Request not found.`, then `Request ID must be a whole number`, return to the menu, and clean exit. No rows may be created. Evidence: invalid-id scenario in the preserved CLI transcript.
-
-## Scenario D3 invalid request
-
-Fresh database. Choose 1, use D1 identity/title, enter an empty description, choose category 2, then 3 and 5. Expect `description is required.` and `There are no pending requests`. Final database must be empty. Evidence: validation scenario and AC-REQ-001-02.
-
-## Engineering callouts and fallback
-
-Show the single request table in `src/schema.sql` and the CLI to service to SQLite imports. Show the requirements disposition before claiming completion. State explicitly that reviewer controls are available to all users and there is no history of who resolved a request. These limitations make the demo unsuitable for real student records.
-
-Observed rehearsal: all three automated scenarios passed on 2026-11-17 in the preserved transcript. A live classroom presentation has not been observed by this package. If it fails, state the failure and show the dated transcript or automated tests as earlier evidence, never as a live success.
+Use the [runbook](../operations/runbook.md) for setup and recovery and the [local verification record](../../test-evidence/a6/verification.txt) for observed results.

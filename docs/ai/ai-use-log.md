@@ -37,3 +37,9 @@ For significant AI-assisted work requiring more detailed verification evidence, 
 
 Carlos requested ChatGPT assistance for A5 release and documentation review.
 AI executed the checks and preserved results.
+
+## A6 candidate update
+
+Carlos used AI for Gate 6 polishing, including the student and reviewer CLI, access safeguards, regression tests, and release documentation. The team selected email-based student registration and My Requests for the supervised demo. The retained implementation keeps the student ID linked to the account and prevents self-signup from claiming an ID with older requests.
+
+An AI-assisted change could overlook a cross-student access path or overstate what demo authentication proves. The candidate checks cover unauthorized signup, cross-student reads and writes, incorrect credentials, SQLite migration and restore, and the unread badge across restart. The [local verification log](../../test-evidence/a6/verification.txt) records executed checks. Independent human verification and acceptance should be recorded in the candidate PR after a teammate checks the permission boundary and replays the demo.

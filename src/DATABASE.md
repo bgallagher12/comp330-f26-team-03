@@ -1,6 +1,6 @@
 # Database
 
-The database stores support requests in one SQLite table and preserves them after the application closes.
+SQLite stores requests in `requests` and local credentials in `student_accounts` and `reviewer_accounts`. Startup adds the nullable `response_seen_at` column to older databases and preserves existing requests and reviewer accounts. Existing resolved requests start with an unread response. After the operator provisions the exact stored student ID with `--add-student EMAIL STUDENT_ID`, the student sees those requests in **My Requests**. An older preview database may still have an unused receipt table. Use the [runbook](../docs/operations/runbook.md) to provision demo accounts.
 
 ## Setup
 
@@ -42,16 +42,19 @@ It returns the same information plus automatically generated fields:
     "category": "Technology",
     "status": "submitted",
     "created_at": "2026-11-04T18:09:03.996Z",
-    "resolution": None
+    "resolution": None,
+    "response_seen_at": None
 }
 ```
 
-The request ID and timestamp above are examples.
+The request ID and timestamp above are examples. The CLI keeps the request ID internal to the student flow. The reviewer uses it when choosing a request to resolve.
 
 ## Functions
 
 - `submit_request(details)` — saves and returns a new request.
-- `get_request_status(request_id)` — returns a saved request.
+- `list_student_requests(student_id)` returns ID, title, status, and seen timestamp for the signed-in student.
+- `get_student_request(student_id, request_id)` returns the selected owned request with its response.
+- `mark_response_seen(student_id, request_id)` writes the first open timestamp for a resolved, owned request.
 - `list_pending_requests()` — returns a list of submitted requests.
 - `get_request_for_review(request_id)` — returns a saved request for review.
 - `resolve_request(request_id, resolution)` — saves a nonempty resolution, sets the status to `resolved`, and returns the updated request.
@@ -70,8 +73,8 @@ Initialize the database from the repository root:
 
     python -m src.main
 
-This creates the database and table if needed and preserves existing requests.
-This command also launches the terminal menu.
+This creates the database and tables if needed and preserves existing requests.
+This command prompts for student email sign-in and offers `/register` for new students. The student account column `username` stores the email for new accounts and also supports handles from the earlier preview. Self-registration checks for existing requests and inserts the account in one SQLite statement.
 
 ## Running tests
 
@@ -82,12 +85,7 @@ Create and activate a virtual environment on macOS/Linux:
 
 Install pytest and run both service test files:
 
-    python -m pip install pytest
+    python -m pip install -r requirements-dev.txt
     python -m pytest -v tests/test_student_service.py tests/test_reviewer_service.py
 
-The 13 service tests passed against SQLite. Each test uses a temporary
-database, keeping tests separate from saved application requests.
-
-Manual verification also confirmed that a student request could be listed
-and resolved through the reviewer service, then retrieved through the
-student service in a new Python process.
+See the [A6 test evidence](../docs/testing/final-test-evidence.md) for the current results.

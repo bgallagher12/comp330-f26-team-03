@@ -27,3 +27,7 @@ These are **existing planning ranges**, not newly measured or revised estimates.
 ## Gate 3 readiness interpretation
 
 **Architecture planning evidence is not software completion evidence.** Open design decisions and missing CI/integration evidence remain disclosed. Implementation is gated by agreed interface/data ownership, reviewable risk treatment, and named accountability.
+
+## Cycle 2 re-estimation
+
+Freeze the working A5 vertical slice as the comparison point. Prioritize the student access boundary, local reviewer sign-in, recovery evidence, and closure of release proof. The [Cycle 2 maturity plan](cycle2-maturity-plan.md) records estimates, reason for selection, primary and backup owners, and disposition. Registration and the unread badge stay within the student access work because they remove per-ticket credentials and make a verified response easy to find. No measured time is available for this refinement. Per-instructor access, hosted operations, and durable auditing remain deferred.

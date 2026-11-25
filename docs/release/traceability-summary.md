@@ -17,3 +17,16 @@ Baseline requirements and acceptance criteria remain in [requirements](../requir
 [PR #37](https://github.com/bgallagher12/comp330-f26-team-03/pull/37) adds CI. [#30](https://github.com/bgallagher12/comp330-f26-team-03/issues/30) describes backend verification and README work. Issue checkboxes alone do not prove acceptance. Existing issue text includes older multi-table/staff-identity plans that the actual single-table implementation does not deliver. This package does not close those tasks by inference.
 
 The new candidate commit adds `scripts/verify_a5.py` and `tests/test_cli_release.py` to make the prior manual CLI scenarios repeatable. It changes no production code. The final evidence package commit adds documentation and output only; see [changed files](changed-files.md).
+
+## A6 traceability
+
+The [candidate package](assignment6-final-release-package.md) links the release decision and workflow status. Each change maps back to the original criteria and [Cycle 2 targets](../planning/cycle2-maturity-plan.md). The implementation and tests are in commit `98d0f66567b3140caca82d8f74e917122aced461`. The [candidate PR](https://github.com/bgallagher12/comp330-f26-team-03/pulls?q=is%3Apr+head%3Acarlos-a6-release) tracks review and CI. Test names and results appear in the [local verification log](../../test-evidence/a6/verification.txt).
+
+| Requirement | Cycle 1 evidence → Cycle 2 implementation | Regression and demonstration | Release note and disposition |
+|---|---|---|---|
+| REQ-001/002 | #27, #29 → [submission and request persistence](../../src/database.py) | Required fields, category validation, unique IDs, restart and legacy DB tests. D1. | [RN-A6-01](final-release-notes.md). Synthetic submission and persistence verified. |
+| REQ-003/004/005 | #28, PR #35 → [reviewer workflow](../../src/reviewer_service.py) and [reviewer menu gating](../../src/main.py) | Reviewer suite and CLI resolution. D3. | [RN-A6-02](final-release-notes.md). Shared queue and one resolution. Editing and reopening remain deferred. |
+| REQ-006 | #27, #29 → [student lookup contract](../../src/student_service.py) | Owner-scoped list/detail, unseen badge through list navigation, first open, restart, and cross-student denial. D2, D4, and D5. | [RN-A6-01](final-release-notes.md). Verified for signed-in student accounts. |
+| REQ-007 | DEF-A5-001 → [student and reviewer sign-in](../../src/main.py) and [CLI guards](../../src/cli.py) | Invalid student menu choices, unknown accounts, incorrect passwords, prior-request claim denial, and hidden passwords. D1, D3, and D5. | [RN-A6-01/02](final-release-notes.md). Mitigated for the supervised CLI. |
+| REQ-008 | DEF-A5-002 → [outcome events](../observability/observability-plan.md) | Sanitized events verified during D2–D4 and the storage fault check. | [RN-A6-03](final-release-notes.md). Durable actor and action history deferred. |
+| REQ-009 | [ADR-0001](../decisions/adr-0001-use-synthetic-data-for-cycle-1.md) → [governance](../security/security-governance-checklist.md) | Synthetic QA inputs through every test and demo step. | [RN-A6-04](final-release-notes.md). Synthetic-only operating limit. |
