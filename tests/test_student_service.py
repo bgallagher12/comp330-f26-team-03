@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from src import database
-from src.student_service import submit_request, get_request_status
+from src.student_service import get_request, mark_response_seen, submit_request
 from src.reviewer_service import save_resolution
 
 class TestStudentService(unittest.TestCase):
@@ -55,7 +55,7 @@ class TestStudentService(unittest.TestCase):
 
     # Verify that a student can retrieve the current status and resolution
     # for a request that was previously submitted.
-    # This test creates a request, uses its generated request_id,
+    # This test creates a request, uses the owner ID and request ID,
     # and confirms that the saved request can be looked up correctly.
     def test_request_status_retrieval(self):
         details = {
@@ -70,17 +70,41 @@ class TestStudentService(unittest.TestCase):
         submitted_request = submit_request(details)
         request_id = submitted_request["request_id"]
 
-        result = get_request_status(request_id)
+        result = get_request(details["student_id"], request_id)
 
         self.assertEqual(result["request_id"], request_id)
         self.assertEqual(result["status"], "submitted")
         self.assertIsNone(result["resolution"])
 
-    # Verify that looking up a request ID that does not exist
-    # produces a clear error instead of returning incorrect data.
-    def test_unknown_request_id_rejected(self):
-        with self.assertRaisesRegex(ValueError, "Request not found."):
-            get_request_status(99999)
+    def test_detail_and_seen_update_require_the_same_owner(self):
+        submitted = submit_request({
+            "student_id": "12345", "student_name": "Test Student",
+            "student_email": "test@example.com", "title": "Private ticket",
+            "description": "Synthetic request.", "category": "Tutoring",
+        })
+        request_id = submitted["request_id"]
+        mark_response_seen("12345", request_id)
+        self.assertIsNone(database.get_request_for_review(request_id)["response_seen_at"])
+
+        save_resolution(request_id, "Synthetic response.")
+        with self.assertRaisesRegex(ValueError, "Request not found in My Requests."):
+            get_request("99999", request_id)
+        mark_response_seen("99999", request_id)
+        self.assertIsNone(database.get_request_for_review(request_id)["response_seen_at"])
+
+        mark_response_seen("12345", request_id)
+        seen_at = database.get_request_for_review(request_id)["response_seen_at"]
+        self.assertIsNotNone(seen_at)
+        with database.connect() as connection:
+            connection.execute(
+                "UPDATE requests SET response_seen_at = ? WHERE request_id = ?",
+                ("2000-01-01T00:00:00.000Z", request_id),
+            )
+        mark_response_seen("12345", request_id)
+        self.assertEqual(
+            database.get_request_for_review(request_id)["response_seen_at"],
+            "2000-01-01T00:00:00.000Z",
+        )
 
     # Verify that a request with an unsupported category is rejected.
     # This prevents the system from saving category values that are not
@@ -117,7 +141,7 @@ class TestStudentService(unittest.TestCase):
 
         save_resolution(request_id, "Student account access was restored.")
 
-        result = get_request_status(request_id)
+        result = get_request(details["student_id"], request_id)
 
         self.assertEqual(result["status"], "resolved")
         self.assertEqual(
@@ -127,7 +151,7 @@ class TestStudentService(unittest.TestCase):
 
     # Verify that two submitted requests receive different request IDs
     # and that both requests can be retrieved using their generated IDs.
-    # This provides mock-backed verification for AC-REQ-002-01.
+    # This provides SQLite-backed verification for AC-REQ-002-01.
     def test_unique_request_ids_and_retrieval(self):
         first_details = {
             "student_id": "10001",
@@ -155,8 +179,8 @@ class TestStudentService(unittest.TestCase):
             second_request["request_id"]
         )
 
-        retrieved_first = get_request_status(first_request["request_id"])
-        retrieved_second = get_request_status(second_request["request_id"])
+        retrieved_first = get_request(first_details["student_id"], first_request["request_id"])
+        retrieved_second = get_request(second_details["student_id"], second_request["request_id"])
 
         self.assertEqual(
             retrieved_first["request_id"],

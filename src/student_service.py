@@ -5,9 +5,16 @@ Validates student requests and retrieves their status
 using shared SQLite storage.
 """
 
+import re
+
+from src.credentials import hash_new_password, verify_password
 from src.database import (
     submit_request as _save_request,
-    get_request_status as _get_request_status,
+    add_student_account,
+    get_student_account,
+    get_student_request as _get_student_request,
+    list_student_requests as _list_student_requests,
+    mark_response_seen as _mark_response_seen,
 )
 
 
@@ -48,9 +55,38 @@ def submit_request(details):
     return _save_request(validated_details)
 
 
-# Retrieve the saved information for an existing request.
-# The request_id identifies which request should be looked up.
-# The returned record includes the current status and resolution,
-# which allows the student interface to display any reviewer updates.
-def get_request_status(request_id):
-    return _get_request_status(request_id)
+def create_account(email, student_id, password, *, allow_existing_requests=False):
+    email = email.strip().lower()
+    valid_email = re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", email)
+    if not valid_email or not email.isprintable() or len(email) > 254:
+        raise ValueError("Enter a valid email address.")
+
+    student_id = student_id.strip()
+    if not student_id:
+        raise ValueError("Student ID is required.")
+    add_student_account(
+        student_id, email, *hash_new_password(password),
+        allow_existing_requests=allow_existing_requests,
+    )
+
+
+def authenticate(email, password):
+    """Return the account's student ID after verifying its password."""
+    account = get_student_account(email.strip().lower())
+    credentials = (account["password_salt"], account["password_hash"]) if account else None
+    if verify_password(password, credentials):
+        return account["student_id"]
+    return None
+
+
+
+def list_requests(student_id):
+    return _list_student_requests(student_id)
+
+
+def get_request(student_id, request_id):
+    return _get_student_request(student_id, request_id)
+
+
+def mark_response_seen(student_id, request_id):
+    _mark_response_seen(student_id, request_id)

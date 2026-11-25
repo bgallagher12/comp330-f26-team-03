@@ -72,3 +72,18 @@ def test_prevent_second_resolution(submitted_request):
     assert reviewer_service.get_request(
         request_id
     )["resolution"] == "Projector was repaired."
+
+
+def test_reviewer_accounts_store_unique_salted_hashes(tmp_path, monkeypatch):
+    monkeypatch.setattr(database, "DB_PATH", tmp_path / "requests.db")
+    database.init_db()
+    password = "synthetic shared test input"
+    reviewer_service.create_account("demo-one", password)
+    reviewer_service.create_account("demo-two", password)
+
+    first_salt, first_hash = database.get_reviewer_credentials("demo-one")
+    second_salt, second_hash = database.get_reviewer_credentials("demo-two")
+    assert first_salt != second_salt
+    assert first_hash != second_hash
+    assert first_hash != password.encode()
+    assert reviewer_service.authenticate("demo-two", password)
