@@ -18,3 +18,11 @@ This is existing CI evidence, not a new candidate run. No A5 cutoff or acceptanc
 Candidate `3ee8d8866cebaca40c1550e1f34a8d94bc011dda` has 16 locally passing tests. [Local final verification](a5-final-verification.md) preserves the evidence. The A5 pull request should trigger the existing workflow and discover the three new parametrized CLI tests automatically. Review its Checks tab and record run URL, tested head/merge SHA, date and result in the release-readiness review before accepting the final package. A baseline green badge cannot stand in for this check.
 
 A later documentation-only commit does not alter the tested executable hashes, but final PR/merge CI still needs review. No hosted deployment or CD validation is claimed.
+
+## A6 candidate and final gate
+
+GitHub reported existing A5 success for [PR #40 workflow run 44158240980](https://github.com/bgallagher12/comp330-f26-team-03/actions/runs/44158240980) associated with A5 branch commit `32384ea66aa30609bd7ca54925830e5464c76db4`. This establishes workflow history.
+
+For A6, the configured workflow remains the Python 3.14 syntax check and full pytest suite on PRs and pushes to main. The [A6 local run](../../test-evidence/a6/verification.txt) used Python 3.12.14. Use the [candidate PR](https://github.com/bgallagher12/comp330-f26-team-03/pulls?q=is%3Apr+head%3Acarlos-a6-release) for the Actions run and teammate review. The local result covers the code and tests identified in the verification log. No linting, dependency/security scan, coverage threshold, deployment or CD is configured for this local prototype.
+
+On publication, record the PR, final tested SHA, Action run URL, result, and any rerun or skipped check. The tagged submission revision should match the reviewed evidence.

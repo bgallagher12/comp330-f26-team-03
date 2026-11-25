@@ -1,0 +1,51 @@
+A6 local verification, 2026-11-24 America/Chicago
+Source and test commit: 98d0f66567b3140caca82d8f74e917122aced461
+Python 3.12.14
+SQLite 3.53.1
+
+$ python -m compileall -q src tests
+PASS syntax compilation
+
+$ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest --no-header -v
+============================= test session starts ==============================
+collecting ... collected 31 items
+
+tests/test_cli_release.py::test_my_requests_lists_owned_requests_and_clears_only_opened_response PASSED [  3%]
+tests/test_cli_release.py::test_student_sign_in_fails_closed[student-id-alone] PASSED [  6%]
+tests/test_cli_release.py::test_student_sign_in_fails_closed[wrong-password] PASSED [  9%]
+tests/test_cli_release.py::test_student_registration_rejects_duplicate_without_changing_password[duplicate-email] PASSED [ 12%]
+tests/test_cli_release.py::test_student_registration_rejects_duplicate_without_changing_password[duplicate-student-id] PASSED [ 16%]
+tests/test_cli_release.py::test_student_registration_rejects_invalid_input[invalid-email] PASSED [ 19%]
+tests/test_cli_release.py::test_student_registration_rejects_invalid_input[blank-id] PASSED [ 22%]
+tests/test_cli_release.py::test_student_registration_rejects_invalid_input[password-mismatch] PASSED [ 25%]
+tests/test_cli_release.py::test_prior_username_account_can_still_sign_in PASSED [ 29%]
+tests/test_cli_release.py::test_reviewer_sign_in_fails_closed[unknown-user] PASSED [ 32%]
+tests/test_cli_release.py::test_reviewer_sign_in_fails_closed[wrong-password] PASSED [ 35%]
+tests/test_cli_release.py::test_noninteractive_password_input_does_not_fall_back_to_echo PASSED [ 38%]
+tests/test_cli_release.py::test_reviewer_provisioning_rejects_mismatch_and_duplicate PASSED [ 41%]
+tests/test_cli_release.py::test_invalid_request_data_and_oversized_reviewer_id PASSED [ 45%]
+tests/test_cli_release.py::test_storage_error_exits_without_a_traceback PASSED [ 48%]
+tests/test_cli_release.py::test_existing_database_preserves_requests_and_reviewer_accounts[a5] PASSED [ 51%]
+tests/test_cli_release.py::test_existing_database_preserves_requests_and_reviewer_accounts[receipt-preview] PASSED [ 54%]
+tests/test_reviewer_service.py::test_list_submitted_requests PASSED      [ 58%]
+tests/test_reviewer_service.py::test_get_existing_request PASSED         [ 61%]
+tests/test_reviewer_service.py::test_get_nonexistent_request PASSED      [ 64%]
+tests/test_reviewer_service.py::test_save_resolution PASSED              [ 67%]
+tests/test_reviewer_service.py::test_reject_blank_resolution PASSED      [ 70%]
+tests/test_reviewer_service.py::test_prevent_second_resolution PASSED    [ 74%]
+tests/test_reviewer_service.py::test_reviewer_accounts_store_unique_salted_hashes PASSED [ 77%]
+tests/test_student_service.py::TestStudentService::test_detail_and_seen_update_require_the_same_owner PASSED [ 80%]
+tests/test_student_service.py::TestStudentService::test_invalid_category_rejected PASSED [ 83%]
+tests/test_student_service.py::TestStudentService::test_missing_description_rejected PASSED [ 87%]
+tests/test_student_service.py::TestStudentService::test_request_status_retrieval PASSED [ 90%]
+tests/test_student_service.py::TestStudentService::test_resolved_request_retrieval PASSED [ 93%]
+tests/test_student_service.py::TestStudentService::test_unique_request_ids_and_retrieval PASSED [ 96%]
+tests/test_student_service.py::TestStudentService::test_valid_request_submission PASSED [100%]
+
+============================== 31 passed in 5.76s ==============================
+
+Interactive terminal and backup rehearsal (synthetic data)
+PASS interactive student registration and email sign-in, plus reviewer sign-in, with hidden passwords
+PASS list-only navigation keeps the badge and opening the response records it as seen
+PASS badge remains cleared and response remains readable after process restart
+PASS stopped-session SQLite copy passes quick_check and restores accounts, response, and seen state

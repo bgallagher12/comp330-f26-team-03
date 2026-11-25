@@ -59,3 +59,7 @@ verified completion dates. Existing completion statuses are unchanged.
 
 The team must verify completed work against actual GitHub evidence
 before claiming integration or implementation readiness.
+
+## Cycle 2 tasks
+
+The [maturity plan](cycle2-maturity-plan.md) tracks the Cycle 2 work, estimates, owners, and evidence. Use the [release decision record](../release/assignment6-final-release-package.md#release-decision-record) to track publication, PR checks, independent review, and the exact submission commit.

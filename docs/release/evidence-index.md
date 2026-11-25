@@ -1,5 +1,7 @@
 # A5 final evidence index
 
+For the original A5 file versions and runnable A5 demo, browse the [A5 tag](https://github.com/bgallagher12/comp330-f26-team-03/tree/a5-verification-release). See the [Cycle 2 package](assignment6-final-release-package.md) for current evidence.
+
 Campus Connect, Team 03, Cycle 1. Prepared 2026-11-17 for Carlos Alcala. Tested A5-RC1 revision `3ee8d8866cebaca40c1550e1f34a8d94bc011dda`; production source matches `9aa33e33c9431331db791394c1eddbca6e118896`. Package status: prepared for review; human acceptance and final candidate CI reconciliation pending.
 
 ## Authoritative evidence

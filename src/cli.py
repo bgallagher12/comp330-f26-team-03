@@ -1,10 +1,27 @@
-from src.student_service import submit_request, get_request_status
+"""Terminal interface for student and reviewer workflows."""
+
+import getpass
+import logging
+import warnings
+
+from src import student_service
 from src.reviewer_service import (
     list_submitted_requests as list_pending_requests,
     get_request as get_request_for_review,
     save_resolution as resolve_request,
 )
 categories = ["Technology", "Tutoring", "Facilities", "Other"]
+logger = logging.getLogger(__name__)
+
+
+def read_secret(prompt):
+    """Require hidden input for account passwords."""
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", getpass.GetPassWarning)
+        try:
+            return getpass.getpass(prompt)
+        except getpass.GetPassWarning:
+            raise EOFError("Secret input requires an interactive terminal.") from None
 
 
 def display_request(request):
@@ -25,15 +42,18 @@ def display_request(request):
         print("Resolution: Not Yet Resolved")
 
 
-def menu():
+def menu(reviewer):
     """
     Displays the menu options
     """
-    print("1. Submit a Request ")
-    print("2. View Request Status")
-    print("3. Review Pending Requests")
-    print("4. Resolve Request")
-    print("5. Exit")
+    if reviewer:
+        print("3. Review Pending Requests")
+        print("4. Resolve Request")
+        print("5. Exit")
+    else:
+        print("1. Submit a Request")
+        print("2. My Requests")
+        print("3. Exit")
 
 
 def choose_category():
@@ -57,12 +77,11 @@ def choose_category():
     return categories[category_choice - 1]
 
 
-def submit_request_menu():
+def submit_request_menu(student_id):
     """
     Collects the request details and sends it to the backend
     """
     student_name = input("Enter your name: ")
-    student_id = input("Enter your student ID: ")
     student_email = input("Enter your student email: ")
     title = input("Enter the request title: ")
     description = input("Enter the request description: ")
@@ -83,9 +102,9 @@ def submit_request_menu():
     }
 
     # Saves the request and displays the request returned by the backend
-    request = submit_request(details)
+    student_service.submit_request(details)
     print("Request Submitted")
-    display_request(request)
+    logger.info("request_submitted")
 
 
 def get_request_id():
@@ -94,20 +113,49 @@ def get_request_id():
 
     """
     try:
-        return int(input("Enter the request ID: ").strip())
+        request_id = int(input("Enter the request ID: ").strip())
+        if not 1 <= request_id <= 2**63 - 1:
+            raise ValueError
+        return request_id
     except ValueError:
-        print("Request ID must be a whole number")
+        print("Request ID must be a positive SQLite integer.")
         return None
 
 
-def view_request_status():
-    """Find a request and display its status and resolution."""
-    request_id = get_request_id()
-    if request_id is None:
+def view_my_requests(student_id):
+    """List the signed-in student's requests and open one by its menu number."""
+    print("My Requests")
+    requests = student_service.list_requests(student_id)
+    if not requests:
+        print("You have no requests yet.")
         return
 
-    request = get_request_status(request_id)
-    display_request(request)
+    for number, request in enumerate(requests, start=1):
+        badge = ""
+        if request["status"] == "resolved" and request["response_seen_at"] is None:
+            badge = " [Update available]"
+        print(f"{number}. {request['title']}    {request['status'].capitalize()}{badge}")
+
+    choice = input("Choose a request (Enter to go back): ").strip()
+    if not choice:
+        return
+    try:
+        number = int(choice)
+        if not 1 <= number <= len(requests):
+            raise ValueError
+    except ValueError:
+        print("Choose a request number from this list.")
+        return
+
+    request_id = requests[number - 1]["request_id"]
+    request = student_service.get_request(student_id, request_id)
+    print(request["title"])
+    print(f"Status: {request['status'].capitalize()}")
+    if request["status"] == "resolved":
+        print(f"Professor's response: {request['resolution']}", flush=True)
+        student_service.mark_response_seen(student_id, request_id)
+        logger.info("student_response_opened")
+
 
 def review_pending_requests():
     """
@@ -138,36 +186,41 @@ def resolve_requests():
         return
 
     updated = resolve_request(request_id, resolution)
+    logger.info("request_resolved")
     print("Request is resolved")
     display_request(updated)
 
-def run():
-    """
-    Keeps showing the menu until the user chooses Exit
-    """
+def run(*, reviewer=False, student_id=None):
+    """Run one workflow until the operator exits."""
+    if not reviewer and not student_id:
+        raise ValueError("Student sign-in is required.")
+
     while True:
-        menu()
+        menu(reviewer)
         choice = input("Choose an option: ").strip()
         try:
             match choice:
-                case "1":
-                    submit_request_menu()
-                case "2":
-                    view_request_status()
-                case "3":
+                case "1" if not reviewer:
+                    submit_request_menu(student_id)
+                case "2" if not reviewer:
+                    view_my_requests(student_id)
+                case "3" if reviewer:
                     review_pending_requests()
-                case "4":
+                case "4" if reviewer:
                     resolve_requests()
-                case "5":
+                case "3" if not reviewer:
                     print("You are Exiting the App")
-                    break
+                    return
+                case "5" if reviewer:
+                    print("You are Exiting the App")
+                    return
                 case _:
-                    print("Invalid Choice. Please choose an option from 1-5.")
+                    print("Choose an option from this menu.")
         except ValueError as error:
             print(error)
 
-if __name__ == "__main__":
-    from src.database import init_db
 
-    init_db()
-    run()
+if __name__ == "__main__":
+    from src.main import main
+
+    raise SystemExit(main())

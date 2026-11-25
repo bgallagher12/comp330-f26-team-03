@@ -46,3 +46,15 @@ Most current risks are rated Medium because they could cause some rework or dela
 ## Risk Review
 
 The team will review risks during planning meetings, before integration, and whenever a major requirement, dependency, or task changes.
+
+## A6 residual risks
+
+Ownership below follows [team roles](../team/roles.md) and indicates review responsibility. The team lead makes the release decision.
+
+| Risk | Severity | Owner | Mitigation and disposition |
+|---|---|---|---|
+| R-006 student lookup and local privilege boundary | High | Carlos / Sanjana | Student sign-in, owner-scoped SQL, and the reviewer gate mitigate exposure through the supervised CLI. The shared reviewer queue, missing account lifecycle controls, and host-level data access still block general use. |
+| R-007 real data or shared credentials | High | Carlos | Use synthetic data, protect screen output, and keep account passwords private. Compromised student credentials expose that account’s request history. |
+| R-008 audit and retention | High | Brendan | Ephemeral events aid diagnosis. Individual attribution, history, and enforceable retention are deferred. |
+| R-009 data/account recovery | Medium | Jaylen and Dominic / Brendan | A stopped-session database copy restored accounts, requests, and the seen timestamp in a synthetic rehearsal. Account password reset and a production backup schedule remain open. |
+| R-010 AI assumption or test gap | Medium | Sanjana / Carlos | Hold approval pending human review of the credential boundary, abnormal paths, and CI. See the [AI-use log](../ai/ai-use-log.md). |
